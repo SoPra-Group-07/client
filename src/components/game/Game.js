@@ -4,19 +4,19 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import Player from '../../views/Player';
 import { Spinner } from '../../views/design/Spinner';
-import { Button } from '../../views/design/Button';
+import {Button, ButtonProfile, ButtonSpecial} from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
 `;
-
-const Users = styled.ul`
+                                 //unordered list
+const Users = styled.ul`                     
   list-style: none;
   padding-left: 0;
 `;
-
+                                         //list item
 const PlayerContainer = styled.li`
   display: flex;
   flex-direction: column;
@@ -32,9 +32,34 @@ class Game extends React.Component {
     };
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.props.history.push('/login');
+  showUser(id) {
+    this.props.history.push(`/users/${id}`);
+  }
+
+  async logout() {
+    try {
+      let token1 = localStorage.getItem("token");
+      console.log(token1)                                    //test token
+
+      const requestBody = JSON.stringify({
+        token: token1,
+      });
+
+      const response = await api.put('/logout', requestBody);
+
+      // some data to see what is available
+      console.log('request to:', response.request.responseURL);
+      console.log('status code:', response.status);
+      console.log('status text:', response.statusText);
+      console.log('requested data:', response.data);
+
+
+      // Logout successfully worked --> navigate to the route /login in the AppRouter and remove token
+      localStorage.removeItem('token');
+      this.props.history.push('/login');
+    } catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
   }
 
   async componentDidMount() {
@@ -43,7 +68,7 @@ class Game extends React.Component {
       // delays continuous execution of an async operation for 1 second.
       // This is just a fake async call, so that the spinner can be displayed
       // feel free to remove it :)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1000));       //Not relevant <------
 
       // Get the returned users and update the state.
       this.setState({ users: response.data });
@@ -65,8 +90,8 @@ class Game extends React.Component {
   render() {
     return (
       <Container>
-        <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
+        <h2>Users Overview</h2>
+        <p>All users from server:</p>
         {!this.state.users ? (
           <Spinner />
         ) : (
@@ -74,8 +99,8 @@ class Game extends React.Component {
             <Users>
               {this.state.users.map(user => {
                 return (
-                  <PlayerContainer key={user.id}>
-                    <Player user={user} />
+                  <PlayerContainer onClick={() => { this.showUser(user.id)}}>
+                    <Player user={user}/>                                        {/* Player component receives user-infos*/}
                   </PlayerContainer>
                 );
               })}

@@ -3,10 +3,9 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
-import {Redirect, Route, withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Button, ButtonSpecial } from '../../views/design/Button';
 import {Link} from "react-router-dom";
-
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -72,7 +71,7 @@ const Container = styled(BaseContainer)`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class Login extends React.Component {
+class Register extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
@@ -92,30 +91,30 @@ class Login extends React.Component {
    * If the request is successful, a new user is returned to the front-end
    * and its token is stored in the localStorage.
    */
-  async login() {
-  
-
+  async register() {
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
-        password: this.state.password
-      });
+       password: this.state.password
+    });
 
-    const response =  await api.put('/login', requestBody);
-    
-    //console.log(response.status)
+    console.log(requestBody)
+      await api.post('/users', requestBody);
 
-    const user = new User(response.data);
+      alert("Successfully created a new account. Please login.")
 
-    localStorage.setItem("token",user.token);      //Saves token in local storage. Now the token in the local storage and
-                                                   //in the backend are the same. We need that for later (see Profile)
-      this.props.history.push(`/game`);
+      // Get the returned user and update a new object.
+      //const user = new User(response.data);            <--------------------------------- Non serve
 
+      // Store the token into the local storage.
+      //localStorage.setItem('token', user.token);
+
+      // Login successfully worked --> navigate to the route /game in the GameRouter
+      this.props.history.push(`/login`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
-    }  
+    }
   }
-  
 
   /**
    *  Every time the user enters something in the input field, the state gets updated.
@@ -141,11 +140,11 @@ class Login extends React.Component {
     return (
       <BaseContainer>
       <Container>
-        <h2>Login  </h2>
-        <p>Please enter your username and password to sign in</p>
+        <h2>Register  </h2>
+        <p>Please enter a new username and a new password to sign up</p>
       </Container>
         <FormContainer>
-          <Form>
+            <Form>
             <Label>Username</Label>
             <InputField
               placeholder="Enter here.."
@@ -165,19 +164,20 @@ class Login extends React.Component {
                 disabled={!this.state.username || !this.state.password}
                 width="50%"
                 onClick={() => {
-                  this.login();
+                  this.register();
                 }}
               >
-                Login
+                Register
               </Button>
-            </ButtonContainer>
-            <ButtonContainer>
-              <Link to="/register">
-              <ButtonSpecial>
-
-                Not registered yet? Click here
+                </ButtonContainer>
+                <ButtonContainer>
+                    <Link to = "/login">
+              <ButtonSpecial
+                  style = {{fontSize:"10px"}}
+              >
+                Do you already have an account? Click here
               </ButtonSpecial>
-          </Link>
+                    </Link>
             </ButtonContainer>
           </Form>
         </FormContainer>
@@ -190,4 +190,4 @@ class Login extends React.Component {
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(Login);
+export default withRouter(Register);

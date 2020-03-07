@@ -8,7 +8,7 @@ const Container = styled.div`
   border-radius: 6px;
   display: flex;
   align-items: center;
-  border: 1px solid #ffffff26;
+  border: 1px solid black;
 `;
 
 const UserName = styled.div`
@@ -16,10 +16,10 @@ const UserName = styled.div`
   margin-left: 5px;
 `;
 
-const Name = styled.div`
+/*const Name = styled.div`
   font-weight: bold;
   color: #06c4ff;
-`;
+`;*/
 
 const Id = styled.div`
   margin-left: auto;
@@ -35,10 +35,10 @@ const Id = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Player = ({ user }) => {
+const Player = ({ user }) => {               {/* const Player = ({ showUser, user }) => { <-------- not necessary */}
   return (
-    <Container>
-      <Name>{user.name}</Name> <UserName>{user.username}</UserName>
+    <Container>                                        {/* <Container onClick={() => {showUser();}}>  <-------- redundant*/}
+      Username: <UserName>{user.username}</UserName>
       <Id>Id: {user.id}</Id>
     </Container>
   );
