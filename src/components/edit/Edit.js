@@ -128,7 +128,7 @@ class Edit extends React.Component {
 
             const response = await api.get(`users/${numb}`);
 
-            await new Promise(resolve => setTimeout(resolve, 1003));
+            await new Promise(resolve => setTimeout(resolve, 1));
 
             this.setState({ user: response.data });
 
@@ -167,6 +167,7 @@ class Edit extends React.Component {
 
                 <ButtonContainer>
                 <EditButton
+                        disabled={localStorage.getItem("token") !== this.state.user.token}
                         width = "40%"
                         onClick={() => {
                             this.editUser()                   // By clicking it the changes are sent to the backend as a PUT request
