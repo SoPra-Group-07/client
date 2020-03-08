@@ -41,20 +41,18 @@ class Profile extends React.Component {
 
     async componentDidMount() {
         try {
-          const pathname = this.props.location.pathname;      //whole pathname e.g., /users/2
-            console.log(pathname)
+          const pathname = this.props.location.pathname;      // whole pathname e.g., "/users/2"
+           // console.log(pathname)
 
-            //const number = this.props.location.pathname.slice(-1);     //takes last section of the pathname    !! DONT NEED IT ANYMORE !!
-           // this.setState.number = number;
-          //console.log(this.props.location.pathname)               //Displays the pathname in the console e.g., /users/4
-          //const test = "users/1"
-          const response = await api.get(pathname);
+          //console.log(this.props.location.pathname)               // Displays the pathname in the console e.g., "/users/2"
+
+          const response = await api.get(pathname);           // Accesses the "users/{userId}" port in the UserController class in the backend and returns infos of the corresponding user
         
-          console.log(response)
-          await new Promise(resolve => setTimeout(resolve, 1001));           //Not necessary
+         // console.log(response)
+          await new Promise(resolve => setTimeout(resolve, 1001));
     
-          // Get the returned users and update the state.
-          this.setState({ user: response.data });                      //puts user object in the state
+          // Get the returned infos of user and update the state.
+          this.setState({ user: response.data });                      // puts user object in the state
     
           // This is just some data for you to see what is available.
           // Feel free to remove it.
@@ -70,13 +68,13 @@ class Profile extends React.Component {
       }
 
     back() {
-        this.props.history.push(`/game`);               //  Alternative: /game/dashboard
+        this.props.history.push(`/game`);              // Alternative: /game/dashboard
     }
     editUser(id){
-       this.props.history.push(`/edit/${id}`);
+       this.props.history.push(`/edit/${id}`);         // Routes me to the editing page of the logged in user
     }
 
-    formatDate(dateTime) {
+    formatDate(dateTime) {                             // Function that formats the creation date
         const date = new Date(dateTime);
         const day = date.getDate();
         const monthIndex = date.getMonth() + 1;
@@ -116,7 +114,7 @@ class Profile extends React.Component {
                                     marginLeft :"200px"}}
                                 width="50%"
                                 onClick={() => {
-                                    this.back();
+                                    this.back();     // Routes me back to "/game"
                                 }}
                             >
                                 Back
@@ -127,7 +125,7 @@ class Profile extends React.Component {
                                     marginLeft :"10px"}}
                                 width="50%"
                                 onClick={() => {
-                                    this.editUser(this.state.user.id);
+                                    this.editUser(this.state.user.id);    // Routes me to the editing page
                                 }}
                             >
                                 Edit User

@@ -33,20 +33,20 @@ class Game extends React.Component {
   }
 
   showUser(id) {
-    this.props.history.push(`/users/${id}`);
+    this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
   }
 
   async logout() {
     try {
-      let token1 = localStorage.getItem("token");
-      console.log(token1)                                    //test token
+      let token1 = localStorage.getItem("token");       //saving token from local storage in token1 variable
+      console.log(token1)                                    //check token in console
 
       const requestBody = JSON.stringify({
         token: token1,
       });
 
-      const response = await api.put('/logout', requestBody);
-
+      const response = await api.put('/logout', requestBody);  //Sends the local token as a PUT request to the backend in order to
+                                                                   //find the corresponding player in the database and to set his status to OFFLINE and to set the token equal null
       // some data to see what is available
       console.log('request to:', response.request.responseURL);
       console.log('status code:', response.status);
@@ -54,8 +54,7 @@ class Game extends React.Component {
       console.log('requested data:', response.data);
 
 
-      // Logout successfully worked --> navigate to the route /login in the AppRouter and remove token
-      localStorage.removeItem('token');
+      localStorage.removeItem('token');          //token removed from local storage
       this.props.history.push('/login');
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -68,7 +67,7 @@ class Game extends React.Component {
       // delays continuous execution of an async operation for 1 second.
       // This is just a fake async call, so that the spinner can be displayed
       // feel free to remove it :)
-      await new Promise(resolve => setTimeout(resolve, 1000));       //Not relevant <------
+      await new Promise(resolve => setTimeout(resolve, 1002));
 
       // Get the returned users and update the state.
       this.setState({ users: response.data });
@@ -91,16 +90,16 @@ class Game extends React.Component {
     return (
       <Container>
         <h2>Users Overview</h2>
-        <p>All users from server:</p>
+        <p>All users from server:</p>                                            {/* Here is an example of a ternary operator */}
         {!this.state.users ? (
           <Spinner />
         ) : (
           <div>
             <Users>
-              {this.state.users.map(user => {
+              {this.state.users.map(user => {                                    //iterates through all users (Players) so that as a result we can see the list of players on the screen
                 return (
-                  <PlayerContainer onClick={() => { this.showUser(user.id)}}>
-                    <Player user={user}/>                                        {/* Player component receives user-infos*/}
+                  <PlayerContainer onClick={() => { this.showUser(user.id)}}>    {/* By clicking on one of the fields with the usernames the corresponding profile page is accessed */}
+                    <Player user={user}/>                                        {/* Player component receives user-infos */}
                   </PlayerContainer>
                 );
               })}

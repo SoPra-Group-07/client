@@ -76,7 +76,7 @@ class Login extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
-   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
+   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: password and username
    * These fields are then handled in the onChange() methods in the resp. InputFields
    */
   constructor() {
@@ -102,13 +102,12 @@ class Login extends React.Component {
       });
 
     const response =  await api.put('/login', requestBody);
-    
-    //console.log(response.status)
 
-    const user = new User(response.data);
+
+    const user = new User(response.data);          //User is created with data received from PUT request
 
     localStorage.setItem("token",user.token);      //Saves token in local storage. Now the token in the local storage and
-                                                   //in the backend are the same. We need that for later (see Profile)
+                                                   //the one in the backend are the same. We need that for later (to edit only the own profile)
       this.props.history.push(`/game`);
 
     } catch (error) {

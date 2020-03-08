@@ -35,9 +35,9 @@ const Id = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Player = ({ user }) => {               {/* const Player = ({ showUser, user }) => { <-------- not necessary */}
+const Player = ({ user }) => {
   return (
-    <Container>                                        {/* <Container onClick={() => {showUser();}}>  <-------- redundant*/}
+    <Container>                                        {/* Username and Id of each player gets printed on the screen */}
       Username: <UserName>{user.username}</UserName>
       <Id>Id: {user.id}</Id>
     </Container>

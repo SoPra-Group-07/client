@@ -77,21 +77,15 @@ class Edit extends React.Component {
         this.setState({ [key]: value });
     }
 
-    back() {
-        this.props.history.push(`/game/dashboard`);
+    back(id) {
+        this.props.history.push(`/users/${id}`);
     }
-
-   /* save(){
-        this.editUser();
-    }  */                      // <---- unnecessary
-
-
 
 
     async editUser() {
         try {
             const pathname = this.props.location.pathname;
-            var numb = pathname.match(/\d/g);
+            var numb = pathname.match(/\d/g);                // needed for isolating the last section of the pathname e.g. /users/1  -->  1
             numb = numb.join("");
 
             const requestBody = JSON.stringify({
@@ -100,8 +94,8 @@ class Edit extends React.Component {
                 birth: this.state.birth
             });
 
-            const response = await api.put(`users/${this.state.user.id}`, requestBody);
-
+            const response = await api.put(`users/${this.state.user.id}`, requestBody);  // Accesses the "users/{userId}" port in the
+                                                                                             // UserController class in the backend and returns infos of the edited user
             await new Promise(resolve => setTimeout(resolve, 1000));
 
             // Get the returned users and update the state.
@@ -129,12 +123,12 @@ class Edit extends React.Component {
     async componentDidMount() {
         try{
             const pathname = this.props.location.pathname;
-            var numb = pathname.match(/\d/g);                    //needed for isolating the last section of the pathname e.g. /users/1  -->  1
+            var numb = pathname.match(/\d/g);                    // needed for isolating the last section of the pathname e.g. /users/1  -->  1
             numb = numb.join("");
 
             const response = await api.get(`users/${numb}`);
 
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 1003));
 
             this.setState({ user: response.data });
 
@@ -175,17 +169,17 @@ class Edit extends React.Component {
                 <EditButton
                         width = "40%"
                         onClick={() => {
-                            this.editUser()                // .save() <--- redundant
+                            this.editUser()                   // By clicking it the changes are sent to the backend as a PUT request
                         }}
                     >
                         Save
                     </EditButton>
                     </ButtonContainer>
                     <ButtonContainer>
-                    <ButtonSpecial /* log in button */
+                    <ButtonSpecial
                         width="30%"
                         onClick={() => {
-                            this.back()
+                            this.back(this.state.user.id)    // By clicking it you get redirected to the previous page
                         }}
                     >
                         Back

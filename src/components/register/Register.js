@@ -75,7 +75,7 @@ class Register extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
-   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
+   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: password and username
    * These fields are then handled in the onChange() methods in the resp. InputFields
    */
   constructor() {
@@ -94,8 +94,8 @@ class Register extends React.Component {
   async register() {
     try {
       const requestBody = JSON.stringify({
-        username: this.state.username,
-       password: this.state.password
+          username: this.state.username,
+          password: this.state.password
     });
 
     console.log(requestBody)
@@ -103,13 +103,8 @@ class Register extends React.Component {
 
       alert("Successfully created a new account. Please login.")
 
-      // Get the returned user and update a new object.
-      //const user = new User(response.data);            <--------------------------------- Non serve
 
-      // Store the token into the local storage.
-      //localStorage.setItem('token', user.token);
-
-      // Login successfully worked --> navigate to the route /game in the GameRouter
+      // Registering successfully worked --> navigate to the route '/login' in the GameRouter
       this.props.history.push(`/login`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -135,6 +130,9 @@ class Register extends React.Component {
    * It will trigger an extra rendering, but it will happen before the browser updates the screen.
    */
   componentDidMount() {}
+
+
+
 
   render() {
     return (
