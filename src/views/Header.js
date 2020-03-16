@@ -32,7 +32,7 @@ const Title = styled.h1`
 const Header = props => {
   return (
     <Container height={props.height}>
-      <Title>Individual Assignment - Piero Neri</Title>
+      <Title>Just One implementation - SoPra Group 07</Title>
       <ReactLogo width={60} height={60} />
     </Container>
   );
