@@ -2,17 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import {Button, ButtonSpecial, EditButton} from "../../views/design/Button";
+import { Button, ButtonSpecial, EditButton } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 import User from "../shared/models/User";
-import { api, handleError } from '../../helpers/api';
+import { api, handleError } from "../../helpers/api";
 
-
+// this is lynns comment
 const FormContainer = styled.div`
-color: white;
-font-size: 25px;
-text-align: center;
-text-transform: uppercase;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  text-transform: uppercase;
   margin-top: 2em;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@ const Form = styled.div`
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: rgba(255, 255, 255, 1);
   }
   height: 35px;
   padding-left: 15px;
@@ -63,137 +63,134 @@ const ButtonContainer = styled.div`
 `;
 
 class Edit extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      user: new User(),
+      username: null,
+      birth: null
+    };
+  }
 
-    constructor() {
-        super();
-        this.state = {
-            user: new User(),
-            username: null,
-            birth: null
-        };
+  handleInputChange(key, value) {
+    this.setState({ [key]: value });
+  }
+
+  back(id) {
+    this.props.history.push(`/users/${id}`);
+  }
+
+  async editUser() {
+    try {
+      const pathname = this.props.location.pathname;
+      var numb = pathname.match(/\d/g); // needed for isolating the last section of the pathname e.g. /users/1  -->  1
+      numb = numb.join("");
+
+      const requestBody = JSON.stringify({
+        id: this.state.user.id,
+        username: this.state.username,
+        birth: this.state.birth
+      });
+
+      const response = await api.put(
+        `users/${this.state.user.id}`,
+        requestBody
+      ); // Accesses the "users/{userId}" port in the
+      // UserController class in the backend and returns infos of the edited user
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Get the returned users and update the state.
+      this.setState({ user: response.data });
+
+      // This is just some data for you to see what is available.
+      console.log("request to:", response.request.responseURL);
+      console.log("status code:", response.status);
+      console.log("status text:", response.statusText);
+      console.log("requested data:", response.data);
+
+      alert("User was successfully modified.");
+
+      this.props.history.push(`../users/${numb}`);
+    } catch (error) {
+      alert(
+        `Something went wrong while fetching the users: \n${handleError(error)}`
+      );
     }
+  }
 
-    handleInputChange(key, value) {
-        this.setState({ [key]: value });
+  async componentDidMount() {
+    try {
+      const pathname = this.props.location.pathname;
+      var numb = pathname.match(/\d/g); // needed for isolating the last section of the pathname e.g. /users/1  -->  1
+      numb = numb.join("");
+
+      const response = await api.get(`users/${numb}`);
+
+      await new Promise(resolve => setTimeout(resolve, 1));
+
+      this.setState({ user: response.data });
+
+      console.log("request to:", response.request.responseURL);
+      console.log("status code:", response.status);
+      console.log("status text:", response.statusText);
+      console.log("requested data:", response.data);
+    } catch (error) {
+      alert(
+        `Something went wrong while fetching the users: \n${handleError(error)}`
+      );
     }
+  }
 
-    back(id) {
-        this.props.history.push(`/users/${id}`);
-    }
+  render() {
+    return (
+      <BaseContainer>
+        <FormContainer>
+          Edit Information of User
+          <Form>
+            <Label>Username</Label>
+            <InputField
+              placeholder={this.state.username}
+              onChange={e => {
+                this.handleInputChange("username", e.target.value);
+              }}
+            />
+            <Label>Date of Birth</Label>
+            <InputField
+              type={`date`}
+              placeholder={this.state.birth}
+              onChange={e => {
+                this.handleInputChange("birth", e.target.value);
+              }}
+            />
 
-
-    async editUser() {
-        try {
-            const pathname = this.props.location.pathname;
-            var numb = pathname.match(/\d/g);                // needed for isolating the last section of the pathname e.g. /users/1  -->  1
-            numb = numb.join("");
-
-            const requestBody = JSON.stringify({
-                id: this.state.user.id,
-                username: this.state.username,
-                birth: this.state.birth
-            });
-
-            const response = await api.put(`users/${this.state.user.id}`, requestBody);  // Accesses the "users/{userId}" port in the
-                                                                                             // UserController class in the backend and returns infos of the edited user
-            await new Promise(resolve => setTimeout(resolve, 1000));
-
-            // Get the returned users and update the state.
-            this.setState({ user: response.data });
-
-            // This is just some data for you to see what is available.
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-            alert("User was successfully modified.")
-
-            this.props.history.push(`../users/${numb}`)
-
-        }  catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
-        }
-
-    }
-
-
-
-
-    async componentDidMount() {
-        try{
-            const pathname = this.props.location.pathname;
-            var numb = pathname.match(/\d/g);                    // needed for isolating the last section of the pathname e.g. /users/1  -->  1
-            numb = numb.join("");
-
-            const response = await api.get(`users/${numb}`);
-
-            await new Promise(resolve => setTimeout(resolve, 1));
-
-            this.setState({ user: response.data });
-
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-        } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
-        }
-
-    }
-
-    render() {
-        return (
-            <BaseContainer>
-                <FormContainer>Edit Information of User
-                    <Form>
-                        <Label>Username</Label>
-                        <InputField
-                            placeholder={this.state.username}
-                            onChange={e => {
-                                this.handleInputChange("username", e.target.value);
-                            }}
-                        />
-                        <Label>Date of Birth</Label>
-                        <InputField
-                            type={`date`}
-                            placeholder={this.state.birth}
-                            onChange={e => {
-                                this.handleInputChange("birth", e.target.value);
-                            }}
-                        />
-
-
-                <ButtonContainer>
-                <EditButton
-                        disabled={localStorage.getItem("token") !== this.state.user.token}
-                        width = "40%"
-                        onClick={() => {
-                            this.editUser()                   // By clicking it the changes are sent to the backend as a PUT request
-                        }}
-                    >
-                        Save
-                    </EditButton>
-                    </ButtonContainer>
-                    <ButtonContainer>
-                    <ButtonSpecial
-                        width="30%"
-                        onClick={() => {
-                            this.back(this.state.user.id)    // By clicking it you get redirected to the previous page
-                        }}
-                    >
-                        Back
-                    </ButtonSpecial>
-                   
-                </ButtonContainer>
-                    </Form>
-                </FormContainer>
-            </BaseContainer>
-
-
-        );
-    }
+            <ButtonContainer>
+              <EditButton
+                disabled={
+                  localStorage.getItem("token") !== this.state.user.token
+                }
+                width="40%"
+                onClick={() => {
+                  this.editUser(); // By clicking it the changes are sent to the backend as a PUT request
+                }}
+              >
+                Save
+              </EditButton>
+            </ButtonContainer>
+            <ButtonContainer>
+              <ButtonSpecial
+                width="30%"
+                onClick={() => {
+                  this.back(this.state.user.id); // By clicking it you get redirected to the previous page
+                }}
+              >
+                Back
+              </ButtonSpecial>
+            </ButtonContainer>
+          </Form>
+        </FormContainer>
+      </BaseContainer>
+    );
+  }
 }
 
- export default withRouter(Edit)
+export default withRouter(Edit);
