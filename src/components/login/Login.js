@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
-import {Redirect, Route, withRouter} from 'react-router-dom';
+import { withRouter} from 'react-router-dom';
 import { Button, ButtonSpecial } from '../../views/design/Button';
 import {Link} from "react-router-dom";
 

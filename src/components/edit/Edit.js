@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
-import { Button, ButtonSpecial, EditButton } from "../../views/design/Button";
+import { ButtonSpecial, EditButton } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 import User from "../shared/models/User";
 import { api, handleError } from "../../helpers/api";
 
-// this is lynns comment2
-// this is darios comment
 const FormContainer = styled.div`
   color: white;
   font-size: 25px;
