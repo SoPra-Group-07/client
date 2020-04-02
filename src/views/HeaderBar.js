@@ -14,17 +14,52 @@ const FooterContainer = styled.div`
    width: 100%;
    background: tan;
    display: flex;
-   justify-content: center;
-   align-items: center;
    position: absolute;
    top: 0px;
 `;
 
-const HeaderBar = () => {
-    return (
-        <FooterContainer>
-        </FooterContainer>
-    );
+const NavItems = styled.div`
+   height: 20px;
+   width: 60px;
+   background: tan;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 10px;
+`;
+
+
+class HeaderBar extends React.Component{
+    constructor() {
+        super();
+        this.state={pathname: null}
+    }
+
+
+    goToGameRules(){
+        const pathName = this.props.location.pathname;
+        this.setState({pathname: pathName});
+        localStorage.setItem("pathname",pathName);
+        this.props.history.push("/gamerules");
+    }
+
+
+    render() {
+        return (
+            <FooterContainer>
+                <NavItems onClick={() => {
+                    this.goToGameRules();
+                }}>
+                    Game rules
+                </NavItems>
+                <NavItems>
+                    Edit profile
+                </NavItems>
+
+            </FooterContainer>
+        );
+    };
+
 };
 
 /**

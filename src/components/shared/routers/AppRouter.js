@@ -8,6 +8,7 @@ import Register from "../../register/Register";
 import Profile from "../../profile/Profile";
 import Edit from "../../edit/Edit";
 import Overview from "../../overview/Overview";
+import GameRules from "../../gameRules/GameRules";
 
 /**
  * Main router of your application.
@@ -69,6 +70,14 @@ class AppRouter extends React.Component {
                       <GameGuard>
                           <Overview/>
                       </GameGuard>
+                  )}
+              />
+
+              <Route
+                  path="/gamerules"
+                  exact
+                  render={() => (
+                          <GameRules/>
                   )}
               />
 
