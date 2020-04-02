@@ -24,7 +24,7 @@ const Title = styled.h1`
 `;
 
 const JustOneLogoContainer = styled.div`
-   margin-top: 150px;
+   margin-top: 80px;
 `;
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -38,7 +38,7 @@ const Header = props => {
   return (
     <Container height={props.height}>
       <JustOneLogoContainer>
-        <img src={justonelogo} alt="JustOneLogo" width="500"/>
+        <img src={justonelogo} alt="JustOneLogo" width="400"/>
       </JustOneLogoContainer>                  
     </Container>
   );

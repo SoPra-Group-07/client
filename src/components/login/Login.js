@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 
 
 const FormContainer = styled.div`
-  margin-top: 2em;
+  margin-top: 7em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,35 +21,36 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 40%;
   height: 375px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
-  border-radius: 5px;
-  background: linear-gradient(darkgrey, black);
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: black;
   }
   height: 35px;
   padding-left: 15px;
-  margin-left: -4px;
+  margin-left: 35px;
+  margin-right: 35px;
   border: none;
-  border-radius: 20px;
+  border-radius: 0px;
   margin-bottom: 20px;
-  background: linear-gradient(dimgray, black);
-  color: white;
+  background: linear-gradient(white, antiquewhite);
+  color: black;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: black;
   margin-bottom: 10px;
-  text-transform: uppercase;
+  text-align: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -59,8 +60,9 @@ const ButtonContainer = styled.div`
 `;
 
 const Container = styled(BaseContainer)`
-  color: white;
+  color: black;
   text-align: center;
+  text-transform: uppercase;
 `;
 
 /**
@@ -139,22 +141,21 @@ class Login extends React.Component {
   render() {
     return (
       <BaseContainer>
-      <Container>
-        <h2>Login  </h2>
-        <p>Please enter your username and password to sign in</p>
-      </Container>
         <FormContainer>
+          <Container>
+            <h2>Login  </h2>
+          </Container>
           <Form>
-            <Label>Username</Label>
+            <Label>Please enter username: </Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter here..."
               onChange={e => {
                 this.handleInputChange('username', e.target.value);
               }}
             />
-            <Label>Password</Label>
+            <Label>Please enter password: </Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter here..."
               onChange={e => {
                 this.handleInputChange('password', e.target.value);
               }}

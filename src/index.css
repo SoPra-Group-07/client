@@ -7,7 +7,9 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
-  background: rgb(255, 240, 217);
+  background: linear-gradient(wheat, chocolate);
+  width: 1366px;
+  height: 768px;
 }
 
 input,

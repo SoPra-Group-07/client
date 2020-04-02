@@ -19,35 +19,36 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 40%;
   height: 375px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
-  border-radius: 1px;
-  background: linear-gradient(rgb(11,179,250), rgb(0,164,216));
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: black;
   }
   height: 35px;
   padding-left: 15px;
-  margin-left: -4px;
+  margin-left: 35px;
+  margin-right: 35px;
   border: none;
   border-radius: 0px;
   margin-bottom: 20px;
-  background: linear-gradient(dimgray, black);
-  color: white;
+  background: linear-gradient(white, antiquewhite);
+  color: black;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: black;
   margin-bottom: 10px;
-  text-transform: uppercase;
+  text-align: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -59,6 +60,7 @@ const ButtonContainer = styled.div`
 const Container = styled(BaseContainer)`
   color: black;
   text-align: center;
+  text-transform: uppercase;
 `;
 
 /**
@@ -139,20 +141,19 @@ class Register extends React.Component {
       
         <FormContainer>
         <Container>
-        <h2>Register  </h2>
-        <p>Please enter a new username and a new password to sign up</p>
+        <h2>Register </h2>
       </Container>
             <Form>
-            <Label>Username</Label>
+            <Label>Please enter new username: </Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter here..."
               onChange={e => {
                 this.handleInputChange('username', e.target.value);
               }}
             />
-            <Label>Password</Label>
+            <Label>Please enter new password: </Label>
             <InputField
-              placeholder="Enter here.."
+              placeholder="Enter here..."
               onChange={e => {
                 this.handleInputChange('password', e.target.value);
               }}
@@ -170,10 +171,8 @@ class Register extends React.Component {
                 </ButtonContainer>
                 <ButtonContainer>
                     <Link to = "/login">
-              <ButtonSpecial
-                  style = {{fontSize:"10px"}}
-              >
-                Do you already have an account? Click here
+              <ButtonSpecial>
+                You want to sign in? Click here
               </ButtonSpecial>
                     </Link>
             </ButtonContainer>
