@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 
 
 const FormContainer = styled.div`
-  margin-top: 7em;
+  margin-top: 6em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +110,7 @@ class Login extends React.Component {
 
     localStorage.setItem("token",user.token);      //Saves token in local storage. Now the token in the local storage and
                                                    //the one in the backend are the same. We need that for later (to edit only the own profile)
-      this.props.history.push(`/game`);
+      this.props.history.push(`/overview`);
 
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);

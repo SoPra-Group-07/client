@@ -7,7 +7,7 @@ import { Button, ButtonSpecial } from '../../views/design/Button';
 import {Link} from "react-router-dom";
 
 const FormContainer = styled.div`
-  margin-top: 7em;
+  margin-top: 6em;
   display: flex;
   flex-direction: column;
   align-items: center;

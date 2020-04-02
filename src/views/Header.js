@@ -17,11 +17,6 @@ const Container = styled.div`
 
 `;
 
-const Title = styled.h1`
-  font-weight: bold;
-  color: white;
-  text-align: center;
-`;
 
 const JustOneLogoContainer = styled.div`
    margin-top: 80px;
