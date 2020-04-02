@@ -9,6 +9,7 @@ import Profile from "../../profile/Profile";
 import Edit from "../../edit/Edit";
 import Overview from "../../overview/Overview";
 import GameRules from "../../gameRules/GameRules";
+import Profiles from "../../profiles/Profiles";
 
 /**
  * Main router of your application.
@@ -70,6 +71,22 @@ class AppRouter extends React.Component {
                       <GameGuard>
                           <Overview/>
                       </GameGuard>
+                  )}
+              />
+
+              <Route
+                  path="/gamerules"
+                  exact
+                  render={() => (
+                          <GameRules/>
+                  )}
+              />
+
+              <Route
+                  path="/profiles"
+                  exact
+                  render={() => (
+                      <Profiles/>
                   )}
               />
 

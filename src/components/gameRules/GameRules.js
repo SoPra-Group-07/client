@@ -27,20 +27,35 @@ const GameRulesContainer = styled.div`
    margin-top: 4em;
 `;
 
-const GameRules = props => {
-    return (
-        <div>
-        <Container height={props.height}>
-            <GameRulesContainer>
-                <img src={gamerules} alt="JustOneLogo" width="60%"/>
-                <CustomizedButton width="20%" color1={"red"} color2={"darkred"} style={{position:"absolute",
-                    marginTop:"265px"}}>
-                    Back
-                </CustomizedButton>
-            </GameRulesContainer>
-        </Container>
-        </div>
-    );
+class GameRules extends React.Component{
+
+    constructor() {
+        super();
+    }
+
+    back() {
+        this.props.history.push(`/overview`);
+    }
+
+
+    render() {
+        return (
+            <div>
+                <Container height={this.props.height}>
+                    <GameRulesContainer>
+                        <img src={gamerules} alt="JustOneLogo" width="60%"/>
+                        <CustomizedButton width="20%" color1={"red"} color2={"darkred"} style={{
+                            position: "absolute",
+                            marginTop: "265px"
+                        }} onClick={() => {
+                            this.back();}}>
+                            Back
+                        </CustomizedButton>
+                    </GameRulesContainer>
+                </Container>
+            </div>
+        );
+    };
 };
 
 /**

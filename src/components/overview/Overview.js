@@ -52,29 +52,26 @@ class Overview extends React.Component {
         };
     }
 
-    showUser(id) {
-        this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
+    goToGameRules() {
+        this.props.history.push(`/gamerules`);
+    }
+
+    goToProfiles() {
+        this.props.history.push(`/profiles`);
     }
 
     async logout() {
         try {
-            let token1 = localStorage.getItem("token");       //saving token from local storage in token1 variable
-            console.log(token1)                                    //check token in console
+            let token1 = localStorage.getItem("token");
+            console.log(token1)
 
             const requestBody = JSON.stringify({
                 token: token1,
             });
 
-            const response = await api.put('/logout', requestBody);  //Sends the local token as a PUT request to the backend in order to
-            //find the corresponding player in the database and to set his status to OFFLINE and to set the token equal null
-            // some data to see what is available
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
+            const response = await api.put('/logout', requestBody);
 
-
-            localStorage.removeItem('token');          //token removed from local storage
+            localStorage.removeItem('token');
             this.props.history.push('/login');
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -84,23 +81,11 @@ class Overview extends React.Component {
     async componentDidMount() {
         try {
             const response = await api.get('/users');
-            // delays continuous execution of an async operation for 1 second.
-            // This is just a fake async call, so that the spinner can be displayed
-            // feel free to remove it :)
+
             await new Promise(resolve => setTimeout(resolve, 1002));
 
-            // Get the returned users and update the state.
             this.setState({ users: response.data });
 
-            // This is just some data for you to see what is available.
-            // Feel free to remove it.
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-            // See here to get more data.
-            console.log(response);
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
@@ -110,12 +95,17 @@ class Overview extends React.Component {
         return (
             <div>
                 <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"20px"}
-                style ={{position:"absolute",marginTop:"-197px",marginLeft:"95%", fontSize:"8px"}}>
+                style ={{position:"absolute",marginTop:"-197px",marginLeft:"95%", fontSize:"8px"}}
+                                  onClick={() => {
+                                      this.goToGameRules();
+                                  }}>
                     Game rules
                 </CustomizedButton>
                 <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"20px"}
-                                  style ={{position:"absolute",marginTop:"-197px",marginLeft:"89.98%", fontSize:"8px"}}>
-                    Edit Profile
+                                  style ={{position:"absolute",marginTop:"-197px",marginLeft:"89.98%", fontSize:"8px"}}onClick={() => {
+                    this.goToProfiles();
+                }}>
+                    Profiles
                 </CustomizedButton>
             <BaseContainer>
             <FormContainer>
