@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactLogo } from "./ReactLogo";
+import justonelogo from "./justone.png";
 
 /**
  * Using styled-components you can visual HTML primitives and use props with it!
@@ -14,12 +14,17 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
 `;
 
 const Title = styled.h1`
   font-weight: bold;
   color: white;
   text-align: center;
+`;
+
+const JustOneLogoContainer = styled.div`
+   margin-top: 150px;
 `;
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -32,8 +37,9 @@ const Title = styled.h1`
 const Header = props => {
   return (
     <Container height={props.height}>
-      <Title>Just One implementation - SoPra Group 07</Title>
-      <ReactLogo width={60} height={60} />
+      <JustOneLogoContainer>
+        <img src={justonelogo} alt="JustOneLogo" width="500"/>
+      </JustOneLogoContainer>                  
     </Container>
   );
 };

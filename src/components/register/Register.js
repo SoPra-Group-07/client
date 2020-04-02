@@ -7,7 +7,7 @@ import { Button, ButtonSpecial } from '../../views/design/Button';
 import {Link} from "react-router-dom";
 
 const FormContainer = styled.div`
-  margin-top: 2em;
+  margin-top: 7em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,8 +25,8 @@ const Form = styled.div`
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
-  border-radius: 5px;
-  background: linear-gradient(darkgrey, black);
+  border-radius: 1px;
+  background: linear-gradient(rgb(11,179,250), rgb(0,164,216));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
@@ -38,7 +38,7 @@ const InputField = styled.input`
   padding-left: 15px;
   margin-left: -4px;
   border: none;
-  border-radius: 20px;
+  border-radius: 0px;
   margin-bottom: 20px;
   background: linear-gradient(dimgray, black);
   color: white;
@@ -57,7 +57,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Container = styled(BaseContainer)`
-  color: white;
+  color: black;
   text-align: center;
 `;
 
@@ -136,11 +136,12 @@ class Register extends React.Component {
   render() {
     return (
       <BaseContainer>
-      <Container>
+      
+        <FormContainer>
+        <Container>
         <h2>Register  </h2>
         <p>Please enter a new username and a new password to sign up</p>
       </Container>
-        <FormContainer>
             <Form>
             <Label>Username</Label>
             <InputField

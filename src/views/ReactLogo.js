@@ -13,6 +13,8 @@ export const ReactLogo = props => {
                 <circle cx="420.9" cy="296.5" r="45.7" />
                 <path d="M520.5 78.1z" />
             </g>
+            
         </Logo>
     );
 };
+
