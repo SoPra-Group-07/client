@@ -73,14 +73,6 @@ class AppRouter extends React.Component {
                   )}
               />
 
-              <Route
-                  path="/gamerules"
-                  exact
-                  render={() => (
-                          <GameRules/>
-                  )}
-              />
-
             <Route path="/register" exact render={() => <Register />} />
 
             <Route path="/" exact render={() => <Redirect to={"/game"} />} />

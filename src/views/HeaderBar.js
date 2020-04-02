@@ -20,10 +20,11 @@ const FooterContainer = styled.div`
 
 const NavItems = styled.div`
    height: 20px;
-   width: 60px;
+   width: 200px;
    background: tan;
    display: flex;
-   justify-content: center;
+   justify-content: left;
+   margin-left:10px;
    align-items: center;
    font-size: 10px;
 `;
@@ -32,30 +33,15 @@ const NavItems = styled.div`
 class HeaderBar extends React.Component{
     constructor() {
         super();
-        this.state={pathname: null}
+
     }
-
-
-    goToGameRules(){
-        const pathName = this.props.location.pathname;
-        this.setState({pathname: pathName});
-        localStorage.setItem("pathname",pathName);
-        this.props.history.push("/gamerules");
-    }
-
 
     render() {
         return (
             <FooterContainer>
-                <NavItems onClick={() => {
-                    this.goToGameRules();
-                }}>
-                    Game rules
-                </NavItems>
                 <NavItems>
-                    Edit profile
+                    Just One Implementation
                 </NavItems>
-
             </FooterContainer>
         );
     };
