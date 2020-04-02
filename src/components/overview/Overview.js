@@ -108,6 +108,15 @@ class Overview extends React.Component {
 
     render() {
         return (
+            <div>
+                <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"20px"}
+                style ={{position:"absolute",marginTop:"-197px",marginLeft:"95%", fontSize:"8px"}}>
+                    Game rules
+                </CustomizedButton>
+                <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"20px"}
+                                  style ={{position:"absolute",marginTop:"-197px",marginLeft:"89.98%", fontSize:"8px"}}>
+                    Edit Profile
+                </CustomizedButton>
             <BaseContainer>
             <FormContainer>
                 <h2 style={{color:"black", textTransform: "uppercase"}}>Overview</h2>
@@ -141,10 +150,12 @@ class Overview extends React.Component {
                             Logout
                         </EditButton>
                         </LogoutButton>
+
                     </div>
                 </Form>
             </FormContainer>
             </BaseContainer>
+            </div>
         );
     }
 }
