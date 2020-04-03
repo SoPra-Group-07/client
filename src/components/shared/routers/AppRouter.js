@@ -10,6 +10,7 @@ import Edit from "../../edit/Edit";
 import Overview from "../../overview/Overview";
 import GameRules from "../../gameRules/GameRules";
 import Profiles from "../../profiles/Profiles";
+import Leaderboard from "../../leaderboard/Leaderboard";
 
 /**
  * Main router of your application.
@@ -87,6 +88,14 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                       <Profiles/>
+                  )}
+              />
+
+              <Route
+                  path="/leaderboard"
+                  exact
+                  render={() => (
+                      <Leaderboard/>
                   )}
               />
 

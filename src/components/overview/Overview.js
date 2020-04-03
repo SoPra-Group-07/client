@@ -60,6 +60,10 @@ class Overview extends React.Component {
         this.props.history.push(`/profiles`);
     }
 
+    goToLeaderboard() {
+        this.props.history.push(`/leaderboard`);
+    }
+
     async logout() {
         try {
             let token1 = localStorage.getItem("token");
@@ -125,7 +129,9 @@ class Overview extends React.Component {
                             </ButtonContainer>
 
                             <ButtonContainer>
-                        <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"}>
+                        <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
+                            this.goToLeaderboard();
+                        }}>
                             Leaderboard
                         </CustomizedButton>
                             </ButtonContainer>
