@@ -6,6 +6,7 @@ import Player from '../../views/Player';
 import { Spinner } from '../../views/design/Spinner';
 import {Button, CustomizedButton } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
+import LeaderboardEntity from "../../views/LeaderboardEntity";
 
 const Container = styled(BaseContainer)`
   color: black;
@@ -41,7 +42,8 @@ class Leaderboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            users: null
+            users: null,
+            count: 0
         };
     }
 
@@ -51,7 +53,7 @@ class Leaderboard extends React.Component {
 
     async componentDidMount() {
         try {
-            const response = await api.get('/users');
+            const response = await api.get('/leaderboard');
             // delays continuous execution of an async operation for 1 second.
             // This is just a fake async call, so that the spinner can be displayed
             // feel free to remove it :)
@@ -88,9 +90,10 @@ class Leaderboard extends React.Component {
                             <div>
                                 <Users>
                                     {this.state.users.map(user => {
+                                        this.state.count ++;
                                         return (
                                             <PlayerContainer>
-                                                <Player user={user}/>
+                                                <LeaderboardEntity count={this.state.count} user={user}/>
                                             </PlayerContainer>
                                         );
                                     })}
