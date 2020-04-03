@@ -10,10 +10,12 @@ class User {
     this.status = null;
     this.date = null;
     this.birth = null;
+    this.highScore = null;
+    this.numberOfGamesPlayed = null;
     Object.assign(this, data);
   }
 }
-export default User;
+export default User;  
 
 
 
