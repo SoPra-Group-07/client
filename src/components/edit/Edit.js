@@ -1,17 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
-import { ButtonSpecial, EditButton } from "../../views/design/Button";
+import { ButtonSpecial, EditButton, CustomizedButton } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 import User from "../shared/models/User";
 import { api, handleError } from "../../helpers/api";
 
 const FormContainer = styled.div`
-  color: white;
-  font-size: 25px;
-  text-align: center;
-  text-transform: uppercase;
-  margin-top: 2em;
+  margin-top: 6em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,35 +19,36 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
+  width: 40%;
   height: 375px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
-  border-radius: 5px;
-  background: linear-gradient(darkgrey, black);
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1);
+    color: black;
   }
   height: 35px;
   padding-left: 15px;
-  margin-left: -4px;
+  margin-left: 35px;
+  margin-right: 35px;
   border: none;
-  border-radius: 20px;
+  border-radius: 0px;
   margin-bottom: 20px;
-  background: linear-gradient(dimgray, black);
-  color: white;
+  background: linear-gradient(white, antiquewhite);
+  color: black;
 `;
 
 const Label = styled.label`
-  color: white;
+  color: black;
   margin-bottom: 10px;
-  text-transform: uppercase;
+  text-align: center;
 `;
 
 const ButtonContainer = styled.div`
@@ -60,12 +57,18 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 
+const Container = styled(BaseContainer)`
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
 class Edit extends React.Component {
   constructor() {
     super();
     this.state = {
       user: new User(),
-      username: null,
+      password: null,
       birth: null
     };
   }
@@ -86,7 +89,7 @@ class Edit extends React.Component {
 
       const requestBody = JSON.stringify({
         id: this.state.user.id,
-        username: this.state.username,
+        password: this.state.password,
         birth: this.state.birth
       });
 
@@ -143,13 +146,15 @@ class Edit extends React.Component {
     return (
       <BaseContainer>
         <FormContainer>
-          Edit Information of User
+          <Container>
+            <h2>EDIT INFORMATION OF USER</h2>
+          </Container>
           <Form>
-            <Label>Username</Label>
+            <Label>Password</Label>
             <InputField
-              placeholder={this.state.username}
+              placeholder={"New password"}
               onChange={e => {
-                this.handleInputChange("username", e.target.value);
+                this.handleInputChange("password", e.target.value);
               }}
             />
             <Label>Date of Birth</Label>
@@ -162,27 +167,27 @@ class Edit extends React.Component {
             />
 
             <ButtonContainer>
-              <EditButton
+              <CustomizedButton
                 disabled={
                   localStorage.getItem("token") !== this.state.user.token
                 }
-                width="40%"
+                color1 ={"palegreen"} color2 = {"limegreen"} width = {"50%"}
                 onClick={() => {
                   this.editUser(); // By clicking it the changes are sent to the backend as a PUT request
                 }}
               >
                 Save
-              </EditButton>
+              </CustomizedButton>
             </ButtonContainer>
             <ButtonContainer>
-              <ButtonSpecial
-                width="30%"
+              <CustomizedButton
+                  color1 ={"red"} color2 = {"darkred"} width = {"35%"}
                 onClick={() => {
                   this.back(this.state.user.id); // By clicking it you get redirected to the previous page
                 }}
               >
                 Back
-              </ButtonSpecial>
+              </CustomizedButton>
             </ButtonContainer>
           </Form>
         </FormContainer>

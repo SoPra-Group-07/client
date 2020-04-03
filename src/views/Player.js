@@ -5,10 +5,11 @@ const Container = styled.div`
   margin: 6px 0;
   width: 280px;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 0px;
   display: flex;
   align-items: center;
-  border: 1px solid black;
+  border: 0px solid black;
+  background: linear-gradient(white, antiquewhite);
 `;
 
 const UserName = styled.div`

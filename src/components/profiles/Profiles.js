@@ -15,6 +15,8 @@ const Container = styled(BaseContainer)`
 const Users = styled.ul`                     
   list-style: none;
   padding-left: 0;
+  overflow: auto;
+  max-height: 330px;
 `;
 //list item
 const PlayerContainer = styled.li`
@@ -82,7 +84,7 @@ class Profiles extends React.Component {
             <BaseContainer>
                 <FormContainer>
             <Container>
-                <h2>Users Overview</h2>
+                <h2>USERS OVERVIEW</h2>
                 <p>All users from server:</p>
                 {!this.state.users ? (
                     <Spinner />
@@ -98,7 +100,7 @@ class Profiles extends React.Component {
                             })}
                         </Users>
                         <CustomizedButton
-                            color1={"red"} color2={"darkred"}
+                            color1={"red"} color2={"darkred"} width = {"60%"}
                             onClick={() => {
                                 this.back();
                             }}

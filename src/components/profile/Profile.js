@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
-import { ButtonSpecial, EditButton} from '../../views/design/Button';
+import { ButtonSpecial, EditButton, CustomizedButton} from '../../views/design/Button';
 import { Spinner } from '../../views/design/Spinner';
 
 
@@ -14,10 +14,10 @@ const ButtonContainer = styled.div`
   margin-top: 20px;
 `;
 const Container = styled(BaseContainer)`
-  color: white;
+  color: black;
   border-color: white;
   text-align: center;
-  width: 60%;
+  width: 57%;
   margin: auto;
 `;
 const Users = styled.li`
@@ -25,11 +25,35 @@ const Users = styled.li`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid black;
-  border-radius: 8px;
+  border: 0px solid black;
+  border-radius: 0px;
   margin-left: 200px;
   margin-right: 200px;
-  background-color: slategray;
+  background: linear-gradient(white, antiquewhite);
+`;
+
+const FormContainer = styled.div`
+  margin-top: 6em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  justify-content: center;
+`;
+
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  height: 375px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 
@@ -48,7 +72,7 @@ class Profile extends React.Component {
           const response = await api.get(pathname);           // Accesses the "users/{userId}" port in the UserController class in the backend and returns infos of the corresponding user
         
          // console.log(response)
-          await new Promise(resolve => setTimeout(resolve, 1001));
+          await new Promise(resolve => setTimeout(resolve, 1000));
     
           // Get the returned infos of user and update the state.
           this.setState({ user: response.data });                      // puts user object in the state
@@ -67,7 +91,7 @@ class Profile extends React.Component {
       }
 
     back() {
-        this.props.history.push(`/game`);              // Alternative: /game/dashboard
+        this.props.history.push(`/profiles`);              // Alternative: /game/dashboard
     }
     editUser(id){
        this.props.history.push(`/edit/${id}`);         // Routes me to the editing page of the logged in user
@@ -85,8 +109,11 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <Container>
-                <h2>User Profile</h2>
+            <FormContainer>
+                <Container>
+                    <h2 style={{color:"black"}}>USER PROFILE</h2>
+                </Container>
+                <Container>
                 <p></p>
                 {!this.state.user ? (
                     <Spinner />
@@ -107,32 +134,43 @@ class Profile extends React.Component {
                         <Users>
                             {"Status:"}   {this.state.user.status}
                         </Users>
+
+                        <BaseContainer>
+                            <br/>
+                            <br/>
+                            <br/>
+                            </BaseContainer>
+
+
                         <ButtonContainer>
-                            <ButtonSpecial
-                                style = {{marginRight :"10px",
-                                    marginLeft :"200px"}}
-                                width="50%"
-                                onClick={() => {
-                                    this.back();     // Routes me back to "/game"
-                                }}
-                            >
-                                Back
-                            </ButtonSpecial>
-                            <EditButton
+
+                            <CustomizedButton
+                                color1 ={"lightskyblue"} color2 = {"royalblue"} width = {"30%"}
                                 disabled={localStorage.getItem("token") !== this.state.user.token}   /* You can only edit if the local token equals the one you fetched from the server */
-                                style = {{marginRight :"200px",
-                                    marginLeft :"10px"}}
-                                width="50%"
                                 onClick={() => {
                                     this.editUser(this.state.user.id);    // Routes me to the editing page
                                 }}
                             >
                                 Edit User
-                            </EditButton>
+                            </CustomizedButton>
+                            </ButtonContainer>
+
+                        <ButtonContainer>
+                            <CustomizedButton
+                                color1 ={"red"} color2 = {"darkred"} width = {"25%"}
+                                onClick={() => {
+                                    this.back();     // Routes me back to "/game"
+                                }}
+                            >
+                                Back
+                            </CustomizedButton>
                         </ButtonContainer>
                     </div>
                 )}
             </Container>
+
+                </FormContainer>
+
         );
     }
 
