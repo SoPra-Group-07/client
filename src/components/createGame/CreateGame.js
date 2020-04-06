@@ -84,8 +84,8 @@ class CreateGame extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: null,
-      password: null,
+        game: null,
+        bot: false
     };
   }
 
@@ -93,22 +93,28 @@ class CreateGame extends React.Component {
     this.props.history.push(`/overview`);
   }
 
+  setBot() {
+    this.state.bot = !this.state.bot;
+  }
  
-  async register() {
+  async createNewGame() {
     try {
       const requestBody = JSON.stringify({
-          username: this.state.username,
-          password: this.state.password
+          gamename: this.state.gamename,
+          bot: this.state.bot
     });
 
     console.log(requestBody)
-      await api.post('/users', requestBody);
+      const response = await api.post('/games', requestBody);
+      
+      await new Promise(resolve => setTimeout(resolve, 1002));
 
-      alert("Successfully created a new account. Please login.")
+      this.setState({ game: response.data });
 
+      alert("Successfully created a new game.")
+      
 
-      // Registering successfully worked --> navigate to the route '/login' in the GameRouter
-      this.props.history.push(`/login`);
+      this.props.history.push(`/games/${this.state.game.id}`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -123,7 +129,10 @@ class CreateGame extends React.Component {
     // Example: if the key is username, this statement is the equivalent to the following one:
     // this.setState({'username': value});
     this.setState({ [key]: value });
+    console.log(this.state.bot);
+    console.log(this.state.gamename);
   }
+
 
   componentDidMount() {}
 
@@ -143,15 +152,22 @@ class CreateGame extends React.Component {
             <InputField
               placeholder="Enter here..."
               onChange={e => {
-                this.handleInputChange('username', e.target.value);
+                this.handleInputChange('gamename', e.target.value);
               }}
             />
           
             <Label>Do you want to include a bot? </Label>
-            <ToggleApp></ToggleApp>
+           
+            <ButtonContainer 
+            onClick={() => {
+                    this.setBot();
+            }} >
+                <ToggleApp>
+                </ToggleApp>
+            </ButtonContainer>
 
             <ButtonContainer>
-                <CustomizedButton width="60%" color1={"palegreen"} color2={"limegreen"}onClick={() => {
+                <CustomizedButton width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                         this.createNewGame();
                     }}>
                         Create game
@@ -168,6 +184,7 @@ class CreateGame extends React.Component {
                     Back
                 </CustomizedButton>
             </ButtonContainer>
+
           </Form>
         </FormContainer>
       </BaseContainer>

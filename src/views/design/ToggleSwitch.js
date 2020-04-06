@@ -1,10 +1,11 @@
 import React from 'react';
 import './toggleswitch.css';
+import CreateGame from "./../../components/createGame/CreateGame";
 
 const ToggleSwitch = ({ isOn, handleToggle }) => {
     return (
       <>
-        <input
+        <input 
           checked={isOn}
           onChange={handleToggle}
           className="react-switch-checkbox"
