@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
-import { Button, CustomizedButton } from '../../views/design/Button';
-import {Link} from "react-router-dom";
-import ToggleSwitch from "../../views/design/ToggleSwitch";
-import ToggleApp from "../../views/design/ToggleApp";
+import { CustomizedButton } from '../../views/design/Button';
 
 const FormContainer = styled.div`
   margin-top: 6em;

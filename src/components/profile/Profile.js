@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
-import { ButtonSpecial, EditButton, CustomizedButton} from '../../views/design/Button';
+import { CustomizedButton} from '../../views/design/Button';
 import { Spinner } from '../../views/design/Spinner';
 
 
@@ -39,21 +39,6 @@ const FormContainer = styled.div`
   align-items: center;
   min-height: 300px;
   justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  height: 375px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 0px;
-  background: linear-gradient(wheat, sandybrown);
-  transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 

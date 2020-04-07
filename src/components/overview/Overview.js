@@ -2,11 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import Player from '../../views/Player';
-import { Spinner } from '../../views/design/Spinner';
-import {Button, EditButton, CustomizedButton} from '../../views/design/Button';
+import {EditButton, CustomizedButton} from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
-import Edit from "../edit/Edit";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -81,7 +78,7 @@ class Overview extends React.Component {
                 token: token1,
             });
 
-            const response = await api.put('/logout', requestBody);
+            await api.put('/logout', requestBody);
 
             localStorage.removeItem('token');
             this.props.history.push('/login');

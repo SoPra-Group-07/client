@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
-import { Button, CustomizedButton } from '../../views/design/Button';
-import {Link} from "react-router-dom";
-import ToggleSwitch from "../../views/design/ToggleSwitch";
+import { CustomizedButton } from '../../views/design/Button';
 import ToggleApp from "../../views/design/ToggleApp";
 
 const FormContainer = styled.div`

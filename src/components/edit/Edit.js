@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
-import { ButtonSpecial, EditButton, CustomizedButton } from "../../views/design/Button";
+import { CustomizedButton } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 import User from "../shared/models/User";
 import { api, handleError } from "../../helpers/api";

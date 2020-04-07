@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import gamerules from "./gamerules.png";
 import {withRouter} from "react-router-dom";
-import {Button, EditButton, CustomizedButton} from '../../views/design/Button';
+import {CustomizedButton} from '../../views/design/Button';
 
 /**
  * Using styled-components you can visual HTML primitives and use props with it!
