@@ -11,6 +11,10 @@ import Overview from "../../overview/Overview";
 import GameRules from "../../gameRules/GameRules";
 import Profiles from "../../profiles/Profiles";
 import Leaderboard from "../../leaderboard/Leaderboard";
+import CreateGame from "../../createGame/CreateGame";
+import DrawCard from "../../guessingPlayer/DrawCard";
+import SubmitNumber from "../../guessingPlayer/SubmitNumber";
+import EnterGuess from "../../guessingPlayer/EnterGuess";
 
 /**
  * Main router of your application.
@@ -98,6 +102,49 @@ class AppRouter extends React.Component {
                       <Leaderboard/>
                   )}
               />
+
+              <Route
+                  path="/creategame"
+                  exact
+                  render={() => (
+                    <GameGuard> 
+                      <CreateGame/>
+                    </GameGuard> 
+                  )}
+              />
+
+                <Route
+                  path="/drawcard"
+                  exact
+                  render={() => (
+                    <GameGuard>
+                      <DrawCard/>
+                      </GameGuard>
+                     
+                  )}
+              />
+
+                <Route
+                  path="/submitnumber"
+                  exact
+                  render={() => (
+                    <GameGuard>
+                      <SubmitNumber/>
+                      </GameGuard>
+                     
+                  )}
+              />
+              <Route
+                  path="/enterguess"
+                  exact
+                  render={() => (
+                    <GameGuard>
+                      <EnterGuess/>
+                      </GameGuard>
+                     
+                  )}
+              />
+
 
             <Route path="/register" exact render={() => <Register />} />
 
