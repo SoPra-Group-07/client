@@ -64,6 +64,14 @@ class Overview extends React.Component {
         this.props.history.push(`/leaderboard`);
     }
 
+    goToLobby() {
+        this.props.history.push(`/lobby`);
+    }
+
+    goToCreateGame() {
+        this.props.history.push(`/creategame`);
+    }
+
     async logout() {
         try {
             let token1 = localStorage.getItem("token");
@@ -117,13 +125,17 @@ class Overview extends React.Component {
                 <Form>
                     <div>
                           <ButtonContainer>
-                        <CustomizedButton width="50%" color1={"palegreen"} color2={"limegreen"}>
+                        <CustomizedButton width="50%" color1={"palegreen"} color2={"limegreen"}onClick={() => {
+                            this.goToCreateGame();
+                        }}>
                             Create new game
                         </CustomizedButton>
                            </ButtonContainer>
 
                            <ButtonContainer>
-                        <CustomizedButton width="50%" color1={"palegreen"} color2={"limegreen"}>
+                        <CustomizedButton width="50%" color1={"palegreen"} color2={"limegreen"}onClick={() => {
+                            this.goToLobby();
+                        }}>
                             Join existing game
                         </CustomizedButton>
                             </ButtonContainer>

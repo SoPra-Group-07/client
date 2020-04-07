@@ -11,10 +11,15 @@ import Overview from "../../overview/Overview";
 import GameRules from "../../gameRules/GameRules";
 import Profiles from "../../profiles/Profiles";
 import Leaderboard from "../../leaderboard/Leaderboard";
+<<<<<<< HEAD
 import CreateGame from "../../createGame/CreateGame";
 import DrawCard from "../../guessingPlayer/DrawCard";
 import SubmitNumber from "../../guessingPlayer/SubmitNumber";
 import EnterGuess from "../../guessingPlayer/EnterGuess";
+=======
+import Lobby from "../../lobby/Lobby";
+import CreateGame from "../../createGame/CreateGame";
+>>>>>>> testbranch
 
 /**
  * Main router of your application.
@@ -91,7 +96,9 @@ class AppRouter extends React.Component {
                   path="/profiles"
                   exact
                   render={() => (
+                    <GameGuard> 
                       <Profiles/>
+                    </GameGuard> 
                   )}
               />
 
@@ -99,7 +106,29 @@ class AppRouter extends React.Component {
                   path="/leaderboard"
                   exact
                   render={() => (
+                    <GameGuard> 
                       <Leaderboard/>
+                    </GameGuard> 
+                  )}
+              />
+
+              <Route
+                  path="/lobby"
+                  exact
+                  render={() => (
+                    <GameGuard> 
+                      <Lobby/>
+                    </GameGuard> 
+                  )}
+              />
+
+              <Route
+                  path="/creategame"
+                  exact
+                  render={() => (
+                    <GameGuard> 
+                      <CreateGame/>
+                    </GameGuard> 
                   )}
               />
 
@@ -148,7 +177,7 @@ class AppRouter extends React.Component {
 
             <Route path="/register" exact render={() => <Register />} />
 
-            <Route path="/" exact render={() => <Redirect to={"/game"} />} />
+            <Route path="/" exact render={() => <Redirect to={"/overview"} />} />
           </div>
         </Switch>
       </BrowserRouter>

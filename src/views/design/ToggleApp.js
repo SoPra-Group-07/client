@@ -14,4 +14,8 @@ function ToggleApp() {
   );
 }
 
+<<<<<<< HEAD
 export default ToggleApp;
+=======
+export default ToggleApp;
+>>>>>>> testbranch

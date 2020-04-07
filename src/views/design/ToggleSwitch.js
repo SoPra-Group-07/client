@@ -23,5 +23,9 @@ const ToggleSwitch = ({ isOn, handleToggle }) => {
     );
   };
   
+<<<<<<< HEAD
   export default ToggleSwitch;
 
+=======
+  export default ToggleSwitch;
+>>>>>>> testbranch
