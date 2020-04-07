@@ -133,18 +133,10 @@ class CreateGame extends React.Component {
     console.log(this.state.gamename);
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> testbranch
   componentDidMount() {}
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> testbranch
   render() {
     return (
       <BaseContainer>

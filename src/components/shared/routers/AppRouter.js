@@ -11,15 +11,12 @@ import Overview from "../../overview/Overview";
 import GameRules from "../../gameRules/GameRules";
 import Profiles from "../../profiles/Profiles";
 import Leaderboard from "../../leaderboard/Leaderboard";
-<<<<<<< HEAD
 import CreateGame from "../../createGame/CreateGame";
 import DrawCard from "../../guessingPlayer/DrawCard";
 import SubmitNumber from "../../guessingPlayer/SubmitNumber";
 import EnterGuess from "../../guessingPlayer/EnterGuess";
-=======
 import Lobby from "../../lobby/Lobby";
 import CreateGame from "../../createGame/CreateGame";
->>>>>>> testbranch
 
 /**
  * Main router of your application.
