@@ -131,7 +131,7 @@ class Profile extends React.Component {
 
                             <CustomizedButton
                                 color1 ={"lightskyblue"} color2 = {"royalblue"} width = {"30%"}
-                                disabled={localStorage.getItem("token") !== this.state.user.token}   /* You can only edit if the local token equals the one you fetched from the server */
+                                disabled={localStorage.getItem("token") !== this.state.user.token}
                                 onClick={() => {
                                     this.editUser(this.state.user.id);    // Routes me to the editing page
                                 }}

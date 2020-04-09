@@ -88,20 +88,23 @@ class GameLobby extends React.Component {
                             <div>
                                 <Users>
                                     {this.state.lobby.players.map(player => {
+                                        let admin = this.state.lobby.adminplayer;
                                         return (
                                             <PlayerContainer>
-                                                <GameLobbyEntity  player={player} />
+                                                <GameLobbyEntity  player={player} admin = {admin}/>
                                             </PlayerContainer>
                                         );
                                     })}
                                 </Users>
                                 <CustomizedButton
-                                    color1={"red"} color2={"darkred"} width = {"60%"}
+                                    disabled={(localStorage.getItem("token") !== this.state.lobby.adminplayer.user.token)
+                                    || (this.state.lobby.players.length < 3 || this.state.lobby.players.length > 7)}
+                                    color1={"palegreen"} color2={"limegreen"} width = {"60%"}
                                     onClick={() => {
                                         this.back();
                                     }}
                                 >
-                                    Back
+                                    Start Game
                                 </CustomizedButton>
                             </div>
                         )}

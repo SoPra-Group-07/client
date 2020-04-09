@@ -13,9 +13,16 @@ const Container = styled.div`
   background: linear-gradient(white, antiquewhite);
 `;
 
+
 const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
+`;
+
+const UserName2 = styled.div`
+  font-weight: lighter;
+  margin-left: 5px;
+  color: green;
 `;
 
 
@@ -25,12 +32,21 @@ const Id = styled.div`
   font-weight: bold;
 `;
 
-const GameLobbyEntity = ({ player }) => {
+const GameLobbyEntity = ({ player, admin }) => {
+    if(admin.playerName==player.playerName) {
     return (
+        <Container>
+            <UserName2> {player.playerName} ♕</UserName2>
+        </Container>
+
+    );}
+    else{
+        return(
         <Container>
             <UserName> {player.playerName}</UserName>
         </Container>
-    );
+    );}
+
 };
 
 export default GameLobbyEntity;
