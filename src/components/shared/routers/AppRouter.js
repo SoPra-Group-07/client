@@ -134,7 +134,7 @@ class AppRouter extends React.Component {
                   render={() => (
                     <GameGuard>
                       <DrawCard/>
-                      </GameGuard>
+                    </GameGuard>
                      
                   )}
               />
