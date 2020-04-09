@@ -16,6 +16,7 @@ import DrawCard from "../../guessingPlayer/DrawCard";
 import SubmitNumber from "../../guessingPlayer/SubmitNumber";
 import EnterGuess from "../../guessingPlayer/EnterGuess";
 import Lobby from "../../lobby/Lobby";
+import GameLobby from "../../gameLobby/GameLobby";
 
 /**
  * Main router of your application.
@@ -115,6 +116,16 @@ class AppRouter extends React.Component {
                     <GameGuard> 
                       <Lobby/>
                     </GameGuard> 
+                  )}
+              />
+
+              <Route
+                  path="/lobby/:id"
+                  exact
+                  render={() => (
+                      <GameGuard>
+                          <GameLobby/>
+                      </GameGuard>
                   )}
               />
 

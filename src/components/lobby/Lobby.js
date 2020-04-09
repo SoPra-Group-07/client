@@ -41,13 +41,13 @@ class Lobby extends React.Component {
     constructor() {
         super();
         this.state = {
-            users: null
+            games: null
         };
     }
 
     showGame(id) {
         clearInterval(this.interval);
-        this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
+        this.props.history.push(`/lobby/${id}`);       //The corresponding user profile is accessed thanks to the id
     }
 
     back() {
@@ -60,10 +60,10 @@ class Lobby extends React.Component {
     }
 
     async updateLobby(){
-        const response = await api.get('/users');
+        const response = await api.get('/games');
         
         // Get the returned users and update the state.
-        this.setState({ users: response.data });
+        this.setState({ games: response.data });
 
         // This is just some data for you to see what is available.
         // Feel free to remove it.
@@ -95,17 +95,18 @@ class Lobby extends React.Component {
             <Container>
                 <h2>Lobby</h2>
                 <p>List of all open games:</p>
-                {!this.state.users ? (
+                {!this.state.games ? (
                     <Spinner />
                 ) : (
                     <div>
                         <Games>
-                            {this.state.users.map(user => {                                    //iterates through all users (Players) so that as a result we can see the list of players on the screen
+                            {this.state.games.map(game => {
+                                if(game.gameStatus == "CREATED"){
                                 return (
-                                    <GameContainer onClick={() => { this.showGame(user.id)}}>    {/* By clicking on one of the fields with the usernames the corresponding profile page is accessed */}
-                                        <LobbyEntity user={user}/>                                        {/* Player component receives user-infos */}
+                                    <GameContainer onClick={() => { this.showGame(game.gameId)}}>
+                                        <LobbyEntity game={game}/>
                                     </GameContainer>
-                                );
+                                );}
                             })}
                         </Games>
                         <CustomizedButton

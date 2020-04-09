@@ -7,6 +7,7 @@ const Container = styled.div`
   padding: 10px;
   border-radius: 0px;
   display: flex;
+  justify-content: center;
   align-items: center;
   border: 0px solid black;
   background: linear-gradient(white, antiquewhite);
@@ -27,10 +28,10 @@ const GameName = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const LobbyEntity = ({ user }) => {
+const LobbyEntity = ({ game }) => {
     return (
         <Container>
-             <GameName>{user.username}</GameName>
+             <GameName>{game.gameName}</GameName>
         </Container>
     );
 };
