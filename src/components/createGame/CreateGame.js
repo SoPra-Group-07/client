@@ -105,14 +105,14 @@ class CreateGame extends React.Component {
     console.log(requestBody)
       const response = await api.post('/games', requestBody);
       
-      await new Promise(resolve => setTimeout(resolve, 1002));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       this.setState({ game: response.data });
 
       alert("Successfully created a new game.")
       
 
-      this.props.history.push(`/games/${this.state.game.id}`);
+      this.props.history.push(`/lobby/${this.state.game.id}`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -132,8 +132,6 @@ class CreateGame extends React.Component {
   }
 
   componentDidMount() {}
-
-
 
   render() {
     return (
@@ -163,7 +161,9 @@ class CreateGame extends React.Component {
             </ButtonContainer>
 
             <ButtonContainer>
-                <CustomizedButton width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                <CustomizedButton 
+                disabled={!this.state.gamename}
+                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                         this.createNewGame();
                     }}>
                         Create game
