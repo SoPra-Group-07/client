@@ -48,14 +48,13 @@ class GameLobby extends React.Component {
 
     back() {
         this.props.history.push(`/lobby`);
-
     }
 
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
 
-
-
-    async componentDidMount() {
-        try {
+    async updateGameLobby(){
             const pathname = this.props.location.pathname;
             var numb = pathname.match(/\d/g); // e.g. /users/1  -->  1
            // numb = numb;
@@ -63,12 +62,18 @@ class GameLobby extends React.Component {
 
             const response = await api.get(`/games/${numb}/lobby`);
 
-            // Get the returned users and update the state.
             this.setState({ lobby: response.data });
 
-            // See here to get more data.
             console.log(response);
+    }
 
+    async componentDidMount() {
+        try {
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.updateGameLobby();
+            this.interval = setInterval(async() => {
+                this.updateGameLobby();
+            },5000);
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
