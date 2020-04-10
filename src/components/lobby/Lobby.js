@@ -45,13 +45,8 @@ class Lobby extends React.Component {
         };
     }
 
-    showGame(id) {
-        clearInterval(this.interval);
-        this.props.history.push(`/lobby/${id}`);       //The corresponding user profile is accessed thanks to the id
-    }
 
     back() {
-        clearInterval(this.interval);
         this.props.history.push(`/overview`);
     }
 
@@ -59,8 +54,38 @@ class Lobby extends React.Component {
         clearInterval(this.interval);
     }
 
+    async joinGame(id){
+        try{
+            const requestBody = JSON.stringify({
+                gameId: id,
+                userId: localStorage.userId
+            });
+        
+            const response = await api.put('/games', requestBody);
+            
+            // Get the returned users and update the state.
+            //this.setState({ games: response.data });
+
+            // This is just some data for you to see what is available.
+            // Feel free to remove it.
+            console.log('request to:', response.request.responseURL);
+            console.log('status code:', response.status);
+            console.log('status text:', response.statusText);
+            console.log('requested data:', response.data);
+
+            // See here to get more data.
+            console.log(response);
+
+            this.props.history.push(`/lobby/${id}`); 
+        }
+        catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+          }
+    }
+
     async updateLobby(){
-        const response = await api.get('/games');
+       
+        const response = await api.get('/games/?gameStatus=CREATED');
         
         // Get the returned users and update the state.
         this.setState({ games: response.data });
@@ -101,9 +126,9 @@ class Lobby extends React.Component {
                     <div>
                         <Games>
                             {this.state.games.map(game => {
-                                if(game.gameStatus == "CREATED"){
+                                if(game.numberOfPlayers < 7){
                                 return (
-                                    <GameContainer onClick={() => { this.showGame(game.gameId)}}>
+                                    <GameContainer onClick={() => { this.joinGame(game.gameId)}}>
                                         <LobbyEntity game={game}/>
                                     </GameContainer>
                                 );}

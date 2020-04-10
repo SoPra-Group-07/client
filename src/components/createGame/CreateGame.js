@@ -82,24 +82,27 @@ class CreateGame extends React.Component {
   constructor() {
     super();
     this.state = {
-        game: null,
-        bot: false
+        gameName: null,
+        hasBot: false,
+        adminPlayerId: null
     };
   }
+  
 
   back() {
     this.props.history.push(`/overview`);
   }
 
   setBot() {
-    this.state.bot = !this.state.bot;
+    this.setState({hasBot: !this.state.hasBot});
   }
  
   async createNewGame() {
     try {
       const requestBody = JSON.stringify({
-          gamename: this.state.gamename,
-          bot: this.state.bot
+          gameName: this.state.gameName,
+          hasBot: this.state.hasBot,
+          adminPlayerId: this.state.adminPlayerId
     });
 
     console.log(requestBody)
@@ -107,12 +110,13 @@ class CreateGame extends React.Component {
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      this.setState({ game: response.data });
+     // this.setState({ game: response.data });
 
       alert("Successfully created a new game.")
+      console.log(response);
       
 
-      this.props.history.push(`/lobby/${this.state.game.id}`);
+      this.props.history.push(`/lobby/${response.data.gameId}`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -127,8 +131,8 @@ class CreateGame extends React.Component {
     // Example: if the key is username, this statement is the equivalent to the following one:
     // this.setState({'username': value});
     this.setState({ [key]: value });
-    console.log(this.state.bot);
-    console.log(this.state.gamename);
+    console.log(this.state.hasBot);
+    console.log(this.state.gameName);
   }
 
   componentDidMount() {}
@@ -146,7 +150,7 @@ class CreateGame extends React.Component {
             <InputField
               placeholder="Enter here..."
               onChange={e => {
-                this.handleInputChange('gamename', e.target.value);
+                this.handleInputChange('gameName', e.target.value);
               }}
             />
           
@@ -162,7 +166,7 @@ class CreateGame extends React.Component {
 
             <ButtonContainer>
                 <CustomizedButton 
-                disabled={!this.state.gamename}
+                disabled={!this.state.gameName}
                 width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                         this.createNewGame();
                     }}>

@@ -81,6 +81,10 @@ class Overview extends React.Component {
             await api.put('/logout', requestBody);
 
             localStorage.removeItem('token');
+            localStorage.removeItem('UserId');
+
+            sessionStorage.removeItem("token");
+
             this.props.history.push('/login');
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);

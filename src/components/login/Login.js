@@ -103,13 +103,16 @@ class Login extends React.Component {
         password: this.state.password
       });
 
-    const response =  await api.put('/login', requestBody);
+      const response =  await api.put('/login', requestBody);
 
 
-    const user = new User(response.data);          //User is created with data received from PUT request
+      const user = new User(response.data);          //User is created with data received from PUT request
 
-    localStorage.setItem("token",user.token);      //Saves token in local storage. Now the token in the local storage and
-                                                   //the one in the backend are the same. We need that for later (to edit only the own profile)
+      localStorage.setItem("token", user.token);  
+      localStorage.setItem("UserId", user.id); 
+
+      sessionStorage.setItem("token", user.token);  //same as localStorage, but gets erased after closing browser
+
       this.props.history.push(`/overview`);
 
     } catch (error) {
