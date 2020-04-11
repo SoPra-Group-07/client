@@ -32,8 +32,8 @@ const Id = styled.div`
   font-weight: bold;
 `;
 
-const GameLobbyEntity = ({ player, admin }) => {
-    if(admin.playerName==player.playerName) {
+const GameLobbyEntity = ({ player /*, admin */}) => {
+  if(localStorage.adminId==player.playerId) {
     return (
         <Container>
             <UserName2> {player.playerName} ♕</UserName2>
@@ -46,7 +46,6 @@ const GameLobbyEntity = ({ player, admin }) => {
             <UserName> {player.playerName}</UserName>
         </Container>
     );}
-
 };
 
 export default GameLobbyEntity;

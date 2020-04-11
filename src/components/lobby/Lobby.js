@@ -58,8 +58,10 @@ class Lobby extends React.Component {
         try{
             const requestBody = JSON.stringify({
                 gameId: id,
-                userId: localStorage.userId
+                userId: localStorage.UserId
             });
+
+            console.log(requestBody);
         
             const response = await api.put('/games', requestBody);
             
@@ -75,6 +77,8 @@ class Lobby extends React.Component {
 
             // See here to get more data.
             console.log(response);
+
+            localStorage.setItem("adminId", response.data.adminPlayerId); 
 
             this.props.history.push(`/lobby/${id}`); 
         }

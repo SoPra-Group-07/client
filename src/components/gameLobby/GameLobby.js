@@ -46,8 +46,20 @@ class GameLobby extends React.Component {
         };
     }
 
-    back() {
-        this.props.history.push(`/lobby`);
+    async startGame(id) {
+        try{
+            const requestBody = JSON.stringify({
+                gameId: id
+            });
+
+            const response = await api.put(`/games/lobby`, requestBody)
+            console.log(response.data);
+
+            this.props.history.push(`/games/${id}`); 
+        }
+        catch (error) {
+            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        }
     }
 
     componentWillUnmount(){
@@ -60,9 +72,9 @@ class GameLobby extends React.Component {
            // numb = numb;
             console.log(numb);
 
-            const response = await api.get(`/games/${numb}/players`);
+            const response = await api.get(`/games/${numb}/lobby`);
 
-            console.log(response);
+            console.log(response.data);
 
             this.setState({ lobby: response.data });           
     }
@@ -93,20 +105,20 @@ class GameLobby extends React.Component {
                             <div>
                                 <Users>
                                     {this.state.lobby.players.map(player => {
-                                        let admin = this.state.lobby.adminplayer;
+                                        //let admin = this.state.lobby.adminplayer;
                                         return (
                                             <PlayerContainer>
-                                                <GameLobbyEntity  player={player} admin = {admin}/>
+                                                <GameLobbyEntity  player={player} /*admin = {admin}*//>
                                             </PlayerContainer>
                                         );
                                     })}
                                 </Users>
                                 <CustomizedButton
-                                    disabled={(localStorage.getItem("token") !== this.state.lobby.adminplayer.user.token)
-                                    || (this.state.lobby.players.length < 3 || this.state.lobby.players.length > 7)}
+                                    disabled={(localStorage.getItem("UserId") != this.state.lobby.players[0].userId)
+                                    || (this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7)}
                                     color1={"palegreen"} color2={"limegreen"} width = {"60%"}
                                     onClick={() => {
-                                        this.back();
+                                        this.startGame(this.state.lobby.gameId);
                                     }}
                                 >
                                     Start Game
