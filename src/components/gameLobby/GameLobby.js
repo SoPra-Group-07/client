@@ -60,11 +60,11 @@ class GameLobby extends React.Component {
            // numb = numb;
             console.log(numb);
 
-            const response = await api.get(`/games/${numb}/lobby`);
-
-            this.setState({ lobby: response.data });
+            const response = await api.get(`/games/${numb}/players`);
 
             console.log(response);
+
+            this.setState({ lobby: response.data });           
     }
 
     async componentDidMount() {

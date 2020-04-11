@@ -83,9 +83,8 @@ class Lobby extends React.Component {
           }
     }
 
-    async updateLobby(){
-       
-        const response = await api.get('/games/?gameStatus=CREATED');
+    async updateLobby(){ 
+        const response = await api.get('/games/CREATED');
         
         // Get the returned users and update the state.
         this.setState({ games: response.data });
