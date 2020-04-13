@@ -78,8 +78,6 @@ class Lobby extends React.Component {
             // See here to get more data.
             console.log(response);
 
-            localStorage.setItem("adminId", response.data.adminPlayerId); 
-
             this.props.history.push(`/lobby/${id}`); 
         }
         catch (error) {

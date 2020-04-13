@@ -68,11 +68,15 @@ class GameLobby extends React.Component {
 
     async updateGameLobby(){
             const pathname = this.props.location.pathname;
-            var numb = pathname.match(/\d/g); // e.g. /users/1  -->  1
+            //var numb = pathname.match(/\d/g); // e.g. /users/1  -->  1
            // numb = numb;
-            console.log(numb);
+            //console.log(numb);
+            
+            var temp = pathname.split('/');
+            var lastsegment = temp[temp.length-1];
+            console.log(lastsegment);
 
-            const response = await api.get(`/games/${numb}/lobby`);
+            const response = await api.get(`/games/${lastsegment}/lobby`);
 
             console.log(response.data);
 
@@ -105,16 +109,16 @@ class GameLobby extends React.Component {
                             <div>
                                 <Users>
                                     {this.state.lobby.players.map(player => {
-                                        //let admin = this.state.lobby.adminplayer;
+                                        let admin = this.state.lobby.adminPlayerId;
                                         return (
                                             <PlayerContainer>
-                                                <GameLobbyEntity  player={player} /*admin = {admin}*//>
+                                                <GameLobbyEntity  player={player} admin = {admin}/>
                                             </PlayerContainer>
                                         );
                                     })}
                                 </Users>
                                 <CustomizedButton
-                                    disabled={(localStorage.getItem("UserId") != this.state.lobby.players[0].userId)
+                                    disabled={(localStorage.getItem("UserId") != this.state.lobby.adminPlayerId)
                                     || (this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7)}
                                     color1={"palegreen"} color2={"limegreen"} width = {"60%"}
                                     onClick={() => {

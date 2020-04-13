@@ -82,7 +82,6 @@ class Overview extends React.Component {
 
             localStorage.removeItem('token');
             localStorage.removeItem('UserId');
-            localStorage.removeItem('adminId');
 
             sessionStorage.removeItem("token");
 
