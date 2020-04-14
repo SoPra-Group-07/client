@@ -114,8 +114,8 @@ class CreateGame extends React.Component {
 
       alert("Successfully created a new game.")
       console.log(response);
-
-      localStorage.setItem("adminId", response.data.adminPlayerId);       
+      
+      localStorage.setItem("PlayerId", response.data.players[0].playerId); 
 
       this.props.history.push(`/lobby/${response.data.gameId}`);
     } catch (error) {

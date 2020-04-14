@@ -4,7 +4,6 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
-import ToggleApp from "../../views/design/ToggleApp";
 
 const FormContainer = styled.div`
   margin-top: 6em;
@@ -72,7 +71,7 @@ const Container = styled(BaseContainer)`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class DrawCard extends React.Component {
+class GamePage extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
@@ -82,9 +81,7 @@ class DrawCard extends React.Component {
   constructor() {
     super();
     this.state = {
-        gameName: null,
-        hasBot: false,
-        adminPlayerId: null
+        gameRound: null
     };
   }
   
@@ -99,19 +96,13 @@ class DrawCard extends React.Component {
  
   async updateGameRound() {
     try {
-      const requestBody = JSON.stringify({
-          gameName: this.state.gameName,
-          hasBot: this.state.hasBot,
-          adminPlayerId: localStorage.UserId
-    });
-
       const response = await api.get('/gameRounds/1');
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-     // this.setState({ game: response.data });
+     this.setState({ gameRound: response.data });
 
-      console.log(response);     
+      console.log(localStorage.PlayerId == this.state.gameRound.guessingPlayerId);     
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -143,32 +134,67 @@ class DrawCard extends React.Component {
 }
 
   render() {
-    return (
-      <BaseContainer>
-        <FormContainer>
-        <Container>
-        <h2>Guessing Player</h2>
-        </Container>
-            <Form>
-            <Label>Please draw a card:</Label>
-                <ButtonContainer>
-                    <CustomizedButton 
-                    width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                            this.drawCard();
-                        }}>
-                            Draw card
-                    </CustomizedButton>
-                </ButtonContainer>
-          </Form>
-        </FormContainer>
-      </BaseContainer>
-    );
-  }
-
+        {if(this.state.gameRound){
+            if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
+            return (
+                <BaseContainer>
+                  <FormContainer>
+                  <Container>
+                  <h2>Guessing Player</h2>
+                  </Container>
+                      <Form>
+                      <Label>Please draw a card:</Label>
+                          <ButtonContainer>
+                              <CustomizedButton 
+                              width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                      this.drawCard();
+                                  }}>
+                                      Draw card
+                              </CustomizedButton>
+                          </ButtonContainer>
+                        </Form>
+                    </FormContainer>
+                </BaseContainer>
+              );
+            }
+        else {
+            return(
+                <BaseContainer>
+                <FormContainer>
+                <Container>
+                <h2>Clueing Player</h2>
+                </Container>
+                    <Form>
+                    <Label>Please wait for Guessing Player</Label>
+                        
+                      </Form>
+                  </FormContainer>
+              </BaseContainer>
+            );
+            }
+   
+        }
+        else {
+            return(
+            <BaseContainer>
+                <FormContainer>
+                <Container>
+                <h2>Please wait a moment...</h2>
+                </Container>
+                    <Form>
+                    <Label>Please wait for game to be created...</Label>
+                        
+                      </Form>
+                  </FormContainer>
+            </BaseContainer>
+            );}  
+        }  
+    }
+    
 }
 
 /**
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(DrawCard);
+export default withRouter(GamePage);

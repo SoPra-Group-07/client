@@ -80,7 +80,11 @@ class GameLobby extends React.Component {
 
             console.log(response.data);
 
-            this.setState({ lobby: response.data });           
+            this.setState({ lobby: response.data }); 
+            if(this.state.lobby.gameStatus == "RUNNING") {
+                console.log("START!!");
+                this.props.history.push(`/games/${this.state.lobby.gameId}`); 
+            }         
     }
 
     async componentDidMount() {
