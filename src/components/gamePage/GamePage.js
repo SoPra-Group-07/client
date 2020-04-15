@@ -96,13 +96,24 @@ class GamePage extends React.Component {
  
   async updateGameRound() {
     try {
-      const response = await api.get('/gameRounds/1');
+      /*const pathname = this.props.location.pathname;
+            
+      var temp = pathname.split('/');
+      var lastsegment = temp[temp.length-1];
+      */
+
+      const response = await api.get(`/gameRounds/1`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
      this.setState({ gameRound: response.data });
-
-      console.log(localStorage.PlayerId == this.state.gameRound.guessingPlayerId);     
+      
+     if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
+        this.props.history.push(`/games/${this.state.gameRound.gameId}/submitnumber/${this.state.gameRound.gameRoundId}`); 
+     }
+     else{
+        this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.roundId}`); 
+     };
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -117,17 +128,12 @@ class GamePage extends React.Component {
     // Example: if the key is username, this statement is the equivalent to the following one:
     // this.setState({'username': value});
     this.setState({ [key]: value });
-    console.log(this.state.hasBot);
-    console.log(this.state.gameName);
   }
 
   async componentDidMount() {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
-        this.interval = setInterval(async() => {
-            this.updateGameRound();
-        },5000);
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
@@ -143,7 +149,7 @@ class GamePage extends React.Component {
                   <h2>Guessing Player</h2>
                   </Container>
                       <Form>
-                      <Label>Please draw a card:</Label>
+                      <Label>Please enter a number between 1 and 5:</Label>
                           <ButtonContainer>
                               <CustomizedButton 
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {

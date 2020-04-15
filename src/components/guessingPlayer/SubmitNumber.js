@@ -23,6 +23,7 @@ const Form = styled.div`
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
+  align-items: center;
   padding-right: 37px;
   border-radius: 0px;
   background: linear-gradient(wheat, sandybrown);
@@ -33,7 +34,8 @@ const InputField = styled.input`
   &::placeholder {
     color: black;
   }
-  height: 35px;
+  height: 55px;
+  width: 20%;
   padding-left: 15px;
   margin-left: 35px;
   margin-right: 35px;
@@ -54,6 +56,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  width: 90%;
 `;
 
 const Container = styled(BaseContainer)`
@@ -81,31 +84,43 @@ class SubmitNumber extends React.Component {
   constructor() {
     super();
     this.state = {
-        number: null,
-        
+        wordNumber: null,
+        gameRoundId: null
     };
   }
 
-  
-  async submitNumber() {
-    /*try {
-      const requestBody = JSON.stringify({
-          number: this.state.number
-          
+  async submitNumber(){
+    const pathname = this.props.location.pathname;
+            
+    var temp = pathname.split('/');
+    var lastsegment = temp[temp.length-1];
+    //console.log(lastsegment);
+
+    const requestBody = JSON.stringify({
+      wordNumber: this.state.wordNumber,
+      gameRoundId: lastsegment
     });
+    console.log(requestBody);
 
-    console.log(requestBody)
-      const response = await api.post('/games', requestBody);
+    const response =  await api.put('/gameRounds', requestBody);
+
+    console.log(response.data);
+
+    this.props.history.push(`/games/${response.data.gameId}/enterguess/${response.data.gameRoundId}`);
+  }
+ 
+  async updateGameRound() {
+    try {
+      const response = await api.get('/gameRounds/1');
       
-      await new Promise(resolve => setTimeout(resolve, 1002));
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-      this.setState({ game: response.data });
+      this.setState({ gameRoundId: response.data.gameRoundId });
 
-      alert("Successfully created a new game.") */
-      this.props.history.push(`/enterguess`);
-   /* }  catch (error) {
+      console.log(response.data); 
+    } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
-    } */
+    }
   }
 
   /**
@@ -114,46 +129,47 @@ class SubmitNumber extends React.Component {
    * @param value (the value that gets assigned to the identified state key)
    */
   handleInputChange(key, value) {
-    // Example: if the key is username, this statement is the equivalent to the following one:
-    // this.setState({'username': value});
     this.setState({ [key]: value });
-    
   }
 
-  componentDidMount() {}
-
-
+  async componentDidMount() {
+    try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        this.updateGameRound();
+    } catch (error) {
+        alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+    }
+}
 
   render() {
-    return (
-      <BaseContainer>
-      
-        <FormContainer>
-        <Container>
-        <h2>Create new game </h2>
-      </Container>
-            <Form>
-            <Label>Please select a number between 1 and 5: </Label>
-            <InputField
-              placeholder="Enter here..."
-              onChange={e => {
-                this.handleInputChange('number', e.target.value);
-              }}
-            />
-
-            <ButtonContainer>
-                <CustomizedButton width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                        this.submitNumber();
-                    }}>
-                        Submit number
-                </CustomizedButton>
-            </ButtonContainer>
-
-          </Form>
-        </FormContainer>
-      </BaseContainer>
-    );
-  }
+            return (
+                <BaseContainer>
+                  <FormContainer>
+                  <Container>
+                  <h2>Guessing Player</h2>
+                  </Container>
+                      <Form>
+                      <Label>Please enter a number between 1 and 5:</Label>
+                        <InputField
+                          placeholder="#..."
+                          onChange={e => {
+                            this.handleInputChange('wordNumber', e.target.value);
+                          }}
+                        />
+                          <ButtonContainer>
+                              <CustomizedButton 
+                              disabled={this.state.wordNumber < 1 || this.state.wordNumber > 5 || !this.state.wordNumber}
+                              width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                      this.submitNumber();
+                                  }}>
+                                      Submit number
+                              </CustomizedButton>
+                          </ButtonContainer>
+                        </Form>
+                    </FormContainer>
+                </BaseContainer>
+              );
+            }    
 }
 
 /**

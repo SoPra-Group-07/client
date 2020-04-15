@@ -12,12 +12,12 @@ import GameRules from "../../gameRules/GameRules";
 import Profiles from "../../profiles/Profiles";
 import Leaderboard from "../../leaderboard/Leaderboard";
 import CreateGame from "../../createGame/CreateGame";
-import DrawCard from "../../guessingPlayer/DrawCard";
 import SubmitNumber from "../../guessingPlayer/SubmitNumber";
 import EnterGuess from "../../guessingPlayer/EnterGuess";
 import Lobby from "../../lobby/Lobby";
 import GameLobby from "../../gameLobby/GameLobby";
 import GamePage from "../../gamePage/GamePage";
+import SubmitClue from "../../clueingPlayer/SubmitClue";
 
 /**
  * Main router of your application.
@@ -141,18 +141,7 @@ class AppRouter extends React.Component {
               />
 
                 <Route
-                  path="/games/drawcard/1"
-                  exact
-                  render={() => (
-                    <GameGuard>
-                      <DrawCard/>
-                    </GameGuard>
-                     
-                  )}
-              />
-
-                <Route
-                  path="/submitnumber"
+                  path="/games/:id/submitnumber/:id"
                   exact
                   render={() => (
                     <GameGuard>
@@ -161,16 +150,29 @@ class AppRouter extends React.Component {
                      
                   )}
               />
+
               <Route
-                  path="/enterguess"
+                  path="/games/:id/enterguess/:id"
                   exact
                   render={() => (
                     <GameGuard>
                       <EnterGuess/>
-                      </GameGuard>
+                    </GameGuard>
                      
                   )}
               />
+
+              <Route
+                  path="/games/:id/submitclue/:id"
+                  exact
+                  render={() => (
+                    <GameGuard>
+                      <SubmitClue/>
+                    </GameGuard>
+                     
+                  )}
+              />
+
               <Route
                   path="/games/:id"
                   exact

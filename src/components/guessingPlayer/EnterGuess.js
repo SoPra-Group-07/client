@@ -1,29 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
-import { Spinner } from '../../views/design/Spinner';
-import {CustomizedButton } from '../../views/design/Button';
+import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
-import WordsEntity from "../../views/WordsEntity";
-
-const Container = styled(BaseContainer)`
-  color: black;
-  text-align: center;
-`;
-//unordered list
-const Users = styled.ul`                     
-  list-style: none;
-  padding-left: 0;
-  overflow: auto;
-  max-height: 330px;
-`;
-//list item
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+import { CustomizedButton } from '../../views/design/Button';
 
 const FormContainer = styled.div`
   margin-top: 6em;
@@ -34,10 +14,19 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
-const ButtonContainer = styled.div`
+const Form = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-top: 20px;
+  width: 40%;
+  height: 375px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
@@ -55,110 +44,185 @@ const InputField = styled.input`
   color: black;
 `;
 
+const Label = styled.label`
+  color: black;
+  margin-bottom: 10px;
+  text-align: center;
+`;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+const Container = styled(BaseContainer)`
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+/**
+ * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
+ * You should have a class (instead of a functional component) when:
+ * - You need an internal state that cannot be achieved via props from other parent components
+ * - You fetch data from the server (e.g., in componentDidMount())
+ * - You want to access the DOM via Refs
+ * https://reactjs.org/docs/react-component.html
+ * @Class
+ */
 class EnterGuess extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            words: ["Wheel", "Window", "Roads"],  //Backend
-            count: 0,
-            guessedWord:null
-        };
+  /**
+   * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
+   * The constructor for a React component is called before it is mounted (rendered).
+   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: password and username
+   * These fields are then handled in the onChange() methods in the resp. InputFields
+   */
+  constructor() {
+    super();
+    this.state = {
+        gameRound: null,
+        guess: null
+    };
+  }
+  
+
+  async noGuess() {
+    console.log("no guess");
+  }
+
+  async submitGuess(){
+      console.log("guess");
+  }
+ 
+  async updateGameRound() {
+    try {
+      const response = await api.get('/gameRounds/1');
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+     this.setState({ gameRound: response.data });
+
+      console.log(response.data);     
+    } catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
+  }
 
-    noGuess() {         //TODO: backend
-        
-    }
+  /**
+   *  Every time the user enters something in the input field, the state gets updated.
+   * @param key (the key of the state for identifying the field that needs to be updated)
+   * @param value (the value that gets assigned to the identified state key)
+   */
+  handleInputChange(key, value) {
+    this.setState({ [key]: value });
+  }
 
-    enterGuess() {
-        
-    }
-
-    handleInputChange(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
-        this.setState({ [key]: value });
-        
-      }
-
-    /*async componentDidMount() {
-        try {
-
-            const response = await api.get('/leaderboard');  //TODO: auf backend warten
-
-            // delays continuous execution of an async operation for 1 second.
-            // This is just a fake async call, so that the spinner can be displayed
-            // feel free to remove it :)
-            await new Promise(resolve => setTimeout(resolve, 1002));
-
-            // Get the returned users and update the state.
-            this.setState({ users: response.data });
-
-            // This is just some data for you to see what is available.
-            // Feel free to remove it.
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-            // See here to get more data.
-            console.log(response);
-        } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
-        }
-    } */
-
-    render() {
-        return (
-
-            <BaseContainer>
-                <FormContainer>
-                    <Container>
-                        <h2>Guessing player</h2>
-                        <p>Given words:</p>
-                        {!this.state.words ? (
-                            <Spinner />
-                        ) : (
-                            <div>
-                                <Users>
-                                    {this.state.words.map(words => {
-                                        this.state.count ++;
-                                        return (
-                                            <PlayerContainer>
-                                                <WordsEntity count={this.state.count} words={words}/>
-                                            </PlayerContainer>
-                                        );
-                                    })}
-                                </Users>
-                                <p>Your guess:</p>
-                                <InputField
-                             placeholder="Enter your guess"
-                            onChange={e => {
-                                this.handleInputChange('guessedWord', e.target.value);
-                                         }}
-                                     />
-                                <ButtonContainer>
-                                <CustomizedButton width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                                     this.enterGuess();
-                                              }}>
-                                     Enter guess
-                                  </CustomizedButton>
-                              </ButtonContainer>
-                                <CustomizedButton
-                                    color1={"red"} color2={"darkred"} width = {"60%"}
-                                    onClick={() => {
-                                        this.noGuess();
-                                    }}
-                                >
-                                    No guess
-                                </CustomizedButton>
-                            </div>
-                        )}
-                    </Container>
-                </FormContainer>
-            </BaseContainer>
-        );
+  async componentDidMount() {
+    try {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        this.updateGameRound();
+        this.interval = setInterval(async() => {
+            this.updateGameRound();
+        },5000);
+    } catch (error) {
+        alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
 }
 
+componentWillUnmount(){
+  clearInterval(this.interval);
+}
+
+allCluesSubmitted(){
+  var count=0;
+  this.state.gameRound.submissions.map(sub => {                                   
+    if(sub.word==null){
+      count++;
+      }
+})
+console.log(count);
+  if(count<=1){
+    return true;
+  }
+  return false;
+}
+
+  render() {
+        {if(this.state.gameRound){
+            if(this.allCluesSubmitted()){ //CHECK HERE, IF ALL CLUES HAVE COME IN ALREADY....
+            return (
+                <BaseContainer>
+                  <FormContainer>
+                  <Container>
+                  <h2>Guessing Player</h2>
+                  </Container>
+                      <Form>
+                      <Label>Please enter your guess:</Label>
+                        <InputField
+                          placeholder="Enter here..."
+                          onChange={e => {
+                            this.handleInputChange('guess', e.target.value);
+                          }}
+                        />
+                          <ButtonContainer>
+                              <CustomizedButton 
+                              disabled={!this.state.guess}
+                              width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                      this.submitGuess();
+                                  }}>
+                                      Submit guess
+                              </CustomizedButton>
+                          </ButtonContainer>
+                          <ButtonContainer>
+                              <CustomizedButton 
+                              width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
+                                      this.noGuess();
+                                  }}>
+                                      No guess
+                              </CustomizedButton>
+                          </ButtonContainer>
+                        </Form>
+                    </FormContainer>
+                </BaseContainer>
+              );
+            }
+        else {
+            return(
+              <BaseContainer>
+              <FormContainer>
+              <Container>
+              <h2>Please wait a moment...</h2>
+              </Container>
+                  <Form>
+                  <Label>Please wait for the other players to give their clues...</Label>
+                  </Form>
+                </FormContainer>
+              </BaseContainer>
+            );
+            }
+   
+        }
+        else {
+            return(
+            <BaseContainer>
+                <FormContainer>
+                <Container>
+                <h2>Please wait a moment...</h2>
+                </Container>
+                    <Form>
+                    <Label>Please wait for the other players to give their clues...</Label>
+                    </Form>
+                  </FormContainer>
+            </BaseContainer>
+            );}  
+        }  
+    }
+    
+}
+
+/**
+ * You can get access to the history object's properties via the withRouter.
+ * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
+ */
 export default withRouter(EnterGuess);
