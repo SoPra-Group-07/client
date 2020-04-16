@@ -4,6 +4,7 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
+import ClueEntity from "../../views/ClueEntity";
 
 const FormContainer = styled.div`
   margin-top: 6em;
@@ -48,9 +49,16 @@ const Label = styled.label`
   color: black;
   margin-bottom: 10px;
   text-align: center;
+  margin-top:10px;
 `;
 
 const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+`;
+
+const ButtonContainer2 = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
@@ -60,6 +68,20 @@ const Container = styled(BaseContainer)`
   color: black;
   text-align: center;
   text-transform: uppercase;
+`;
+
+const ClueContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ClueItems = styled.li`
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
 `;
 
 /**
@@ -82,7 +104,8 @@ class EnterGuess extends React.Component {
     super();
     this.state = {
         gameRound: null,
-        guess: null
+        guess: null,
+        seconds: 60
     };
   }
   
@@ -109,6 +132,16 @@ class EnterGuess extends React.Component {
     }
   }
 
+  updateTimer(){
+    if(this.state.seconds==1){
+      clearInterval(this.timerInterval);
+      this.noGuess();
+    };
+    this.setState(({ seconds }) => ({
+      seconds: seconds - 1
+    }))
+  }
+
   /**
    *  Every time the user enters something in the input field, the state gets updated.
    * @param key (the key of the state for identifying the field that needs to be updated)
@@ -125,6 +158,10 @@ class EnterGuess extends React.Component {
         this.interval = setInterval(async() => {
             this.updateGameRound();
         },5000);
+
+        this.timerInterval = setInterval(() => {
+            this.updateTimer();
+        }, 1000)
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
@@ -132,6 +169,7 @@ class EnterGuess extends React.Component {
 
 componentWillUnmount(){
   clearInterval(this.interval);
+  clearInterval(this.timerInterval);
 }
 
 allCluesSubmitted(){
@@ -156,8 +194,19 @@ console.log(count);
                   <FormContainer>
                   <Container>
                   <h2>Guessing Player</h2>
+                  <h1>Time Remaining: { this.state.seconds }</h1>
                   </Container>
                       <Form>
+                      <ClueItems>
+                      {this.state.gameRound.submissions.map(sub => {
+                                    if(sub.word != null){
+                                        return (
+                                            <ClueContainer>
+                                                <ClueEntity sub={sub}/>                                                                                         
+                                            </ClueContainer>                              
+                                        );
+                      }})}
+                      </ClueItems>                    
                       <Label>Please enter your guess:</Label>
                         <InputField
                           placeholder="Enter here..."
@@ -174,14 +223,14 @@ console.log(count);
                                       Submit guess
                               </CustomizedButton>
                           </ButtonContainer>
-                          <ButtonContainer>
+                          <ButtonContainer2>
                               <CustomizedButton 
                               width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
                                       this.noGuess();
                                   }}>
                                       No guess
                               </CustomizedButton>
-                          </ButtonContainer>
+                          </ButtonContainer2>
                         </Form>
                     </FormContainer>
                 </BaseContainer>

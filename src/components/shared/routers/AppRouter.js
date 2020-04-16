@@ -18,6 +18,7 @@ import Lobby from "../../lobby/Lobby";
 import GameLobby from "../../gameLobby/GameLobby";
 import GamePage from "../../gamePage/GamePage";
 import SubmitClue from "../../clueingPlayer/SubmitClue";
+import GameSummary from "../../gameSummary/GameSummary";
 
 /**
  * Main router of your application.
@@ -179,6 +180,17 @@ class AppRouter extends React.Component {
                   render={() => (
                     <GameGuard>
                       <GamePage/>
+                    </GameGuard>
+                     
+                  )}
+              />
+
+              <Route
+                  path="/games/:id/gamesummary/:id"
+                  exact
+                  render={() => (
+                    <GameGuard>
+                      <GameSummary/>
                     </GameGuard>
                      
                   )}

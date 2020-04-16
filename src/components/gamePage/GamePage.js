@@ -96,13 +96,9 @@ class GamePage extends React.Component {
  
   async updateGameRound() {
     try {
-      /*const pathname = this.props.location.pathname;
-            
-      var temp = pathname.split('/');
-      var lastsegment = temp[temp.length-1];
-      */
+     //localStorage.setItem("GameRoundId",localStorage.GameRoundId++)
 
-      const response = await api.get(`/gameRounds/1`);
+      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -112,7 +108,7 @@ class GamePage extends React.Component {
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitnumber/${this.state.gameRound.gameRoundId}`); 
      }
      else{
-        this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.roundId}`); 
+        this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.gameRoundId}`); 
      };
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);

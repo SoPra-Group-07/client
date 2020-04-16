@@ -50,14 +50,6 @@ const Label = styled.label`
   text-align: center;
 `;
 
-const Label2 = styled.label`
-  color: blue;
-  margin-bottom: 10px;
-  text-align: center;
-  font-size: 25px;
-  font-weight: bold;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -79,7 +71,7 @@ const Container = styled(BaseContainer)`
  * https://reactjs.org/docs/react-component.html
  * @Class
  */
-class SubmitClue extends React.Component {
+class GameSummary extends React.Component {
   /**
    * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
    * The constructor for a React component is called before it is mounted (rendered).
@@ -89,69 +81,28 @@ class SubmitClue extends React.Component {
   constructor() {
     super();
     this.state = {
-        gameRound: null,
-        clue: null,
-        seconds: 60,
-        count: 0
+        gameRound: null
     };
   }
-
-
-  async submitClue(){
-      console.log("clue");
-      const requestBody = JSON.stringify({
-        playerId: localStorage.PlayerId,
-        gameRoundId: this.state.gameRound.gameRoundId,
-        clue: this.state.clue
-      });
-      console.log(requestBody);
   
-      const response =  await api.put('/gameRounds/clues', requestBody);
-  
-      console.log(response.data);
 
-      this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
+  startNextRound(){
+      console.log("start");
   }
-
-  async submitNoClue(){
-    const requestBody = JSON.stringify({
-      playerId: localStorage.PlayerId,
-      gameRoundId: this.state.gameRound.gameRoundId,
-      clue: "noClue"
-    });
-    console.log(requestBody);
-
-    const response =  await api.put('/gameRounds/clues', requestBody);
-
-    console.log(response.data);
-    this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
-}
-
-
  
   async updateGameRound() {
     try {
-      const response = await api.get('/gameRounds/1');
+     //localStorage.setItem("GameRoundId",localStorage.GameRoundId++)
+
+      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
      this.setState({ gameRound: response.data });
-
-      console.log(response.data);     
+      
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
-  }
-
-  
-  updateTimer(){
-    if(this.state.seconds==1){
-      clearInterval(this.timerInterval);
-      this.submitNoClue();
-    };
-    this.setState(({ seconds }) => ({
-      seconds: seconds - 1
-    }))
   }
 
   /**
@@ -160,6 +111,8 @@ class SubmitClue extends React.Component {
    * @param value (the value that gets assigned to the identified state key)
    */
   handleInputChange(key, value) {
+    // Example: if the key is username, this statement is the equivalent to the following one:
+    // this.setState({'username': value});
     this.setState({ [key]: value });
   }
 
@@ -167,57 +120,32 @@ class SubmitClue extends React.Component {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
-        this.interval = setInterval(async() => {
-            this.updateGameRound();
-        },5000);
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
 }
 
-
-startTimer(){
-      if(this.state.count==0){
-      this.timerInterval = setInterval(() => {
-          this.updateTimer();
-      }, 1000);
-      this.state.count=1;
-    }
-}
-
-componentWillUnmount(){
-  clearInterval(this.interval);
-  clearInterval(this.timerInterval);
-}
-
   render() {
         {if(this.state.gameRound){
-            if(this.state.gameRound.mysteryWord != null){
-              this.startTimer();
+            if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
             return (
                 <BaseContainer>
                   <FormContainer>
                   <Container>
-                  <h2>Clueing Player</h2>
-                  <h3>Time Remaining: { this.state.seconds }</h3>
+                  <h2>Round summary</h2>
                   </Container>
                       <Form>
-                      <Label>Current word:</Label>
-                      <Label2>{this.state.gameRound.mysteryWord}</Label2>
-                      <Label>Please enter your clue:</Label>
-                        <InputField
-                          placeholder="Enter here..."
-                          onChange={e => {
-                            this.handleInputChange('clue', e.target.value);
-                          }}
-                        />
+                      <Label>You guessed the word:</Label>
+                        <Label>Correct / Wrong</Label>
+
+                        <Label>Points earned:</Label>
+                        <Label>100</Label>
                           <ButtonContainer>
                               <CustomizedButton 
-                              disabled={!this.state.clue}
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                                      this.submitClue();
+                                      this.startNextRound();
                                   }}>
-                                      Submit clue
+                                      Next round
                               </CustomizedButton>
                           </ButtonContainer>
                         </Form>
@@ -225,19 +153,27 @@ componentWillUnmount(){
                 </BaseContainer>
               );
             }
-            else {
-              return(
-              <BaseContainer>
+        else {
+            return(
+                <BaseContainer>
                   <FormContainer>
                   <Container>
-                  <h2>Please wait a moment...</h2>
+                  <h2>Round summary</h2>
                   </Container>
                       <Form>
-                      <Label>Please wait for the the guessing Player to choose the word...</Label>
-                      </Form>
+                      <Label>USER$$$ guessed the word:</Label>
+                        <Label>Correct / Wrong</Label>
+
+                        <Label>Points earned:</Label>
+                        <Label>100</Label>
+                         
+                        <Label>Waiting for guessing player to start new round...</Label>
+                        </Form>
                     </FormContainer>
-              </BaseContainer>
-              );}     
+                </BaseContainer>
+            );
+            }
+   
         }
         else {
             return(
@@ -247,8 +183,8 @@ componentWillUnmount(){
                 <h2>Please wait a moment...</h2>
                 </Container>
                     <Form>
-                    <Label>Please wait for the the guessing Player to choose the word...</Label>
-                    </Form>
+                    <Label>Please wait for guessing player to guess...</Label>
+                      </Form>
                   </FormContainer>
             </BaseContainer>
             );}  
@@ -261,4 +197,4 @@ componentWillUnmount(){
  * You can get access to the history object's properties via the withRouter.
  * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
  */
-export default withRouter(SubmitClue);
+export default withRouter(GameSummary);
