@@ -88,12 +88,11 @@ class GameSummary extends React.Component {
 
   startNextRound(){
       console.log("start");
+      localStorage.setItem("GameRoundId",localStorage.GameRoundId++)
   }
  
   async updateGameRound() {
     try {
-     //localStorage.setItem("GameRoundId",localStorage.GameRoundId++)
-
       const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));

@@ -190,6 +190,26 @@ componentWillUnmount(){
   clearInterval(this.timerInterval);
 }
 
+isAllAlphabet(){
+  var currentInput = this.state.clue;
+  var count=0;
+  if(currentInput!=null && currentInput!=""){
+    for (var i = 0; i < currentInput.length; i++) {
+      if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 120)){
+        console.log(count);
+      }else{
+        count++;
+      }
+    }
+    if(count>=1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  return true;
+}
+
   render() {
         {if(this.state.gameRound){
             if(this.state.gameRound.mysteryWord != null){
@@ -213,7 +233,7 @@ componentWillUnmount(){
                         />
                           <ButtonContainer>
                               <CustomizedButton 
-                              disabled={!this.state.clue}
+                              disabled={ this.isAllAlphabet()}
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                       this.submitClue();
                                   }}>
