@@ -131,7 +131,7 @@ class SubmitClue extends React.Component {
  
   async updateGameRound() {
     try {
-      const response = await api.get('/gameRounds/1');
+      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 

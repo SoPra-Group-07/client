@@ -55,7 +55,7 @@ class GameLobby extends React.Component {
             const response = await api.put(`/games/lobby`, requestBody)
             console.log(response.data);
 
-            localStorage.setItem("GameRoundId",1);
+            localStorage.setItem("GameRoundId",response.data.gameRoundId);
 
             this.props.history.push(`/games/${id}`); 
         }
@@ -84,8 +84,8 @@ class GameLobby extends React.Component {
 
             this.setState({ lobby: response.data }); 
             if(this.state.lobby.gameStatus == "RUNNING") {
-                console.log("START!!");
-                localStorage.setItem("GameRoundId",1);
+                const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
+                localStorage.setItem("GameRoundId",response.data.gameRoundId);
                 this.props.history.push(`/games/${this.state.lobby.gameId}`); 
             }         
     }
