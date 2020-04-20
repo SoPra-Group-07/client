@@ -86,9 +86,33 @@ class GameSummary extends React.Component {
   }
   
 
-  startNextRound(){
-      console.log("start");
-      localStorage.setItem("GameRoundId",localStorage.GameRoundId++)
+  async startNextRound(){
+    try{
+      const requestBody = JSON.stringify({
+        gameId: this.state.gameRound.gameId
+      });
+      const response = await api.post(`/games/${localStorage.GameRoundId}/gameRounds`, requestBody);
+      
+      localStorage.setItem("GameRoundId",response.data.gameRoundId);
+
+      this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
+    }
+      catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
+  }
+
+  async updateLocalStorage() {
+    try {
+     const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
+        if(response.data.gameRoundId != localStorage.GameRoundId) {
+          localStorage.setItem("GameRoundId", response.data.gameRoundId);
+          this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
+        }  
+          
+    } catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
   }
  
   async updateGameRound() {
@@ -97,11 +121,14 @@ class GameSummary extends React.Component {
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-     this.setState({ gameRound: response.data });
-      
+     this.setState({ gameRound: response.data });     
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
   }
 
   /**
@@ -119,6 +146,9 @@ class GameSummary extends React.Component {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
+        this.interval = setInterval(async() => {
+          this.updateLocalStorage();
+        },5000);
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
