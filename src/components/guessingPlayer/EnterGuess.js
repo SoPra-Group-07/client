@@ -115,7 +115,16 @@ class EnterGuess extends React.Component {
   }
 
   async submitGuess(){
-      console.log("guess");
+    const requestBody = JSON.stringify({
+      playerId: localStorage.PlayerId,
+      gameRoundId: this.state.gameRound.gameRoundId,
+      guess: this.state.guess
+    });
+    console.log(requestBody);
+
+    const response =  await api.put('/gameRounds/guesses', requestBody);
+
+    console.log(response.data);
   }
  
   async updateGameRound() {
@@ -180,7 +189,7 @@ allCluesSubmitted(){
       }
 })
 console.log(count);
-  if(count<=1){
+  if(count<=0){
     return true;
   }
   return false;
