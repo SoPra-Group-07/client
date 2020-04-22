@@ -111,7 +111,16 @@ class EnterGuess extends React.Component {
   
 
   async noGuess() {
-    console.log("no guess");
+    const requestBody = JSON.stringify({
+      playerId: localStorage.PlayerId,
+      gameRoundId: this.state.gameRound.gameRoundId,
+      guess: "noGuess"
+    });
+    console.log(requestBody);
+
+    const response =  await api.put('/gameRounds/guesses', requestBody);
+    console.log(response.data)
+
     this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
   }
 
@@ -173,7 +182,7 @@ class EnterGuess extends React.Component {
 
         this.timerInterval = setInterval(() => {
             this.updateTimer();
-        }, 100000)
+        }, 1000)
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
