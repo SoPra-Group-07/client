@@ -50,6 +50,18 @@ const Label = styled.label`
   text-align: center;
 `;
 
+const LabelTrue = styled.label`
+  color: green;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
+const LabelFalse = styled.label`
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -91,7 +103,7 @@ class GameSummary extends React.Component {
       const requestBody = JSON.stringify({
         gameId: this.state.gameRound.gameId
       });
-      const response = await api.post(`/games/${localStorage.GameRoundId}/gameRounds`, requestBody);
+      const response = await api.post(`/games/${this.state.gameRound.gameId}/gameRounds`, requestBody);
       
       localStorage.setItem("GameRoundId",response.data.gameRoundId);
 
@@ -120,6 +132,7 @@ class GameSummary extends React.Component {
       const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log(response.data)
 
      this.setState({ gameRound: response.data });     
     } catch (error) {
@@ -147,6 +160,7 @@ class GameSummary extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
         this.interval = setInterval(async() => {
+          this.updateGameRound();
           this.updateLocalStorage();
         },5000);
     } catch (error) {
@@ -157,32 +171,62 @@ class GameSummary extends React.Component {
   render() {
         {if(this.state.gameRound){
             if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
-            return (
-                <BaseContainer>
-                  <FormContainer>
-                  <Container>
-                  <h2>Round summary</h2>
-                  </Container>
-                      <Form>
-                      <Label>You guessed the word:</Label>
-                        <Label>Correct / Wrong</Label>
+              if(this.state.gameRound.guess.correctGuess==true){
+                return (
+                    <BaseContainer>
+                      <FormContainer>
+                      <Container>
+                      <h2>Round summary</h2>
+                      </Container>
+                          <Form>
+                          <Label>You guessed the word:</Label>
+                            <LabelTrue>Correct</LabelTrue>
 
-                        <Label>Points earned:</Label>
-                        <Label>100</Label>
-                          <ButtonContainer>
-                              <CustomizedButton 
-                              width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                                      this.startNextRound();
-                                  }}>
-                                      Next round
-                              </CustomizedButton>
-                          </ButtonContainer>
-                        </Form>
-                    </FormContainer>
-                </BaseContainer>
-              );
+                            <Label>Points earned:</Label>
+                            <Label>100</Label>
+                              <ButtonContainer>
+                                  <CustomizedButton 
+                                  width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                          this.startNextRound();
+                                      }}>
+                                          Next round
+                                  </CustomizedButton>
+                              </ButtonContainer>
+                            </Form>
+                        </FormContainer>
+                    </BaseContainer>
+                  );
+              }
+              else{
+                return (
+                  <BaseContainer>
+                    <FormContainer>
+                    <Container>
+                    <h2>Round summary</h2>
+                    </Container>
+                        <Form>
+                        <Label>You guessed the word:</Label>
+                          <LabelFalse>Wrong</LabelFalse>
+
+                          <Label>Points earned:</Label>
+                          <Label>100</Label>
+                            <ButtonContainer>
+                                <CustomizedButton 
+                                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                        this.startNextRound();
+                                    }}>
+                                        Next round
+                                </CustomizedButton>
+                            </ButtonContainer>
+                          </Form>
+                      </FormContainer>
+                  </BaseContainer>
+                );
+              }
             }
         else {
+          if(this.state.gameRound.guess.didSubmit==true){
+            if(this.state.gameRound.guess.correctGuess==true){
             return(
                 <BaseContainer>
                   <FormContainer>
@@ -191,7 +235,7 @@ class GameSummary extends React.Component {
                   </Container>
                       <Form>
                       <Label>USER$$$ guessed the word:</Label>
-                        <Label>Correct / Wrong</Label>
+                        <LabelTrue>Correct</LabelTrue>
 
                         <Label>Points earned:</Label>
                         <Label>100</Label>
@@ -202,6 +246,42 @@ class GameSummary extends React.Component {
                 </BaseContainer>
             );
             }
+            else{
+              return(
+                <BaseContainer>
+                  <FormContainer>
+                  <Container>
+                  <h2>Round summary</h2>
+                  </Container>
+                      <Form>
+                      <Label>USER$$$ guessed the word:</Label>
+                        <LabelFalse>Wrong</LabelFalse>
+
+                        <Label>Points earned:</Label>
+                        <Label>100</Label>
+                         
+                        <Label>Waiting for guessing player to start new round...</Label>
+                        </Form>
+                    </FormContainer>
+                </BaseContainer>
+            );
+            }
+          }
+          else{
+            return(
+              <BaseContainer>
+                  <FormContainer>
+                  <Container>
+                  <h2>Please wait a moment...</h2>
+                  </Container>
+                      <Form>
+                      <Label>Please wait for guessing player to guess...</Label>
+                        </Form>
+                    </FormContainer>
+              </BaseContainer>
+              );
+          }
+        }
    
         }
         else {
