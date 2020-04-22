@@ -142,7 +142,7 @@ class Profile extends React.Component {
 
                         <ButtonContainer>
                             <CustomizedButton
-                                color1 ={"red"} color2 = {"darkred"} width = {"25%"}
+                                color1 ={"red"} color2 = {"darkred"} width = {"30%"}
                                 onClick={() => {
                                     this.back();     // Routes me back to "/game"
                                 }}

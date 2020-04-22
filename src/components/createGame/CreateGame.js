@@ -168,7 +168,7 @@ class CreateGame extends React.Component {
             <ButtonContainer>
                 <CustomizedButton 
                 disabled={!this.state.gameName}
-                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                width="50%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                         this.createNewGame();
                     }}>
                         Create game

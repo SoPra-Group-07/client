@@ -90,7 +90,7 @@ class Profiles extends React.Component {
                 <FormContainer>
             <Container>
                 <h2>USERS OVERVIEW</h2>
-                <p>All users from server:</p>
+                <p>All registered users:</p>
                 {!this.state.users ? (
                     <Spinner />
                 ) : (

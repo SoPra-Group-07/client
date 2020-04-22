@@ -195,7 +195,7 @@ isAllAlphabet(){
   var count=0;
   if(currentInput!=null && currentInput!=""){
     for (var i = 0; i < currentInput.length; i++) {
-      if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 120)){
+      if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 122)){
         console.log(count);
       }else{
         count++;

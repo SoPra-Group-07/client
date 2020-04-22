@@ -36,6 +36,12 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
 
 
 class GameLobby extends React.Component {
@@ -62,6 +68,27 @@ class GameLobby extends React.Component {
         catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
+    }
+
+    async leaveGame(){
+        try{
+            const requestBody = JSON.stringify({
+                gameId: this.state.lobby.gameId,
+                userId: localStorage.UserId
+            });
+            console.log(requestBody);
+        
+            const response = await api.put('/games/out', requestBody);
+            
+            console.log(response.data);
+
+            localStorage.removeItem("PlayerId");
+
+            this.props.history.push(`/lobby`); 
+        }
+        catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+          }
     }
 
     componentWillUnmount(){
@@ -124,6 +151,7 @@ class GameLobby extends React.Component {
                                         );
                                     })}
                                 </Users>
+                                <ButtonContainer>
                                 <CustomizedButton
                                     disabled={(localStorage.getItem("UserId") != this.state.lobby.adminPlayerId)
                                     || (this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7)}
@@ -134,6 +162,18 @@ class GameLobby extends React.Component {
                                 >
                                     Start Game
                                 </CustomizedButton>
+                                </ButtonContainer>
+                                <ButtonContainer>
+                                <CustomizedButton
+                                    disabled={(localStorage.getItem("UserId") == this.state.lobby.adminPlayerId)}
+                                    color1={"red"} color2={"darkred"} width = {"60%"}
+                                    onClick={() => {
+                                        this.leaveGame();
+                                    }}
+                                >
+                                    Leave Game
+                                </CustomizedButton>
+                                </ButtonContainer>
                             </div>
                         )}
                     </Container>

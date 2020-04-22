@@ -207,6 +207,26 @@ console.log(count);
   return false;
 }
 
+isAllAlphabet(){
+  var currentInput = this.state.guess;
+  var count=0;
+  if(currentInput!=null && currentInput!=""){
+    for (var i = 0; i < currentInput.length; i++) {
+      if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 122)){
+        console.log(count);
+      }else{
+        count++;
+      }
+    }
+    if(count>=1){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  return true;
+}
+
   render() {
         {if(this.state.gameRound){
             if(this.allCluesSubmitted()){ //CHECK HERE, IF ALL CLUES HAVE COME IN ALREADY....
@@ -237,7 +257,7 @@ console.log(count);
                         />
                           <ButtonContainer>
                               <CustomizedButton 
-                              disabled={!this.state.guess}
+                              disabled={this.isAllAlphabet()}
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                       this.submitGuess();
                                   }}>

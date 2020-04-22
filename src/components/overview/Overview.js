@@ -151,7 +151,7 @@ class Overview extends React.Component {
 
                         <LogoutButton>
                         <EditButton
-                            width="30%"
+                            width="50%"
                             onClick={() => {
                                 this.logout();
                             }}
