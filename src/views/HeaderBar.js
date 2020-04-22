@@ -10,7 +10,7 @@ const Title = styled.h1`
 `;
 
 const FooterContainer = styled.div`
-   height: 20px;
+   height: 40px;
    width: 100%;
    background: tan;
    display: flex;
@@ -19,14 +19,14 @@ const FooterContainer = styled.div`
 `;
 
 const NavItems = styled.div`
-   height: 20px;
-   width: 200px;
+   height: 40px;
+   width: 300px;
    background: tan;
    display: flex;
    justify-content: left;
    margin-left:10px;
    align-items: center;
-   font-size: 10px;
+   font-size: 13px;
 `;
 
 
@@ -40,7 +40,7 @@ class HeaderBar extends React.Component{
         return (
             <FooterContainer>
                 <NavItems>
-                    Just One Implementation
+                    Just One Implementation - Group 07
                 </NavItems>
             </FooterContainer>
         );

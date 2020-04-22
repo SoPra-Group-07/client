@@ -107,15 +107,15 @@ class Overview extends React.Component {
     render() {
         return (
             <div>
-                <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"20px"}
-                style ={{position:"absolute",marginTop:"-197px",marginLeft:"95%", fontSize:"8px"}}
+                <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"40px"}
+                style ={{position:"absolute",marginTop:"-197px",marginLeft:"95%", fontSize:"10px"}}
                                   onClick={() => {
                                       this.goToGameRules();
                                   }}>
                     Game rules
                 </CustomizedButton>
-                <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"20px"}
-                                  style ={{position:"absolute",marginTop:"-197px",marginLeft:"89.98%", fontSize:"8px"}}onClick={() => {
+                <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"40px"}
+                                  style ={{position:"absolute",marginTop:"-197px",marginLeft:"89.98%", fontSize:"10px"}}onClick={() => {
                     this.goToProfiles();
                 }}>
                     Profiles

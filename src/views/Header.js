@@ -19,7 +19,8 @@ const Container = styled.div`
 
 
 const JustOneLogoContainer = styled.div`
-   margin-top: 80px;
+   margin-top: 120px;
+   margin-left: 20px;
 `;
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
