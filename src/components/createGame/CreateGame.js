@@ -5,6 +5,8 @@ import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
 import ToggleApp from "../../views/design/ToggleApp";
+import  { Component } from "react";
+import Switch from "react-switch";
 
 const FormContainer = styled.div`
   margin-top: 6em;
@@ -86,6 +88,11 @@ class CreateGame extends React.Component {
         hasBot: false,
         adminPlayerId: null
     };
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(hasBot) {
+    this.setState({ hasBot });
   }
   
 
@@ -157,12 +164,16 @@ class CreateGame extends React.Component {
           
             <Label>Do you want to include a bot? </Label>
            
-            <ButtonContainer 
-            onClick={() => {
-                    this.setBot();
-            }} >
-                <ToggleApp>
-                </ToggleApp>
+            <ButtonContainer >
+            <label htmlFor="normal-switch">
+           
+           <Switch
+          onChange={this.handleChange}
+          checked={this.state.hasBot}
+          id="normal-switch"
+            />
+           </label>
+            
             </ButtonContainer>
 
             <ButtonContainer>
