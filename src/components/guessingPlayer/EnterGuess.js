@@ -105,7 +105,8 @@ class EnterGuess extends React.Component {
     this.state = {
         gameRound: null,
         guess: null,
-        seconds: 60
+        seconds: 60,
+        count: 0
     };
   }
   
@@ -172,6 +173,15 @@ class EnterGuess extends React.Component {
     this.setState({ [key]: value });
   }
 
+  startTimer(){
+    if(this.state.count==0){
+      this.timerInterval = setInterval(() => {
+          this.updateTimer();
+      }, 1000);
+      this.state.count=1;
+    }
+  }
+
   async componentDidMount() {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
@@ -180,9 +190,7 @@ class EnterGuess extends React.Component {
             this.updateGameRound();
         },5000);
 
-        this.timerInterval = setInterval(() => {
-            this.updateTimer();
-        }, 1000)
+       
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
@@ -230,6 +238,7 @@ isAllAlphabet(){
   render() {
         {if(this.state.gameRound){
             if(this.allCluesSubmitted()){ //CHECK HERE, IF ALL CLUES HAVE COME IN ALREADY....
+              this.startTimer();
             return (
                 <BaseContainer>
                   <FormContainer>

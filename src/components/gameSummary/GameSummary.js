@@ -225,7 +225,7 @@ class GameSummary extends React.Component {
               }
             }
         else {
-          if(this.state.gameRound.guess.didSubmit==true){
+          if(this.state.gameRound.guess.word!=null){
             if(this.state.gameRound.guess.correctGuess==true){
             return(
                 <BaseContainer>
