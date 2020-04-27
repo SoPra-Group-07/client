@@ -96,61 +96,98 @@ class Profile extends React.Component {
         return (
             <FormContainer>
                 <Container>
-                    <h2 style={{color:"black"}}>USER PROFILE</h2>
+                    <h2 style={{color:"black"}}>PROFILE</h2>
                 </Container>
                 <Container>
                 <p></p>
                 {!this.state.user ? (
                     <Spinner />
                 ) : (
-                    <div>
-                        <Users>
-                            {"Username:"}   {this.state.user.username}
-                        </Users>
-                        <br/>
-                        <Users>
-                            {"Birthday:"}   {this.state.user.birth}
-                        </Users>
-                        <br/>
-                        <Users>
-                            {"Creation Date:"}   {this.formatDate(this.state.user.date)}      {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
-                        </Users>
-                        <br/>
-                        <Users>
-                            {"Status:"}   {this.state.user.status}
-                        </Users>
 
-                        <BaseContainer>
-                            <br/>
-                            <br/>
-                            <br/>
-                            </BaseContainer>
+                        localStorage.getItem("token") !== this.state.user.token?(
+                            <div>
+                                <Users>
+                                    {"Username:"} {this.state.user.username}
+                                </Users>
+                                <br/>
+                                <Users>
+                                    {"Birthday:"} {this.state.user.birth}
+                                </Users>
+                                <br/>
+                                <Users>
+                                    {"Creation Date:"} {this.formatDate(this.state.user.date)} {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
+                                </Users>
+                                <br/>
+                                <Users>
+                                    {"Status:"} {this.state.user.status}
+                                </Users>
+
+                                <BaseContainer>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </BaseContainer>
 
 
-                        <ButtonContainer>
+                                <ButtonContainer>
 
-                            <CustomizedButton
-                                color1 ={"lightskyblue"} color2 = {"royalblue"} width = {"30%"}
-                                disabled={localStorage.getItem("token") !== this.state.user.token}
-                                onClick={() => {
-                                    this.editUser(this.state.user.id);    // Routes me to the editing page
-                                }}
-                            >
-                                Edit User
-                            </CustomizedButton>
-                            </ButtonContainer>
+                                    <CustomizedButton
+                                        color1={"lightskyblue"} color2={"royalblue"} width={"30%"}
+                                        onClick={() => {
+                                            this.editUser(this.state.user.id);    // Routes me to the editing page
+                                        }}
+                                    >
+                                        Edit my profile
+                                    </CustomizedButton>
+                                </ButtonContainer>
 
-                        <ButtonContainer>
-                            <CustomizedButton
-                                color1 ={"red"} color2 = {"darkred"} width = {"30%"}
-                                onClick={() => {
-                                    this.back();     // Routes me back to "/game"
-                                }}
-                            >
-                                Back
-                            </CustomizedButton>
-                        </ButtonContainer>
-                    </div>
+                                <ButtonContainer>
+                                    <CustomizedButton
+                                        color1={"red"} color2={"darkred"} width={"30%"}
+                                        onClick={() => {
+                                            this.back();     // Routes me back to "/game"
+                                        }}
+                                    >
+                                        Back
+                                    </CustomizedButton>
+                                </ButtonContainer>
+                            </div>
+                        ): (
+                            <div>
+                                <Users>
+                                    {"Username:"} {this.state.user.username}
+                                </Users>
+                                <br/>
+                                <Users>
+                                    {"Birthday:"} {this.state.user.birth}
+                                </Users>
+                                <br/>
+                                <Users>
+                                    {"Creation Date:"} {this.formatDate(this.state.user.date)} {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
+                                </Users>
+                                <br/>
+                                <Users>
+                                    {"Status:"} {this.state.user.status}
+                                </Users>
+
+                                <BaseContainer>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </BaseContainer>
+
+                                <ButtonContainer>
+                                    <CustomizedButton
+                                        color1={"red"} color2={"darkred"} width={"30%"}
+                                        onClick={() => {
+                                            this.back();     // Routes me back to "/game"
+                                        }}
+                                    >
+                                        Back
+                                    </CustomizedButton>
+                                </ButtonContainer>
+                            </div>
+                        )
                 )}
             </Container>
 
