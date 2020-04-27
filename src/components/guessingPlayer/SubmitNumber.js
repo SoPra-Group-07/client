@@ -86,10 +86,13 @@ class SubmitNumber extends React.Component {
     this.state = {
         wordNumber: null,
         gameRoundId: null,
+        alreadyClicked: false
     };
   }
 
   async submitNumber(){
+      this.setState({alreadyClicked: true})
+
     const pathname = this.props.location.pathname;
             
     var temp = pathname.split('/');
@@ -158,7 +161,8 @@ class SubmitNumber extends React.Component {
                         />
                           <ButtonContainer>
                               <CustomizedButton
-                                  disabled={this.state.wordNumber < 1 || this.state.wordNumber > 5 || !this.state.wordNumber}
+                                  disabled={!(this.state.wordNumber == 1 || this.state.wordNumber == 2 || this.state.wordNumber == 3 ||
+                                      this.state.wordNumber == 4 || this.state.wordNumber == 5) || this.state.alreadyClicked}
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                       this.submitNumber();
                                   }}>
