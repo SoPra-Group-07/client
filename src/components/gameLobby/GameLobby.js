@@ -138,10 +138,11 @@ class GameLobby extends React.Component {
                 <FormContainer>
                     <Container>
                         <h2>GAME LOBBY</h2>
+                        <h3>Waiting for the game to start...</h3>
                         <p>All players of this game:</p>
                         {!this.state.lobby ? (
                             <Spinner />
-                        ) : (
+                        ) : (localStorage.getItem("UserId") == this.state.lobby.adminPlayerId?(
                             <div>
                                 <Users>
                                     {this.state.lobby.players.map(player => {
@@ -155,8 +156,7 @@ class GameLobby extends React.Component {
                                 </Users>
                                 <ButtonContainer>
                                 <CustomizedButton
-                                    disabled={(localStorage.getItem("UserId") != this.state.lobby.adminPlayerId)
-                                    || (this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7 || this.state.alreadyClicked)}
+                                    disabled={(this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7 || this.state.alreadyClicked)}
                                     color1={"palegreen"} color2={"limegreen"} width = {"60%"}
                                     onClick={() => {
                                         this.startGame(this.state.lobby.gameId);
@@ -177,6 +177,30 @@ class GameLobby extends React.Component {
                                 </CustomizedButton>
                                 </ButtonContainer>
                             </div>
+                            ):(
+                                <div>
+                                    <Users>
+                                        {this.state.lobby.players.map(player => {
+                                            let admin = this.state.lobby.adminPlayerId;
+                                            return (
+                                                <PlayerContainer>
+                                                    <GameLobbyEntity  player={player} admin = {admin}/>
+                                                </PlayerContainer>
+                                            );
+                                        })}
+                                    </Users>
+                                    <ButtonContainer>
+                                        <CustomizedButton
+                                            color1={"red"} color2={"darkred"} width = {"60%"}
+                                            onClick={() => {
+                                                this.leaveGame();
+                                            }}
+                                        >
+                                            Leave Game
+                                        </CustomizedButton>
+                                    </ButtonContainer>
+                                </div>
+                            )
                         )}
                     </Container>
                 </FormContainer>
