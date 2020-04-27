@@ -17,6 +17,7 @@ export const Button = styled.button`
   opacity: ${props => (props.disabled ? 0.4 : 1)};
   background: linear-gradient(mediumslateblue, darkslateblue);
   transition: all 0.3s ease;
+  overflow: auto;
 `;
 
 export const EditButton = styled.button`
@@ -36,6 +37,7 @@ export const EditButton = styled.button`
   opacity: ${props => (props.disabled ? 0.4 : 1)};
   background: linear-gradient(red, darkred);
   transition: all 0.3s ease;
+  overflow: auto;
 `;
 
 export const CustomizedButton = styled.button`
@@ -55,6 +57,7 @@ export const CustomizedButton = styled.button`
   opacity: ${props => (props.disabled ? 0.4 : 1)};
   background: linear-gradient(${props => props.color1|| "blue"},${props => props.color2|| "blue"} );
   transition: all 0.3s ease;
+  overflow: auto;
 `;
 
 
@@ -75,4 +78,5 @@ export const ButtonSpecial = styled.button`
   opacity: ${props => (props.disabled ? 0.4 : 1)};
   background: linear-gradient(lightsteelblue, royalblue);
   transition: all 0.3s ease;
+  overflow: auto;
 `;
