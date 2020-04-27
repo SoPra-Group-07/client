@@ -85,7 +85,7 @@ class SubmitNumber extends React.Component {
     super();
     this.state = {
         wordNumber: null,
-        gameRoundId: null
+        gameRoundId: null,
     };
   }
 
@@ -157,8 +157,8 @@ class SubmitNumber extends React.Component {
                           }}
                         />
                           <ButtonContainer>
-                              <CustomizedButton 
-                              disabled={this.state.wordNumber < 1 || this.state.wordNumber > 5 || !this.state.wordNumber}
+                              <CustomizedButton
+                                  disabled={this.state.wordNumber < 1 || this.state.wordNumber > 5 || !this.state.wordNumber}
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                       this.submitNumber();
                                   }}>

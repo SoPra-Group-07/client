@@ -86,7 +86,8 @@ class CreateGame extends React.Component {
     this.state = {
         gameName: null,
         hasBot: false,
-        adminPlayerId: null
+        adminPlayerId: null,
+        alreadyClicked: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -97,6 +98,7 @@ class CreateGame extends React.Component {
   
 
   back() {
+      this.setState({alreadyClicked: true});
     this.props.history.push(`/overview`);
   }
 
@@ -106,6 +108,7 @@ class CreateGame extends React.Component {
  
   async createNewGame() {
     try {
+        this.setState({alreadyClicked: true});
       const requestBody = JSON.stringify({
           gameName: this.state.gameName,
           hasBot: this.state.hasBot,
@@ -178,7 +181,7 @@ class CreateGame extends React.Component {
 
             <ButtonContainer>
                 <CustomizedButton 
-                disabled={!this.state.gameName}
+                disabled={!this.state.gameName || this.state.alreadyClicked}
                 width="50%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                         this.createNewGame();
                     }}>
@@ -188,6 +191,7 @@ class CreateGame extends React.Component {
 
             <ButtonContainer>
                 <CustomizedButton
+                    disabled={this.state.alreadyClicked}
                     color1={"red"} color2={"darkred"} width = {"50%"}
                         onClick={() => {
                             this.back();

@@ -49,11 +49,13 @@ class GameLobby extends React.Component {
         super();
         this.state = {
             lobby: null,
+            alreadyClicked: false
         };
     }
 
     async startGame(id) {
         try{
+            this.setState({alreadyClicked: true});
             const requestBody = JSON.stringify({
                 gameId: id
             });
@@ -154,7 +156,7 @@ class GameLobby extends React.Component {
                                 <ButtonContainer>
                                 <CustomizedButton
                                     disabled={(localStorage.getItem("UserId") != this.state.lobby.adminPlayerId)
-                                    || (this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7)}
+                                    || (this.state.lobby.numberOfPlayers < 3 || this.state.lobby.numberOfPlayers > 7 || this.state.alreadyClicked)}
                                     color1={"palegreen"} color2={"limegreen"} width = {"60%"}
                                     onClick={() => {
                                         this.startGame(this.state.lobby.gameId);
