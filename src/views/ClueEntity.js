@@ -54,7 +54,7 @@ const ClueEntity = ({ sub }) => {
     var color = getRandomColor();
     return (
         <Container>
-             <UserName color={color}>{sub.word}</UserName>
+             <UserName color={color}>{sub}</UserName>
         </Container>
     );
 };

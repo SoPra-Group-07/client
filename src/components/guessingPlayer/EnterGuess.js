@@ -107,7 +107,6 @@ class EnterGuess extends React.Component {
         guess: null,
         seconds: 60,
         count: 0,
-        duplicates: []
     };
   }
   
@@ -236,17 +235,35 @@ isAllAlphabet(){
   return true;
 }
 
-duplicate(word){
-  if(!this.state.duplicates.includes(word)){
-  this.state.duplicates.push(word);
-  }
-  console.log(this.state.duplicates)
+clues(){
+  var clues =[];
+  var duplicates = [];
+  this.state.gameRound.submissions.map(sub => {    
+    if(this.state.gameRound.mysteryWord == sub.word){
+      duplicates.push(sub.word);
+    }
+    if(sub.word != null){
+      if(sub.duplicate==true){
+       if(!(duplicates.includes(sub.word))){
+          duplicates.push(sub.word); 
+          clues.push(sub.word);
+        }
+      }
+      else{
+        if(!(duplicates.includes(sub.word))){
+        clues.push(sub.word);
+        }
+      }
+    }
+  })
+  return clues;
 }
 
   render() {
         {if(this.state.gameRound){
             if(this.allCluesSubmitted()){ //CHECK HERE, IF ALL CLUES HAVE COME IN ALREADY....
               this.startTimer();
+              var clues = this.clues();
             return (
                 <BaseContainer>
                   <FormContainer>
@@ -256,19 +273,13 @@ duplicate(word){
                   </Container>
                       <Form>
                       <ClueItems>
-                      {this.state.gameRound.submissions.map(sub => {    
-                                    if(sub.word != null){                                       
-                                      if(!(this.state.duplicates.includes(sub.word))){
-                                        if(sub.duplicate=true){
-                                          this.duplicate(sub.word);
-                                        }
+                      {clues.map(sub => {    
+                                    if(sub != null){
                                         return (
                                             <ClueContainer>
                                                 <ClueEntity sub={sub}/>                                                                                         
                                             </ClueContainer>                              
-                                        )
-                                        ;
-                      }
+                                        )                                        ;
                       }})}
                       </ClueItems>                    
                       <Label>Please enter your guess:</Label>
