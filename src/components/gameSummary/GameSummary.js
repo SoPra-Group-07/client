@@ -93,7 +93,10 @@ class GameSummary extends React.Component {
   constructor() {
     super();
     this.state = {
-        gameRound: null
+        gameRound: null,
+        gameOver: false,
+        gameStats: null,
+        count:0
     };
   }
   
@@ -140,6 +143,47 @@ class GameSummary extends React.Component {
     }
   }
 
+  async checkIfGameOver(){
+    try {
+      const response = await api.get(`/games/${this.state.gameRound.gameId}`);
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log(response.data)
+
+     this.setState({ gameOver: response.data });   
+     if(this.state.gameOver){
+      this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
+    }  
+    } catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
+  }
+
+  async statistics(){
+    if(this.state.count==0){
+    try {
+      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}/gameRoundStatistics`);
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log(response.data)
+
+      this.setState({ gameStats: response.data });  
+     
+      this.state.gameStats.map(stat => {   
+        if(stat.playerId == localStorage.PlayerId && this.state.gameRound.guess.didSubmit==true){
+          var currentPoints = parseFloat(localStorage.totalPoints);
+          localStorage.setItem("points",stat.points);
+          localStorage.setItem("totalPoints",currentPoints + stat.points);
+          this.state.count++;
+        }
+      })
+    } catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
+  }
+  }
+
+
   componentWillUnmount(){
     clearInterval(this.interval);
   }
@@ -159,7 +203,10 @@ class GameSummary extends React.Component {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
-        this.interval = setInterval(async() => {
+       
+        this.interval = setInterval(async() => { 
+          this.checkIfGameOver();
+          this.statistics();
           this.updateGameRound();
           this.updateLocalStorage();
         },5000);
@@ -169,10 +216,7 @@ class GameSummary extends React.Component {
 }
 
   render() {
-        {if(this.state.gameRound){
-          if(this.state.gameRound.gameRoundId == 11){
-            this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
-          }
+        {if(this.state.gameRound && this.state.count!=0){
             if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
               if(this.state.gameRound.guess.correctGuess==true){
                 return (
@@ -186,7 +230,7 @@ class GameSummary extends React.Component {
                             <LabelTrue>Correct</LabelTrue>
 
                             <Label>Points earned:</Label>
-                            <Label>100</Label>
+                            <Label>{localStorage.points}</Label>
                               <ButtonContainer>
                                   <CustomizedButton 
                                   width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
@@ -212,7 +256,7 @@ class GameSummary extends React.Component {
                           <LabelFalse>Wrong</LabelFalse>
 
                           <Label>Points earned:</Label>
-                          <Label>100</Label>
+                          <Label>{localStorage.points}</Label>
                             <ButtonContainer>
                                 <CustomizedButton 
                                 width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
@@ -241,7 +285,7 @@ class GameSummary extends React.Component {
                         <LabelTrue>Correct</LabelTrue>
 
                         <Label>Points earned:</Label>
-                        <Label>100</Label>
+                        <Label>{localStorage.points}</Label>
                          
                         <Label>Waiting for guessing player to start new round...</Label>
                         </Form>
@@ -261,7 +305,7 @@ class GameSummary extends React.Component {
                         <LabelFalse>Wrong</LabelFalse>
 
                         <Label>Points earned:</Label>
-                        <Label>100</Label>
+                        <Label>{localStorage.points}</Label>
                          
                         <Label>Waiting for guessing player to start new round...</Label>
                         </Form>

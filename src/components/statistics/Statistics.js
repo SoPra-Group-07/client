@@ -121,13 +121,12 @@ class Statistics extends React.Component {
 
   async componentDidMount() {
     try {
-        await new Promise(resolve => setTimeout(resolve, 1000));
         const response = await api.get(`/gameRounds/${localStorage.GameRoundId}/gameRoundStatistics`);
       
         await new Promise(resolve => setTimeout(resolve, 1000));
         console.log(response.data)
-  
-       this.setState({ gameStatistics: response.data }); 
+
+        this.setState({ gameStatistics: response.data });
        
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -144,7 +143,7 @@ class Statistics extends React.Component {
                       </Container>
                           <Form>
                             <Label>You achieved a total of</Label>
-                            <LabelTrue>5000</LabelTrue>
+                            <LabelTrue>{localStorage.totalPoints}</LabelTrue>
                             <Label>points</Label>
 
                             <Label>Other players:</Label>
