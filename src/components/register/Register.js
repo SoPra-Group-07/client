@@ -161,7 +161,7 @@ class Register extends React.Component {
             <ButtonContainer>
               <Button
                 disabled={!this.state.username || !this.state.password}
-                width="50%"
+                width="60%"
                 onClick={() => {
                   this.register();
                 }}

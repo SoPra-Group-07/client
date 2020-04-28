@@ -106,7 +106,8 @@ class EnterGuess extends React.Component {
         gameRound: null,
         guess: null,
         seconds: 60,
-        count: 0
+        count: 0,
+        duplicates: []
     };
   }
   
@@ -235,6 +236,13 @@ isAllAlphabet(){
   return true;
 }
 
+duplicate(word){
+  if(!this.state.duplicates.includes(word)){
+  this.state.duplicates.push(word);
+  }
+  console.log(this.state.duplicates)
+}
+
   render() {
         {if(this.state.gameRound){
             if(this.allCluesSubmitted()){ //CHECK HERE, IF ALL CLUES HAVE COME IN ALREADY....
@@ -248,13 +256,19 @@ isAllAlphabet(){
                   </Container>
                       <Form>
                       <ClueItems>
-                      {this.state.gameRound.submissions.map(sub => {
-                                    if(sub.word != null){
+                      {this.state.gameRound.submissions.map(sub => {    
+                                    if(sub.word != null){                                       
+                                      if(!(this.state.duplicates.includes(sub.word))){
+                                        if(sub.duplicate=true){
+                                          this.duplicate(sub.word);
+                                        }
                                         return (
                                             <ClueContainer>
                                                 <ClueEntity sub={sub}/>                                                                                         
                                             </ClueContainer>                              
-                                        );
+                                        )
+                                        ;
+                      }
                       }})}
                       </ClueItems>                    
                       <Label>Please enter your guess:</Label>
