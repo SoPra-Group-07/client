@@ -41,7 +41,7 @@ class Profiles extends React.Component {
     constructor() {
         super();
         this.state = {
-            users: null
+            users: null,
         };
     }
 
@@ -96,10 +96,11 @@ class Profiles extends React.Component {
                 ) : (
                     <div>
                         <Users>
-                            {this.state.users.map(user => {                                    //iterates through all users (Players) so that as a result we can see the list of players on the screen
+                            {this.state.users.map(user => {
                                 return (
-                                    <PlayerContainer onClick={() => { this.showUser(user.id)}}>    {/* By clicking on one of the fields with the usernames the corresponding profile page is accessed */}
-                                        <Player user={user}/>                                        {/* Player component receives user-infos */}
+                                    <PlayerContainer
+                                        onClick={() => { this.showUser(user.id)}}>
+                                        <Player user={user}/>
                                     </PlayerContainer>
                                 );
                             })}
