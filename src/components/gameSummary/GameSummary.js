@@ -170,6 +170,9 @@ class GameSummary extends React.Component {
 
   render() {
         {if(this.state.gameRound){
+          if(this.state.gameRound.gameRoundId == 11){
+            this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
+          }
             if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
               if(this.state.gameRound.guess.correctGuess==true){
                 return (
@@ -234,7 +237,7 @@ class GameSummary extends React.Component {
                   <h2>Round summary</h2>
                   </Container>
                       <Form>
-                      <Label>USER$$$ guessed the word:</Label>
+                      <Label>The guessing player guessed the word:</Label>
                         <LabelTrue>Correct</LabelTrue>
 
                         <Label>Points earned:</Label>
@@ -254,7 +257,7 @@ class GameSummary extends React.Component {
                   <h2>Round summary</h2>
                   </Container>
                       <Form>
-                      <Label>USER$$$ guessed the word:</Label>
+                      <Label>The guessing player guessed the word:</Label>
                         <LabelFalse>Wrong</LabelFalse>
 
                         <Label>Points earned:</Label>

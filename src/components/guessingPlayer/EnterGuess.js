@@ -238,8 +238,11 @@ isAllAlphabet(){
 clues(){
   var clues =[];
   var duplicates = [];
+  var mysteryWord = this.state.gameRound.mysteryWord.toUpperCase();
   this.state.gameRound.submissions.map(sub => {    
-    if(this.state.gameRound.mysteryWord == sub.word){
+    if(mysteryWord == sub.word.toUpperCase()
+    || sub.stemmedClue.toUpperCase() == mysteryWord
+    || sub.word == "noClue"){
       duplicates.push(sub.word);
     }
     if(sub.word != null){
