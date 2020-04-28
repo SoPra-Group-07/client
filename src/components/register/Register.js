@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
-import { Button, ButtonSpecial } from '../../views/design/Button';
+import {Button, ButtonSpecial, CustomizedButton} from '../../views/design/Button';
 import {Link} from "react-router-dom";
 
 const FormContainer = styled.div`
@@ -158,24 +158,25 @@ class Register extends React.Component {
                 this.handleInputChange('password', e.target.value);
               }}
             />
+
             <ButtonContainer>
-              <Button
-                disabled={!this.state.username || !this.state.password}
-                width="60%"
-                onClick={() => {
-                  this.register();
-                }}
-              >
-                Register
-              </Button>
+              <CustomizedButton disabled={!this.state.username || !this.state.password}
+                                color1={"mediumslateblue"} color2={"darkslateblue"}
+                                onClick={() => {
+                                    this.register();
+                                }}>
+                  Register
+              </CustomizedButton>
                 </ButtonContainer>
+
+                <Link to = "/login" style={{ textDecoration: 'none' }}>
                 <ButtonContainer>
-                    <Link to = "/login">
-              <ButtonSpecial>
-                You want to sign in? Click here
-              </ButtonSpecial>
-                    </Link>
+              <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"}>
+                Click here to sign in!
+              </CustomizedButton>
             </ButtonContainer>
+            </Link>
+
           </Form>
         </FormContainer>
       </BaseContainer>
