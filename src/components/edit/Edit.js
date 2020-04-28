@@ -181,7 +181,7 @@ class Edit extends React.Component {
             </ButtonContainer>
             <ButtonContainer>
               <CustomizedButton
-                  color1 ={"red"} color2 = {"darkred"} width = {"35%"}
+                  color1 ={"red"} color2 = {"darkred"} width = {"50%"}
                 onClick={() => {
                   this.back(this.state.user.id); // By clicking it you get redirected to the previous page
                 }}

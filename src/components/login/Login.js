@@ -4,7 +4,7 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
 import { withRouter} from 'react-router-dom';
-import { Button, ButtonSpecial } from '../../views/design/Button';
+import {Button, ButtonSpecial, CustomizedButton} from '../../views/design/Button';
 import {Link} from "react-router-dom";
 
 
@@ -164,24 +164,26 @@ class Login extends React.Component {
               }}
             />
             <ButtonContainer>
-              <Button
+              <CustomizedButton
                 disabled={!this.state.username || !this.state.password}
-                width="50%"
+                color1={"mediumslateblue"} color2={"darkslateblue"}
                 onClick={() => {
                   this.login();
                 }}
               >
                 Login
-              </Button>
+              </CustomizedButton>
             </ButtonContainer>
-            <ButtonContainer>
-              <Link to="/register">
-              <ButtonSpecial>
 
-                Not registered yet? Click here
-              </ButtonSpecial>
-          </Link>
+            <Link to="/register" style={{ textDecoration: 'none' }}>
+            <ButtonContainer>
+              <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"}>
+
+                Click here to sign up!
+              </CustomizedButton>
             </ButtonContainer>
+            </Link>
+
           </Form>
         </FormContainer>
       </BaseContainer>
