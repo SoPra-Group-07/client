@@ -162,7 +162,7 @@ class SubmitNumber extends React.Component {
                           <ButtonContainer>
                               <CustomizedButton
                                   disabled={!(this.state.wordNumber == 1 || this.state.wordNumber == 2 || this.state.wordNumber == 3 ||
-                                      this.state.wordNumber == 4 || this.state.wordNumber == 5) || this.state.alreadyClicked}
+                                      this.state.wordNumber == 4 || this.state.wordNumber == 5) || this.state.alreadyClicked || this.state.wordNumber.length != 1}
                               width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                       this.submitNumber();
                                   }}>
