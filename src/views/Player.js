@@ -9,6 +9,10 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   border: 0px solid black;
+  :hover {
+  background: linear-gradient(white, silver);
+  cursor: pointer;
+  }
   background: linear-gradient(white, antiquewhite);
 `;
 
@@ -38,7 +42,7 @@ const Id = styled.div`
  */
 const Player = ({ user }) => {
   return (
-    <Container>                                        {/* Username and Id of each player gets printed on the screen */}
+    <Container>
       Username: <UserName>{user.username}</UserName>
       <Id>Id: {user.id}</Id>
     </Container>

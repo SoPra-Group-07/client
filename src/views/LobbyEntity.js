@@ -10,6 +10,10 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   border: 0px solid black;
+  :hover {
+  background: linear-gradient(white, silver);
+  cursor: pointer;
+  }
   background: linear-gradient(white, antiquewhite);
  
 `;
