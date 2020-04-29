@@ -170,10 +170,8 @@ class GameSummary extends React.Component {
       this.setState({ gameStats: response.data });  
      
       this.state.gameStats.map(stat => {   
-        if(stat.playerId == localStorage.PlayerId && this.state.gameRound.guess.didSubmit==true){
-          var currentPoints = parseFloat(localStorage.totalPoints);
+        if(stat.playerId == localStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
           localStorage.setItem("points",stat.points);
-          localStorage.setItem("totalPoints",currentPoints + stat.points);
           this.state.count++;
         }
       })

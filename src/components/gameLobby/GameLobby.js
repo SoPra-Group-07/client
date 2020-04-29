@@ -65,7 +65,6 @@ class GameLobby extends React.Component {
 
             localStorage.setItem("GameRoundId",response.data.gameRoundId);
             localStorage.setItem("points",0.0);
-            localStorage.setItem("totalPoints",0.0);
 
             this.props.history.push(`/games/${id}`); 
         }
@@ -118,7 +117,6 @@ class GameLobby extends React.Component {
                 const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
                 localStorage.setItem("GameRoundId",response.data.gameRoundId);
                 localStorage.setItem("points",0.0);
-                localStorage.setItem("totalPoints",0.0);
                 this.props.history.push(`/games/${this.state.lobby.gameId}`); 
             }         
     }
