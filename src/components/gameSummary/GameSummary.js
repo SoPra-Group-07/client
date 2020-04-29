@@ -4,6 +4,7 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
+import { Spinner } from '../../views/design/Spinner';
 
 const FormContainer = styled.div`
   margin-top: 6em;
@@ -96,7 +97,9 @@ class GameSummary extends React.Component {
         gameRound: null,
         gameOver: false,
         gameStats: null,
-        count:0
+        count:0,
+        seconds: 8,
+        timercount:0
     };
   }
   
@@ -144,19 +147,19 @@ class GameSummary extends React.Component {
   }
 
   async checkIfGameOver(){
-    try {
-      const response = await api.get(`/games/${this.state.gameRound.gameId}`);
-      
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(response.data)
+    if(this.state.gameRound){
+      try {
+        const response = await api.get(`/games/${this.state.gameRound.gameId}`);
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        console.log(response.data)
 
-     this.setState({ gameOver: response.data });   
-     if(this.state.gameOver){
-      this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
-    }  
-    } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
-    }
+      this.setState({ gameOver: response.data });   
+       
+      } catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
+  }
   }
 
   async statistics(){
@@ -201,8 +204,12 @@ class GameSummary extends React.Component {
     try {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
+        
        
-        this.interval = setInterval(async() => { 
+        this.interval = setInterval(async() => {
+          if(this.state.gameOver==true){
+            this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
+          }  
           this.checkIfGameOver();
           this.statistics();
           this.updateGameRound();
@@ -213,8 +220,25 @@ class GameSummary extends React.Component {
     }
 }
 
+updateTimer(){
+  if(this.state.seconds==1){
+    clearInterval(this.timerInterval);
+    this.setState({timercount: 1});
+  };
+  this.setState(({ seconds }) => ({
+    seconds: seconds - 1
+  }))
+}
+
+startTimer(){
+  this.timerInterval = setInterval(() => {
+      this.updateTimer();
+  }, 1000);
+}
+
   render() {
         {if(this.state.gameRound && this.state.count!=0){
+          this.startTimer();
             if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
               if(this.state.gameRound.guess.correctGuess==true){
                 return (
@@ -231,6 +255,7 @@ class GameSummary extends React.Component {
                             <Label>{localStorage.points}</Label>
                               <ButtonContainer>
                                   <CustomizedButton 
+                                  disabled={(this.state.timercount==0)}
                                   width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                           this.startNextRound();
                                       }}>
@@ -257,6 +282,7 @@ class GameSummary extends React.Component {
                           <Label>{localStorage.points}</Label>
                             <ButtonContainer>
                                 <CustomizedButton 
+                                 disabled={(this.state.timercount==0)}
                                 width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                         this.startNextRound();
                                     }}>
@@ -318,9 +344,11 @@ class GameSummary extends React.Component {
                   <FormContainer>
                   <Container>
                   <h2>Please wait a moment...</h2>
+                 
                   </Container>
                       <Form>
-                      <Label>Please wait for guessing player to guess...</Label>
+                      <Label>Please wait for the game round to be completed...</Label>
+                      <Spinner />
                         </Form>
                     </FormContainer>
               </BaseContainer>
@@ -335,9 +363,11 @@ class GameSummary extends React.Component {
                 <FormContainer>
                 <Container>
                 <h2>Please wait a moment...</h2>
+               
                 </Container>
                     <Form>
-                    <Label>Please wait for guessing player to guess...</Label>
+                    <Label>Please wait for the game round to be completed...</Label>
+                    <Spinner />
                       </Form>
                   </FormContainer>
             </BaseContainer>

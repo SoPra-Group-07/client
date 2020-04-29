@@ -105,7 +105,6 @@ class Statistics extends React.Component {
     this.state = {
         gameStatistics: null,
         gameRound: null,
-        myPoints: 0,
         otherPlayers: [],
     };
   }
@@ -135,12 +134,6 @@ class Statistics extends React.Component {
       console.log(response2.data)
 
       this.setState({ gameStatistics: response2.data });
-
-      this.state.gameStatistics.map(stat => {   
-        if(stat.playerId == localStorage.PlayerId){
-          this.setState({myPoints: stat.totalPoints});
-        }
-      })
        
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -148,19 +141,22 @@ class Statistics extends React.Component {
 }
 
   render() {
-        {if(this.state.gameStatistics){
+        {if(this.state.gameStatistics && this.state.gameRound){
                 return (
                     <BaseContainer>
                       <FormContainer>
                       <Container>
                       <h2>Game statistics</h2>
                       </Container>
-                        {!this.state.gameStatistics ? (
-                          <Spinner/>
-                          ) : (
                           <Form>
                             <Label>You achieved a total of</Label>
-                            <LabelTrue>{this.state.myPoints} points</LabelTrue>
+                            {this.state.gameStatistics.map(user => {
+                                    if(user.playerId == localStorage.PlayerId){
+                                      return (
+                                          <LabelTrue>{user.totalPoints} points</LabelTrue>
+                                      );
+                                    }
+                                })} 
 
                             <Label>Other players:</Label>
                               <Users>
@@ -183,11 +179,11 @@ class Statistics extends React.Component {
                                   </CustomizedButton>
                               </ButtonContainer>
                             </Form>
-                            )}
-                        </FormContainer>
-                    </BaseContainer>
-                  );
+                          </FormContainer>
+                        </BaseContainer>
+                )
               }
+            
               
         else {
             return(
