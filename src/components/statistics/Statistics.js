@@ -4,6 +4,8 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
+import StatisticsList from '../../views/StatisticsList';
+import { Spinner } from '../../views/design/Spinner';
 
 const FormContainer = styled.div`
   margin-top: 6em;
@@ -56,12 +58,6 @@ const LabelTrue = styled.label`
   text-align: center;
 `;
 
-const LabelFalse = styled.label`
-  color: red;
-  margin-bottom: 10px;
-  text-align: center;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -72,6 +68,20 @@ const Container = styled(BaseContainer)`
   color: black;
   text-align: center;
   text-transform: uppercase;
+`;
+
+const Users = styled.ul`                     
+  list-style: none;
+  padding-left: 0;
+  overflow: auto;
+  max-height: 330px;
+`;
+//list item
+const PlayerContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 /**
@@ -93,25 +103,16 @@ class Statistics extends React.Component {
   constructor() {
     super();
     this.state = {
-        gameStatistics: null
+        gameStatistics: null,
+        gameRound: null,
+        myPoints: 0,
+        otherPlayers: [],
     };
   }
   
 
-  async startNewGame(){
-    try{
-      const requestBody = JSON.stringify({
-        gameId: this.state.gameRound.gameId
-      });
-      const response = await api.post(`/games/${this.state.gameRound.gameId}/gameRounds`, requestBody);
-      
-      localStorage.setItem("GameRoundId",response.data.gameRoundId);
-
-      this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
-    }
-      catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
-      }
+  async backToOverview(){
+    this.props.history.push(`/overview`);
   }
 
 
@@ -121,12 +122,25 @@ class Statistics extends React.Component {
 
   async componentDidMount() {
     try {
-        const response = await api.get(`/gameRounds/${localStorage.GameRoundId}/gameRoundStatistics`);
+      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
       
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log(response.data)
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log(response.data)
 
-        this.setState({ gameStatistics: response.data });
+      this.setState({ gameRound: response.data }); 
+     
+      const response2 = await api.get(`/games/${this.state.gameRound.gameId}/gameStatistics`);
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log(response2.data)
+
+      this.setState({ gameStatistics: response2.data });
+
+      this.state.gameStatistics.map(stat => {   
+        if(stat.playerId == localStorage.PlayerId){
+          this.setState({myPoints: stat.totalPoints});
+        }
+      })
        
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -141,22 +155,35 @@ class Statistics extends React.Component {
                       <Container>
                       <h2>Game statistics</h2>
                       </Container>
+                        {!this.state.gameStatistics ? (
+                          <Spinner/>
+                          ) : (
                           <Form>
                             <Label>You achieved a total of</Label>
-                            <LabelTrue>{localStorage.totalPoints}</LabelTrue>
-                            <Label>points</Label>
+                            <LabelTrue>{this.state.myPoints} points</LabelTrue>
 
                             <Label>Other players:</Label>
-                            <Label>100</Label>
+                              <Users>
+                                {this.state.gameStatistics.map(user => {
+                                  if(user.playerId != localStorage.PlayerId){
+                                    return (
+                                        <PlayerContainer>
+                                            <StatisticsList user={user}/>
+                                        </PlayerContainer>
+                                    );
+                                  }
+                                })}
+                               </Users>
                               <ButtonContainer>
                                   <CustomizedButton 
-                                  width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                                          this.startNewGame();
+                                    color1={"red"} color2={"darkred"} width = {"60%"} onClick={() => {
+                                          this.backToOverview();
                                       }}>
-                                          New game
+                                          Back to overview
                                   </CustomizedButton>
                               </ButtonContainer>
                             </Form>
+                            )}
                         </FormContainer>
                     </BaseContainer>
                   );
