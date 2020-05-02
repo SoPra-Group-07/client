@@ -246,10 +246,9 @@ clues(){
       duplicates.push(sub.word);
     }
     if(sub.word != null){
-      if(sub.duplicate==true){
+      if(sub.isDuplicate===true){
        if(!(duplicates.includes(sub.word))){
-          duplicates.push(sub.word); 
-          clues.push(sub.word);
+          duplicates.push(sub.word);
         }
       }
       else{
