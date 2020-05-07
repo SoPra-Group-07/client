@@ -12,3 +12,73 @@ export const BaseContainer = styled.div`
   padding-right: 15px;
   max-width: ${DESKTOP_WIDTH}px;
 `;
+
+export const FormContainer = styled.div`
+  margin-top: 6em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 300px;
+  justify-content: center;
+`;
+
+export const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  height: 375px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+`;
+
+export const InputField = styled.input`
+  &::placeholder {
+    color: black;
+  }
+  height: 35px;
+  padding-left: 15px;
+  margin-left: 35px;
+  margin-right: 35px;
+  border: none;
+  border-radius: 0px;
+  margin-bottom: 20px;
+  background: linear-gradient(white, antiquewhite);
+  color: black;
+`;
+
+export const Label = styled.label`
+  color: black;
+  margin-bottom: 10px;
+  text-align: center;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
+export const Container = styled(BaseContainer)`
+  color: black;
+  text-align: center;
+`;
+
+export const Users = styled.ul`                     
+  list-style: none;
+  padding-left: 0;
+  overflow: auto;
+  max-height: 330px;
+`;
+
+export const PlayerContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;

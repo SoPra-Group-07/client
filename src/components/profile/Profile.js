@@ -1,18 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
+import  { BaseContainer, FormContainer, ButtonContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton} from '../../views/design/Button';
 import { Spinner } from '../../views/design/Spinner';
 
-
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
 const Container = styled(BaseContainer)`
   color: black;
   border-color: white;
@@ -31,16 +24,6 @@ const Users = styled.li`
   margin-right: 200px;
   background: linear-gradient(white, antiquewhite);
 `;
-
-const FormContainer = styled.div`
-  margin-top: 6em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
 
 class Profile extends React.Component {
     state = {

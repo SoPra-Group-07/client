@@ -1,56 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
+import  { BaseContainer, FormContainer, ButtonContainer, Container, Form, Label, PlayerContainer, Users} from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
 import StatisticsList from '../../views/StatisticsList';
-import { Spinner } from '../../views/design/Spinner';
-
-const FormContainer = styled.div`
-  margin-top: 6em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  height: 375px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 0px;
-  background: linear-gradient(wheat, sandybrown);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
-
-const InputField = styled.input`
-  &::placeholder {
-    color: black;
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: 35px;
-  margin-right: 35px;
-  border: none;
-  border-radius: 0px;
-  margin-bottom: 20px;
-  background: linear-gradient(white, antiquewhite);
-  color: black;
-`;
-
-const Label = styled.label`
-  color: black;
-  margin-bottom: 10px;
-  text-align: center;
-`;
 
 const LabelTrue = styled.label`
   color: green;
@@ -58,48 +12,8 @@ const LabelTrue = styled.label`
   text-align: center;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
-const Container = styled(BaseContainer)`
-  color: black;
-  text-align: center;
-  text-transform: uppercase;
-`;
-
-const Users = styled.ul`                     
-  list-style: none;
-  padding-left: 0;
-  overflow: auto;
-  max-height: 330px;
-`;
-//list item
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-/**
- * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
- * You should have a class (instead of a functional component) when:
- * - You need an internal state that cannot be achieved via props from other parent components
- * - You fetch data from the server (e.g., in componentDidMount())
- * - You want to access the DOM via Refs
- * https://reactjs.org/docs/react-component.html
- * @Class
- */
 class Statistics extends React.Component {
-  /**
-   * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
-   * The constructor for a React component is called before it is mounted (rendered).
-   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: password and username
-   * These fields are then handled in the onChange() methods in the resp. InputFields
-   */
+
   constructor() {
     super();
     this.state = {
@@ -114,10 +28,6 @@ class Statistics extends React.Component {
     this.props.history.push(`/overview`);
   }
 
-
-  handleInputChange(key, value) {
-    this.setState({ [key]: value });
-  }
 
   async componentDidMount() {
     try {
@@ -146,7 +56,7 @@ class Statistics extends React.Component {
                     <BaseContainer>
                       <FormContainer>
                       <Container>
-                      <h2>Game statistics</h2>
+                      <h2>GAME STATISTICS</h2>
                       </Container>
                           <Form>
                             <Label>You achieved a total of</Label>
@@ -190,7 +100,7 @@ class Statistics extends React.Component {
             <BaseContainer>
                 <FormContainer>
                 <Container>
-                <h2>Please wait a moment...</h2>
+                <h2>PLEASE WAIT A MOMENT...</h2>
                 </Container>
                     <Form>
                     <Label>Please wait for statistics...</Label>
@@ -203,8 +113,4 @@ class Statistics extends React.Component {
     
 }
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default withRouter(Statistics);

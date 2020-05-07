@@ -1,15 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
+import  { BaseContainer, FormContainer, ButtonContainer, Form} from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import {EditButton, CustomizedButton} from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
 
 const LogoutButton = styled.div`
   display: flex;
@@ -17,29 +12,6 @@ const LogoutButton = styled.div`
   margin-top: 50px;
 `;
 
-const FormContainer = styled.div`
-  margin-top: 6em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  height: 375px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 0px;
-  background: linear-gradient(wheat, sandybrown);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
 
 class Overview extends React.Component {
     constructor() {

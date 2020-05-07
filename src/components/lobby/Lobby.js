@@ -1,40 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
+import  { BaseContainer, FormContainer, Container} from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { Spinner } from '../../views/design/Spinner';
 import {CustomizedButton } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 import LobbyEntity from '../../views/LobbyEntity';
 
-const Container = styled(BaseContainer)`
-  color: black;
-  text-align: center;
-`;
-//unordered list
 const Games = styled.ul`                     
   list-style: none;
   padding-left: 0;
   overflow: auto;
   max-height: 330px;
 `;
-//list item
+
 const GameContainer = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
-
-const FormContainer = styled.div`
-  margin-top: 6em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
 
 
 class Lobby extends React.Component {

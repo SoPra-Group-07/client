@@ -22,16 +22,6 @@ const UserName = styled.div`
   overflow: auto;
 `;
 
-/*const Name = styled.div`
-  font-weight: bold;
-  color: #06c4ff;
-`;*/
-
-const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
-`;
 
 function getRandomColor() {
     var letters = '0123456789ABCDEF';

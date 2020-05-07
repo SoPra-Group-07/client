@@ -1,54 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
+import  { BaseContainer, FormContainer, ButtonContainer, Container, Form, InputField, Label } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
 
-const FormContainer = styled.div`
-  margin-top: 6em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 40%;
-  height: 375px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 0px;
-  background: linear-gradient(wheat, sandybrown);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
-
-const InputField = styled.input`
-  &::placeholder {
-    color: black;
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: 35px;
-  margin-right: 35px;
-  border: none;
-  border-radius: 0px;
-  margin-bottom: 20px;
-  background: linear-gradient(white, antiquewhite);
-  color: black;
-`;
-
-const Label = styled.label`
-  color: black;
-  margin-bottom: 10px;
-  text-align: center;
-`;
 
 const Label2 = styled.label`
   color: blue;
@@ -58,34 +14,8 @@ const Label2 = styled.label`
   font-weight: bold;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
-const Container = styled(BaseContainer)`
-  color: black;
-  text-align: center;
-  text-transform: uppercase;
-`;
-
-/**
- * Classes in React allow you to have an internal state within the class and to have the React life-cycle for your component.
- * You should have a class (instead of a functional component) when:
- * - You need an internal state that cannot be achieved via props from other parent components
- * - You fetch data from the server (e.g., in componentDidMount())
- * - You want to access the DOM via Refs
- * https://reactjs.org/docs/react-component.html
- * @Class
- */
 class SubmitClue extends React.Component {
-  /**
-   * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
-   * The constructor for a React component is called before it is mounted (rendered).
-   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: password and username
-   * These fields are then handled in the onChange() methods in the resp. InputFields
-   */
+
   constructor() {
     super();
     this.state = {
@@ -154,11 +84,6 @@ class SubmitClue extends React.Component {
     }))
   }
 
-  /**
-   *  Every time the user enters something in the input field, the state gets updated.
-   * @param key (the key of the state for identifying the field that needs to be updated)
-   * @param value (the value that gets assigned to the identified state key)
-   */
   handleInputChange(key, value) {
     this.setState({ [key]: value });
   }
@@ -218,7 +143,7 @@ isAllAlphabet(){
                 <BaseContainer>
                   <FormContainer>
                   <Container>
-                  <h2>Clueing Player</h2>
+                  <h2>ClUEING PLAYER</h2>
                   <h3>Time Remaining: { this.state.seconds }</h3>
                   </Container>
                       <Form>
@@ -250,7 +175,7 @@ isAllAlphabet(){
               <BaseContainer>
                   <FormContainer>
                   <Container>
-                  <h2>Please wait a moment...</h2>
+                  <h2>PLEASE WAIT A MOMENT...</h2>
                   </Container>
                       <Form>
                       <Label>Please wait for the the guessing Player to choose the word...</Label>
@@ -264,7 +189,7 @@ isAllAlphabet(){
             <BaseContainer>
                 <FormContainer>
                 <Container>
-                <h2>Please wait a moment...</h2>
+                <h2>PLEASE WAIT A MOMENT...</h2>
                 </Container>
                     <Form>
                     <Label>Please wait for the the guessing Player to choose the word...</Label>
@@ -277,8 +202,4 @@ isAllAlphabet(){
     
 }
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default withRouter(SubmitClue);

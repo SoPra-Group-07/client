@@ -11,12 +11,12 @@ const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
 `;
-                                 //unordered list
+
 const Users = styled.ul`                     
   list-style: none;
   padding-left: 0;
 `;
-                                         //list item
+
 const PlayerContainer = styled.li`
   display: flex;
   flex-direction: column;
@@ -120,3 +120,4 @@ class Game extends React.Component {
 }
 
 export default withRouter(Game);
+

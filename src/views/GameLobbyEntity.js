@@ -26,12 +26,6 @@ const UserName2 = styled.div`
 `;
 
 
-const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
-`;
-
 const GameLobbyEntity = ({ player , admin }) => {
   if(admin==player.userId) {
     return (
