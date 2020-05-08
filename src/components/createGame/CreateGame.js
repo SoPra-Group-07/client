@@ -24,6 +24,7 @@ class CreateGame extends React.Component {
   
 
   back() {
+      sessionStorage.setItem("isValid", "true");
       this.setState({alreadyClicked: true});
     this.props.history.push(`/overview`);
   }
@@ -34,6 +35,7 @@ class CreateGame extends React.Component {
  
   async createNewGame() {
     try {
+        sessionStorage.setItem("isValid", "true");
         this.setState({alreadyClicked: true});
       const requestBody = JSON.stringify({
           gameName: this.state.gameName,
@@ -67,7 +69,11 @@ class CreateGame extends React.Component {
     console.log(this.state.gameName);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+      sessionStorage.setItem("isValid", "false");
+      const pathName = this.props.location.pathname;
+      sessionStorage.setItem("pathName", pathName);
+  }
 
   render() {
     return (

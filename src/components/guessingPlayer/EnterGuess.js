@@ -40,6 +40,7 @@ class EnterGuess extends React.Component {
   
 
   async noGuess() {
+      sessionStorage.setItem("isValid", "true");
     const requestBody = JSON.stringify({
       playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
@@ -54,6 +55,7 @@ class EnterGuess extends React.Component {
   }
 
   async submitGuess(){
+      sessionStorage.setItem("isValid", "true");
     const requestBody = JSON.stringify({
       playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
@@ -108,6 +110,10 @@ class EnterGuess extends React.Component {
 
   async componentDidMount() {
     try {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
+
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
         this.interval = setInterval(async() => {

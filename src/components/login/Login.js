@@ -21,6 +21,7 @@ class Login extends React.Component {
   
 
     try {
+      sessionStorage.setItem("isValid", "true");
       const requestBody = JSON.stringify({
         username: this.state.username,
         password: this.state.password
@@ -52,7 +53,11 @@ class Login extends React.Component {
   }
 
 
-  componentDidMount() {}
+  componentDidMount() {
+    sessionStorage.setItem("isValid", "false");
+    const pathName = this.props.location.pathname;
+    sessionStorage.setItem("pathName", pathName);
+  }
 
   render() {
     return (
@@ -90,7 +95,7 @@ class Login extends React.Component {
 
             <Link to="/register" style={{ textDecoration: 'none' }}>
             <ButtonContainer>
-              <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"}>
+              <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"} onClick={() => {sessionStorage.setItem("isValid", "true")}}>
 
                 Click here to sign up!
               </CustomizedButton>

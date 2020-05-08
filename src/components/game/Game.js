@@ -33,11 +33,13 @@ class Game extends React.Component {
   }
 
   showUser(id) {
+    sessionStorage.setItem("isValid", "true");
     this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
   }
 
   async logout() {
     try {
+      sessionStorage.setItem("isValid", "true");
       let token1 = sessionStorage.getItem("token");       //saving token from local storage in token1 variable
       console.log(token1)                                    //check token in console
 
@@ -63,6 +65,10 @@ class Game extends React.Component {
 
   async componentDidMount() {
     try {
+      sessionStorage.setItem("isValid", "false");
+      const pathName = this.props.location.pathname;
+      sessionStorage.setItem("pathName", pathName);
+
       const response = await api.get('/users');
       // delays continuous execution of an async operation for 1 second.
       // This is just a fake async call, so that the spinner can be displayed

@@ -32,6 +32,10 @@ class Profile extends React.Component {
 
     async componentDidMount() {
         try {
+            sessionStorage.setItem("isValid", "false");
+            const pathName = this.props.location.pathname;
+            sessionStorage.setItem("pathName", pathName);
+            
           const pathname = this.props.location.pathname;      // whole pathname e.g., "/users/2"
            // console.log(pathname)
 
@@ -59,9 +63,11 @@ class Profile extends React.Component {
       }
 
     back() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/profiles`);              // Alternative: /game/dashboard
     }
     editUser(id){
+        sessionStorage.setItem("isValid", "true");
        this.props.history.push(`/edit/${id}`);         // Routes me to the editing page of the logged in user
     }
 

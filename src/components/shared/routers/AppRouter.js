@@ -20,6 +20,8 @@ import GamePage from "../../gamePage/GamePage";
 import SubmitClue from "../../clueingPlayer/SubmitClue";
 import GameSummary from "../../gameSummary/GameSummary";
 import Statistics from "../../statistics/Statistics";
+import {PageGuard} from "../routeProtectors/PageGuard";
+import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 
 /**
  * Main router of your application.
@@ -42,8 +44,10 @@ class AppRouter extends React.Component {
             <Route
               path="/game"
               render={() => (
-                <GameGuard>                       {/* When the path is "/game" it first digs in the GameGuard before accessing the GameRouter  */}
+                <GameGuard>
+                    <PageGuard>
                   <GameRouter base={"/game"} />
+                    </PageGuard>
                 </GameGuard>
               )}
             />
@@ -52,7 +56,9 @@ class AppRouter extends React.Component {
               exact
               render={() => (
                 <LoginGuard>
+                    <PageGuard>
                   <Login />
+                    </PageGuard>
                 </LoginGuard>
               )}
             />
@@ -61,7 +67,9 @@ class AppRouter extends React.Component {
               exact
               render={() => (
                 <GameGuard>
+                    <PageGuard>
                   <Profile />
+                    </PageGuard>
                 </GameGuard>
               )}
              />
@@ -70,7 +78,9 @@ class AppRouter extends React.Component {
               exact
               render={() => (
                 <GameGuard>
+                    <PageGuard>
                   <Edit />
+                    </PageGuard>
                 </GameGuard>
                   )}
               />
@@ -79,7 +89,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                       <GameGuard>
+                          <PageGuard>
                           <Overview/>
+                          </PageGuard>
                       </GameGuard>
                   )}
               />
@@ -88,7 +100,11 @@ class AppRouter extends React.Component {
                   path="/gamerules"
                   exact
                   render={() => (
+                      <GameGuard>
+                      <PageGuard>
                       <GameRules/>
+                      </PageGuard>
+                      </GameGuard>
                   )}
               />
 
@@ -96,8 +112,10 @@ class AppRouter extends React.Component {
                   path="/profiles"
                   exact
                   render={() => (
-                    <GameGuard> 
+                    <GameGuard>
+                        <PageGuard>
                       <Profiles/>
+                        </PageGuard>
                     </GameGuard> 
                   )}
               />
@@ -106,8 +124,10 @@ class AppRouter extends React.Component {
                   path="/leaderboard"
                   exact
                   render={() => (
-                    <GameGuard> 
+                    <GameGuard>
+                        <PageGuard>
                       <Leaderboard/>
+                        </PageGuard>
                     </GameGuard> 
                   )}
               />
@@ -116,8 +136,10 @@ class AppRouter extends React.Component {
                   path="/lobby"
                   exact
                   render={() => (
-                    <GameGuard> 
+                    <GameGuard>
+                        <PageGuard>
                       <Lobby/>
+                        </PageGuard>
                     </GameGuard> 
                   )}
               />
@@ -127,7 +149,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                       <GameGuard>
+                          <PageGuard>
                           <GameLobby/>
+                          </PageGuard>
                       </GameGuard>
                   )}
               />
@@ -136,8 +160,10 @@ class AppRouter extends React.Component {
                   path="/creategame"
                   exact
                   render={() => (
-                    <GameGuard> 
+                    <GameGuard>
+                        <PageGuard>
                       <CreateGame/>
+                        </PageGuard>
                     </GameGuard> 
                   )}
               />
@@ -147,7 +173,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <GameGuard>
+                        <PageGuard>
                       <SubmitNumber/>
+                        </PageGuard>
                       </GameGuard>
                      
                   )}
@@ -158,7 +186,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <GameGuard>
+                        <PageGuard>
                       <EnterGuess/>
+                        </PageGuard>
                     </GameGuard>
                      
                   )}
@@ -169,7 +199,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <GameGuard>
+                        <PageGuard>
                       <SubmitClue/>
+                        </PageGuard>
                     </GameGuard>
                      
                   )}
@@ -180,7 +212,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <GameGuard>
+                        <PageGuard>
                       <GamePage/>
+                        </PageGuard>
                     </GameGuard>
                      
                   )}
@@ -191,7 +225,9 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <GameGuard>
+                        <PageGuard>
                       <GameSummary/>
+                        </PageGuard>
                     </GameGuard>
                      
                   )}
@@ -202,14 +238,16 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <GameGuard>
+                        <PageGuard>
                       <Statistics/>
+                        </PageGuard>
                     </GameGuard>
                      
                   )}
               />
 
 
-            <Route path="/register" exact render={() => <Register />} />
+            <Route path="/register" exact render={() => <RegisterGuard> <Register /> </RegisterGuard>} />
 
             <Route path="/" exact render={() => <Redirect to={"/overview"} />} />
           </div>

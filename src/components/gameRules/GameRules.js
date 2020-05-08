@@ -34,7 +34,14 @@ class GameRules extends React.Component{
     }
 
     back() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/overview`);
+    }
+
+    componentDidMount() {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
     }
 
 

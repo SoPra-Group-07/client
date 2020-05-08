@@ -30,9 +30,11 @@ class GamePage extends React.Component {
      this.setState({ gameRound: response.data });
       
      if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
+         sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitnumber/${this.state.gameRound.gameRoundId}`); 
      }
      else{
+         sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.gameRoundId}`); 
      };
     } catch (error) {
@@ -49,6 +51,10 @@ class GamePage extends React.Component {
 
   async componentDidMount() {
     try {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
+
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
     } catch (error) {

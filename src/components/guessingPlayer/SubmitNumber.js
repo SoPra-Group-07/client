@@ -59,6 +59,7 @@ class SubmitNumber extends React.Component {
   }
 
   async submitNumber(){
+      sessionStorage.setItem("isValid", "true");
       this.setState({alreadyClicked: true})
 
     const pathname = this.props.location.pathname;
@@ -105,6 +106,10 @@ class SubmitNumber extends React.Component {
 
   async componentDidMount() {
     try {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
+
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
     } catch (error) {

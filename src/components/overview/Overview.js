@@ -22,27 +22,34 @@ class Overview extends React.Component {
     }
 
     goToGameRules() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/gamerules`);
     }
 
     goToProfiles() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/profiles`);
     }
 
     goToLeaderboard() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/leaderboard`);
     }
 
     goToLobby() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/lobby`);
     }
 
     goToCreateGame() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/creategame`);
     }
 
     async logout() {
         try {
+            sessionStorage.setItem("isValid", "true");
+
             let token1 = sessionStorage.getItem("token");
             console.log(token1)
 
@@ -67,6 +74,10 @@ class Overview extends React.Component {
 
     async componentDidMount() {
         try {
+            sessionStorage.setItem("isValid", "false");
+            const pathName = this.props.location.pathname;
+            sessionStorage.setItem("pathName", pathName);
+
             const response = await api.get('/users');
 
             await new Promise(resolve => setTimeout(resolve, 1002));

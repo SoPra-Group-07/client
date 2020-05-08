@@ -26,6 +26,7 @@ class GameLobby extends React.Component {
 
     async startGame(id) {
         try{
+            sessionStorage.setItem("isValid", "true");
             this.setState({alreadyClicked: true});
             const requestBody = JSON.stringify({
                 gameId: id
@@ -46,6 +47,7 @@ class GameLobby extends React.Component {
 
     async leaveGame(){
         try{
+            sessionStorage.setItem("isValid", "true");
             const requestBody = JSON.stringify({
                 gameId: this.state.lobby.gameId,
                 userId: sessionStorage.UserId
@@ -85,6 +87,7 @@ class GameLobby extends React.Component {
 
             this.setState({ lobby: response.data }); 
             if(this.state.lobby.gameStatus == "RUNNING") {
+                sessionStorage.setItem("isValid", "true");
                 const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
                 sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
                 sessionStorage.setItem("points",0.0);
@@ -94,6 +97,10 @@ class GameLobby extends React.Component {
 
     async componentDidMount() {
         try {
+            sessionStorage.setItem("isValid", "false");
+            const pathName = this.props.location.pathname;
+            sessionStorage.setItem("pathName", pathName);
+
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.updateGameLobby();
             this.interval = setInterval(async() => {

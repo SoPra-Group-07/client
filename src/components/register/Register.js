@@ -37,6 +37,7 @@ class Register extends React.Component {
    */
   async register() {
     try {
+        sessionStorage.setItem("isValid", "true");
       const requestBody = JSON.stringify({
           username: this.state.username,
           password: this.state.password
@@ -73,7 +74,11 @@ class Register extends React.Component {
    * You may call setState() immediately in componentDidMount().
    * It will trigger an extra rendering, but it will happen before the browser updates the screen.
    */
-  componentDidMount() {}
+  componentDidMount() {
+      sessionStorage.setItem("isValid", "false");
+      const pathName = this.props.location.pathname;
+      sessionStorage.setItem("pathName", pathName);
+  }
 
 
 
@@ -114,7 +119,7 @@ class Register extends React.Component {
 
                 <Link to = "/login" style={{ textDecoration: 'none' }}>
                 <ButtonContainer>
-              <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"}>
+              <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"} onClick={() => {sessionStorage.setItem("isValid", "true")}}>
                 Click here to sign in!
               </CustomizedButton>
             </ButtonContainer>
