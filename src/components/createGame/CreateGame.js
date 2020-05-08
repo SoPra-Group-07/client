@@ -38,7 +38,7 @@ class CreateGame extends React.Component {
       const requestBody = JSON.stringify({
           gameName: this.state.gameName,
           hasBot: this.state.hasBot,
-          adminPlayerId: localStorage.UserId
+          adminPlayerId: sessionStorage.UserId
     });
 
     console.log(requestBody)
@@ -51,7 +51,7 @@ class CreateGame extends React.Component {
       alert("Successfully created a new game.")
       console.log(response);
       
-      localStorage.setItem("PlayerId", response.data.players[0].playerId); 
+      sessionStorage.setItem("PlayerId", response.data.players[0].playerId);
 
       this.props.history.push(`/lobby/${response.data.gameId}`);
     } catch (error) {

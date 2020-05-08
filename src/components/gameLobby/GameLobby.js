@@ -34,8 +34,8 @@ class GameLobby extends React.Component {
             const response = await api.put(`/games/lobby`, requestBody)
             console.log(response.data);
 
-            localStorage.setItem("GameRoundId",response.data.gameRoundId);
-            localStorage.setItem("points",0.0);
+            sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
+            sessionStorage.setItem("points",0.0);
 
             this.props.history.push(`/games/${id}`); 
         }
@@ -48,7 +48,7 @@ class GameLobby extends React.Component {
         try{
             const requestBody = JSON.stringify({
                 gameId: this.state.lobby.gameId,
-                userId: localStorage.UserId
+                userId: sessionStorage.UserId
             });
             console.log(requestBody);
         
@@ -56,7 +56,7 @@ class GameLobby extends React.Component {
             
             console.log(response.data);
 
-            localStorage.removeItem("PlayerId");
+            sessionStorage.removeItem("PlayerId");
 
             this.props.history.push(`/lobby`); 
         }
@@ -86,8 +86,8 @@ class GameLobby extends React.Component {
             this.setState({ lobby: response.data }); 
             if(this.state.lobby.gameStatus == "RUNNING") {
                 const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
-                localStorage.setItem("GameRoundId",response.data.gameRoundId);
-                localStorage.setItem("points",0.0);
+                sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
+                sessionStorage.setItem("points",0.0);
                 this.props.history.push(`/games/${this.state.lobby.gameId}`); 
             }         
     }
@@ -115,7 +115,7 @@ class GameLobby extends React.Component {
                         <p>All players of this game:</p>
                         {!this.state.lobby ? (
                             <Spinner />
-                        ) : (localStorage.getItem("UserId") == this.state.lobby.adminPlayerId?(
+                        ) : (sessionStorage.getItem("UserId") == this.state.lobby.adminPlayerId?(
                             <div>
                                 <Users>
                                     {this.state.lobby.players.map(player => {
@@ -140,7 +140,7 @@ class GameLobby extends React.Component {
                                 </ButtonContainer>
                                 <ButtonContainer>
                                 <CustomizedButton
-                                    disabled={(localStorage.getItem("UserId") == this.state.lobby.adminPlayerId)}
+                                    disabled={(sessionStorage.getItem("UserId") == this.state.lobby.adminPlayerId)}
                                     color1={"red"} color2={"darkred"} width = {"60%"}
                                     onClick={() => {
                                         this.leaveGame();

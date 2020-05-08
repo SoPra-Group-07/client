@@ -82,7 +82,7 @@ class SubmitNumber extends React.Component {
  
   async updateGameRound() {
     try {
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 

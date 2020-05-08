@@ -43,7 +43,7 @@ class Lobby extends React.Component {
         try{
             const requestBody = JSON.stringify({
                 gameId: id,
-                userId: localStorage.UserId
+                userId: sessionStorage.UserId
             });
 
             console.log(requestBody);
@@ -63,7 +63,7 @@ class Lobby extends React.Component {
             // See here to get more data.
             console.log(response);
 
-            localStorage.setItem("PlayerId", response.data.players[response.data.players.length - 1].playerId); 
+            sessionStorage.setItem("PlayerId", response.data.players[response.data.players.length - 1].playerId);
 
             this.props.history.push(`/lobby/${id}`); 
         }

@@ -31,7 +31,7 @@ class Statistics extends React.Component {
 
   async componentDidMount() {
     try {
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log(response.data)
@@ -61,7 +61,7 @@ class Statistics extends React.Component {
                           <Form>
                             <Label>You achieved a total of</Label>
                             {this.state.gameStatistics.map(user => {
-                                    if(user.playerId == localStorage.PlayerId){
+                                    if(user.playerId == sessionStorage.PlayerId){
                                       return (
                                           <LabelTrue>{user.totalPoints} points</LabelTrue>
                                       );
@@ -71,7 +71,7 @@ class Statistics extends React.Component {
                             <Label>Other players:</Label>
                               <Users>
                                 {this.state.gameStatistics.map(user => {
-                                  if(user.playerId != localStorage.PlayerId){
+                                  if(user.playerId != sessionStorage.PlayerId){
                                     return (
                                         <PlayerContainer>
                                             <StatisticsList user={user}/>

@@ -41,7 +41,7 @@ class EnterGuess extends React.Component {
 
   async noGuess() {
     const requestBody = JSON.stringify({
-      playerId: localStorage.PlayerId,
+      playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
       guess: "noGuess"
     });
@@ -55,7 +55,7 @@ class EnterGuess extends React.Component {
 
   async submitGuess(){
     const requestBody = JSON.stringify({
-      playerId: localStorage.PlayerId,
+      playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
       guess: this.state.guess
     });
@@ -70,7 +70,7 @@ class EnterGuess extends React.Component {
  
   async updateGameRound() {
     try {
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 

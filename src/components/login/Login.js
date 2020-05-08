@@ -31,10 +31,11 @@ class Login extends React.Component {
 
       const user = new User(response.data);          //User is created with data received from PUT request
 
-      localStorage.setItem("token", user.token);  
-      localStorage.setItem("UserId", user.id); 
+      //localStorage.setItem("token", user.token);
+      sessionStorage.setItem("UserId", user.id);
 
       sessionStorage.setItem("token", user.token);  //same as localStorage, but gets erased after closing browser
+
 
       this.props.history.push(`/overview`);
 

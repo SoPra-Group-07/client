@@ -23,13 +23,13 @@ class GamePage extends React.Component {
     try {
      //localStorage.setItem("GameRoundId",localStorage.GameRoundId++)
 
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
      this.setState({ gameRound: response.data });
       
-     if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
+     if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitnumber/${this.state.gameRound.gameRoundId}`); 
      }
      else{
@@ -58,7 +58,7 @@ class GamePage extends React.Component {
 
   render() {
         {if(this.state.gameRound){
-            if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
+            if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
             return (
                 <BaseContainer>
                   <FormContainer>

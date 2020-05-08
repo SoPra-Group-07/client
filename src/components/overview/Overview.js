@@ -43,7 +43,7 @@ class Overview extends React.Component {
 
     async logout() {
         try {
-            let token1 = localStorage.getItem("token");
+            let token1 = sessionStorage.getItem("token");
             console.log(token1)
 
             const requestBody = JSON.stringify({
@@ -52,10 +52,12 @@ class Overview extends React.Component {
 
             await api.put('/logout', requestBody);
 
-            localStorage.removeItem('token');
-            localStorage.removeItem('UserId');
+           // localStorage.removeItem('token');
+            sessionStorage.removeItem('UserId');
 
             sessionStorage.removeItem("token");
+
+            //sessionStorage.clear();
 
             this.props.history.push('/login');
         } catch (error) {

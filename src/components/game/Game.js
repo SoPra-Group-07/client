@@ -38,7 +38,7 @@ class Game extends React.Component {
 
   async logout() {
     try {
-      let token1 = localStorage.getItem("token");       //saving token from local storage in token1 variable
+      let token1 = sessionStorage.getItem("token");       //saving token from local storage in token1 variable
       console.log(token1)                                    //check token in console
 
       const requestBody = JSON.stringify({
@@ -54,7 +54,7 @@ class Game extends React.Component {
       console.log('requested data:', response.data);
 
 
-      localStorage.removeItem('token');          //token removed from local storage
+      sessionStorage.removeItem('token');          //token removed from local storage
       this.props.history.push('/login');
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);

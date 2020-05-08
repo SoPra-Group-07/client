@@ -42,7 +42,7 @@ class GameSummary extends React.Component {
       });
       const response = await api.post(`/games/${this.state.gameRound.gameId}/gameRounds`, requestBody);
       
-      localStorage.setItem("GameRoundId",response.data.gameRoundId);
+      sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
     }
@@ -54,8 +54,8 @@ class GameSummary extends React.Component {
   async updateLocalStorage() {
     try {
      const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
-        if(response.data.gameRoundId != localStorage.GameRoundId) {
-          localStorage.setItem("GameRoundId", response.data.gameRoundId);
+        if(response.data.gameRoundId != sessionStorage.GameRoundId) {
+          sessionStorage.setItem("GameRoundId", response.data.gameRoundId);
           this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
         }  
           
@@ -66,7 +66,7 @@ class GameSummary extends React.Component {
  
   async updateGameRound() {
     try {
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log(response.data)
@@ -96,7 +96,7 @@ class GameSummary extends React.Component {
   async statistics(){
     if(this.state.count==0){
     try {
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}/gameRoundStatistics`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}/gameRoundStatistics`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log(response.data)
@@ -104,8 +104,8 @@ class GameSummary extends React.Component {
       this.setState({ gameStats: response.data });  
      
       this.state.gameStats.map(stat => {   
-        if(stat.playerId == localStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
-          localStorage.setItem("points",stat.points);
+        if(stat.playerId == sessionStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
+          sessionStorage.setItem("points",stat.points);
           this.state.count++;
         }
       })
@@ -165,7 +165,7 @@ startTimer(){
   render() {
         {if(this.state.gameRound && this.state.count!=0){
           this.startTimer();
-            if(localStorage.PlayerId == this.state.gameRound.guessingPlayerId){
+            if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
               if(this.state.gameRound.guess.correctGuess==true){
                 return (
                     <BaseContainer>
@@ -178,7 +178,7 @@ startTimer(){
                             <LabelTrue>Correct</LabelTrue>
 
                             <Label>Points earned:</Label>
-                            <Label>{localStorage.points}</Label>
+                            <Label>{sessionStorage.points}</Label>
                               <ButtonContainer>
                                   <CustomizedButton 
                                   disabled={(this.state.timercount==0)}
@@ -205,7 +205,7 @@ startTimer(){
                           <LabelFalse>Wrong</LabelFalse>
 
                           <Label>Points earned:</Label>
-                          <Label>{localStorage.points}</Label>
+                          <Label>{sessionStorage.points}</Label>
                             <ButtonContainer>
                                 <CustomizedButton 
                                  disabled={(this.state.timercount==0)}
@@ -235,7 +235,7 @@ startTimer(){
                         <LabelTrue>Correct</LabelTrue>
 
                         <Label>Points earned:</Label>
-                        <Label>{localStorage.points}</Label>
+                        <Label>{sessionStorage.points}</Label>
                          
                         <Label>Waiting for guessing player to start new round...</Label>
                         </Form>
@@ -255,7 +255,7 @@ startTimer(){
                         <LabelFalse>Wrong</LabelFalse>
 
                         <Label>Points earned:</Label>
-                        <Label>{localStorage.points}</Label>
+                        <Label>{sessionStorage.points}</Label>
                          
                         <Label>Waiting for guessing player to start new round...</Label>
                         </Form>

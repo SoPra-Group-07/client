@@ -30,7 +30,7 @@ class SubmitClue extends React.Component {
   async submitClue(){
       console.log("clue");
       const requestBody = JSON.stringify({
-        playerId: localStorage.PlayerId,
+        playerId: sessionStorage.PlayerId,
         gameRoundId: this.state.gameRound.gameRoundId,
         clue: this.state.clue
       });
@@ -45,7 +45,7 @@ class SubmitClue extends React.Component {
 
   async submitNoClue(){
     const requestBody = JSON.stringify({
-      playerId: localStorage.PlayerId,
+      playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
       clue: "noClue"
     });
@@ -61,7 +61,7 @@ class SubmitClue extends React.Component {
  
   async updateGameRound() {
     try {
-      const response = await api.get(`/gameRounds/${localStorage.GameRoundId}`);
+      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 

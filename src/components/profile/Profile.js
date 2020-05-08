@@ -87,7 +87,7 @@ class Profile extends React.Component {
                     <Spinner />
                 ) : (
 
-                        localStorage.getItem("token") === this.state.user.token?(
+                        sessionStorage.getItem("token") === this.state.user.token?(
                             <div>
                                 <Users>
                                     {"Username:"} {this.state.user.username}
