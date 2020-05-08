@@ -21,7 +21,7 @@ class SubmitClue extends React.Component {
     this.state = {
         gameRound: null,
         clue: null,
-        seconds: 60,
+        //seconds: 60,
         count: 0
     };
   }
@@ -77,13 +77,12 @@ class SubmitClue extends React.Component {
 
   
   updateTimer(){
-    if(this.state.seconds==1){
+    if(sessionStorage.getItem("seconds")==1){
       clearInterval(this.timerInterval);
       this.submitNoClue();
     };
-    this.setState(({ seconds }) => ({
-      seconds: seconds - 1
-    }))
+    let secondsNow = sessionStorage.getItem("seconds") - 1;
+    sessionStorage.setItem("seconds", secondsNow.toString())
   }
 
   handleInputChange(key, value) {
@@ -150,7 +149,7 @@ isAllAlphabet(){
                   <FormContainer>
                   <Container>
                   <h2>ClUEING PLAYER</h2>
-                  <h3>Time Remaining: { this.state.seconds }</h3>
+                  <h3>Time Remaining: { sessionStorage.getItem("seconds") }</h3>
                   </Container>
                       <Form>
                       <Label>Current word:</Label>

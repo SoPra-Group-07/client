@@ -31,10 +31,12 @@ class GamePage extends React.Component {
       
      if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
          sessionStorage.setItem("isValid", "true");
+         sessionStorage.setItem("seconds", "60");
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitnumber/${this.state.gameRound.gameRoundId}`); 
      }
      else{
          sessionStorage.setItem("isValid", "true");
+         sessionStorage.setItem("seconds", "60");
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.gameRoundId}`); 
      };
     } catch (error) {

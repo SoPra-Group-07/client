@@ -33,8 +33,8 @@ class EnterGuess extends React.Component {
     this.state = {
         gameRound: null,
         guess: null,
-        seconds: 60,
-        count: 0,
+        //seconds: 60,
+        count: 0
     };
   }
   
@@ -85,13 +85,12 @@ class EnterGuess extends React.Component {
   }
 
   updateTimer(){
-    if(this.state.seconds==1){
+    if(sessionStorage.getItem("seconds")==1){
       clearInterval(this.timerInterval);
       this.noGuess();
     };
-    this.setState(({ seconds }) => ({
-      seconds: seconds - 1
-    }))
+      let secondsNow = sessionStorage.getItem("seconds") - 1;
+      sessionStorage.setItem("seconds", secondsNow.toString())
   }
 
 
@@ -201,7 +200,7 @@ clues(){
                   <FormContainer>
                   <Container>
                   <h2>GUESSING PLAYER</h2>
-                  <h3>Time Remaining: { this.state.seconds }</h3>
+                  <h3>Time Remaining: { sessionStorage.getItem("seconds") }</h3>
                   </Container>
                       <Form>
                       <ClueItems>
