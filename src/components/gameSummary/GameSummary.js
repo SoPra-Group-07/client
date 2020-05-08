@@ -52,16 +52,18 @@ class GameSummary extends React.Component {
   }
 
   async updateLocalStorage() {
-    try {
-     const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
-        if(response.data.gameRoundId != sessionStorage.GameRoundId) {
-          sessionStorage.setItem("GameRoundId", response.data.gameRoundId);
-          this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
-        }  
-          
-    } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
-    }
+    if(this.state.gameRound){
+      try {
+      const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
+          if(response.data.gameRoundId != sessionStorage.GameRoundId) {
+            sessionStorage.setItem("GameRoundId", response.data.gameRoundId);
+            this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
+          }  
+            
+      } catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
+  }
   }
  
   async updateGameRound() {
@@ -140,7 +142,7 @@ class GameSummary extends React.Component {
           this.statistics();
           this.updateGameRound();
           this.updateLocalStorage();
-        },5000);
+        },1000);
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }

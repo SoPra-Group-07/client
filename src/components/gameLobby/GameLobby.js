@@ -98,7 +98,7 @@ class GameLobby extends React.Component {
             this.updateGameLobby();
             this.interval = setInterval(async() => {
                 this.updateGameLobby();
-            },5000);
+            },1000);
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }

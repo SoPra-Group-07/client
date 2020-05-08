@@ -112,7 +112,7 @@ class EnterGuess extends React.Component {
         this.updateGameRound();
         this.interval = setInterval(async() => {
             this.updateGameRound();
-        },5000);
+        },1000);
 
        
     } catch (error) {
