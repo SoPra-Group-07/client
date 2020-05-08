@@ -132,7 +132,6 @@ class GameSummary extends React.Component {
 
   async componentDidMount() {
     try {
-        sessionStorage.setItem("isValid", "false");
         const pathName = this.props.location.pathname;
         sessionStorage.setItem("pathName", pathName);
 
@@ -142,6 +141,7 @@ class GameSummary extends React.Component {
        
         this.interval = setInterval(async() => {
           if(this.state.gameOver==true){
+              sessionStorage.setItem("isValid", "false");
             this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
           }  
           this.checkIfGameOver();
