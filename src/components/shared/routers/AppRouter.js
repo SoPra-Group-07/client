@@ -20,6 +20,7 @@ import GamePage from "../../gamePage/GamePage";
 import SubmitClue from "../../clueingPlayer/SubmitClue";
 import GameSummary from "../../gameSummary/GameSummary";
 import Statistics from "../../statistics/Statistics";
+import NotFound from "../../notFound/NotFound";
 import {PageGuard} from "../routeProtectors/PageGuard";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
 
@@ -243,6 +244,14 @@ class AppRouter extends React.Component {
                         </PageGuard>
                     </GameGuard>
                      
+                  )}
+              />
+
+              <Route
+                  path="*"
+                  exact
+                  render={() => (
+                      <NotFound/> 
                   )}
               />
 

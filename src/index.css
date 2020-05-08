@@ -36,6 +36,14 @@ button {
   box-sizing: border-box;
 }
 
+.error{
+  max-width:40%;
+  height:auto;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .box-area{
   position: absolute;
   top: 0;
