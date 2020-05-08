@@ -28,6 +28,7 @@ class SubmitClue extends React.Component {
 
 
   async submitClue(){
+      sessionStorage.setItem("isValid", "true");
       console.log("clue");
       const requestBody = JSON.stringify({
         playerId: sessionStorage.PlayerId,
@@ -44,6 +45,7 @@ class SubmitClue extends React.Component {
   }
 
   async submitNoClue(){
+      sessionStorage.setItem("isValid", "true");
     const requestBody = JSON.stringify({
       playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
@@ -90,6 +92,10 @@ class SubmitClue extends React.Component {
 
   async componentDidMount() {
     try {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
+
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
         this.interval = setInterval(async() => {

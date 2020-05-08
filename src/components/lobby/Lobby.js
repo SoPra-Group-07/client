@@ -32,6 +32,7 @@ class Lobby extends React.Component {
 
 
     back() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/overview`);
     }
 
@@ -41,6 +42,7 @@ class Lobby extends React.Component {
 
     async joinGame(id){
         try{
+            sessionStorage.setItem("isValid", "true");
             const requestBody = JSON.stringify({
                 gameId: id,
                 userId: sessionStorage.UserId
@@ -91,6 +93,10 @@ class Lobby extends React.Component {
 
     async componentDidMount() {
         try {
+            sessionStorage.setItem("isValid", "false");
+            const pathName = this.props.location.pathname;
+            sessionStorage.setItem("pathName", pathName);
+
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.updateLobby();
             this.interval = setInterval(async() => {

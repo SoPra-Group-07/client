@@ -16,10 +16,12 @@ class Profiles extends React.Component {
     }
 
     showUser(id) {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
     }
 
     back() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/overview`);
     }
 
@@ -43,6 +45,10 @@ class Profiles extends React.Component {
 
     async componentDidMount() {
         try {
+            sessionStorage.setItem("isValid", "false");
+            const pathName = this.props.location.pathname;
+            sessionStorage.setItem("pathName", pathName);
+
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.updateProfiles();
             this.interval = setInterval(async() => {

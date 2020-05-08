@@ -25,12 +25,17 @@ class Statistics extends React.Component {
   
 
   async backToOverview(){
+      sessionStorage.setItem("isValid", "true");
     this.props.history.push(`/overview`);
   }
 
 
   async componentDidMount() {
     try {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
+
       const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));

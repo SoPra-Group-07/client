@@ -37,6 +37,7 @@ class GameSummary extends React.Component {
 
   async startNextRound(){
     try{
+        sessionStorage.setItem("isValid", "true");
       const requestBody = JSON.stringify({
         gameId: this.state.gameRound.gameId
       });
@@ -56,6 +57,7 @@ class GameSummary extends React.Component {
       try {
       const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
           if(response.data.gameRoundId != sessionStorage.GameRoundId) {
+              sessionStorage.setItem("isValid", "true");
             sessionStorage.setItem("GameRoundId", response.data.gameRoundId);
             this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
           }  
@@ -130,6 +132,10 @@ class GameSummary extends React.Component {
 
   async componentDidMount() {
     try {
+        sessionStorage.setItem("isValid", "false");
+        const pathName = this.props.location.pathname;
+        sessionStorage.setItem("pathName", pathName);
+
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
         

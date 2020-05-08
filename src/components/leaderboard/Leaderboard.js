@@ -17,6 +17,7 @@ class Leaderboard extends React.Component {
     }
 
     back() {
+        sessionStorage.setItem("isValid", "true");
         this.props.history.push(`/overview`);
     }
 
@@ -47,6 +48,10 @@ class Leaderboard extends React.Component {
 
     async componentDidMount() {
         try {
+            sessionStorage.setItem("isValid", "false");
+            const pathName = this.props.location.pathname;
+            sessionStorage.setItem("pathName", pathName);
+
             this.updateLeaderboard();
             this.interval = setInterval(async() => {
                 this.updateLeaderboard();

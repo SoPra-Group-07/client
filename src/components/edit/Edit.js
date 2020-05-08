@@ -21,11 +21,13 @@ class Edit extends React.Component {
   }
 
   back(id) {
+    sessionStorage.setItem("isValid", "true");
     this.props.history.push(`/users/${id}`);
   }
 
   async editUser() {
     try {
+      sessionStorage.setItem("isValid", "true");
       const pathname = this.props.location.pathname;
       var numb = pathname.match(/\d/g); // needed for isolating the last section of the pathname e.g. /users/1  -->  1
       numb = numb.join("");
@@ -64,6 +66,10 @@ class Edit extends React.Component {
 
   async componentDidMount() {
     try {
+      sessionStorage.setItem("isValid", "false");
+      const pathName = this.props.location.pathname;
+      sessionStorage.setItem("pathName", pathName);
+
       const pathname = this.props.location.pathname;
       var numb = pathname.match(/\d/g); // needed for isolating the last section of the pathname e.g. /users/1  -->  1
       numb = numb.join("");
