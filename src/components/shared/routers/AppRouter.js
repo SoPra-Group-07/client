@@ -40,8 +40,9 @@ class AppRouter extends React.Component {
   render() {
     return (
       <BrowserRouter>
+      <div>
         <Switch>
-          <div>
+          
             <Route
               path="/game"
               render={() => (
@@ -248,10 +249,11 @@ class AppRouter extends React.Component {
               />
 
               <Route
-                  path="*"
+                  path="/404"
                   exact
                   render={() => (
-                      <NotFound/> 
+                    <NotFound/>
+                     
                   )}
               />
 
@@ -259,8 +261,11 @@ class AppRouter extends React.Component {
             <Route path="/register" exact render={() => <RegisterGuard> <Register /> </RegisterGuard>} />
 
             <Route path="/" exact render={() => <Redirect to={"/overview"} />} />
-          </div>
+
+            <Route render={() => <Redirect to={"/404"} />} />
+          
         </Switch>
+        </div>
       </BrowserRouter>
     );
   }
