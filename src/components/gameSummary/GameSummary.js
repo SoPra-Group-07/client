@@ -104,8 +104,13 @@ class GameSummary extends React.Component {
       
       await new Promise(resolve => setTimeout(resolve, 1000));
       console.log(response.data)
+      
 
       this.setState({ gameStats: response.data });  
+      console.log("Halllloo")
+      console.log(this.state.gameStats)
+      console.log(this.state.gameRound)
+      console.log("Hallo")
      
       this.state.gameStats.map(stat => {   
         if(stat.playerId == sessionStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
@@ -212,7 +217,7 @@ startTimer(){
                         <Form>
                         <Label>You guessed the word:</Label>
                           <LabelFalse>Wrong</LabelFalse>
-
+                          <Label>The word to be guessed would have been: {this.state.gameRound.mysteryWord} hhh </Label>
                           <Label>Points earned:</Label>
                           <Label>{sessionStorage.points}</Label>
                             <ButtonContainer>
