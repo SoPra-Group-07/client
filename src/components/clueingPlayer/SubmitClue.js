@@ -5,7 +5,7 @@ import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
 
-//
+
 const Label2 = styled.label`
   color: blue;
   margin-bottom: 10px;
