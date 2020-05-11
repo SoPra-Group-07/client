@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import  { BaseContainer, FormContainer, ButtonContainer, Container, Form, Label } from '../../helpers/layout';
+import  { BaseContainer, FormContainer, ButtonContainer, Container, Form, Label, PlayerContainer, Users } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
 import { Spinner } from '../../views/design/Spinner';
+import LeaderboardEntity from "../../views/design/Board";
 
 
 const LabelTrue = styled.label`
@@ -30,7 +31,8 @@ class GameSummary extends React.Component {
         gameStats: null,
         count:0,
         seconds: 8,
-        timercount:0
+        timercount:0,
+        digit: 0
     };
   }
   
@@ -107,10 +109,10 @@ class GameSummary extends React.Component {
       
 
       this.setState({ gameStats: response.data });  
-      console.log("Halllloo")
+      console.log("Test")
       console.log(this.state.gameStats)
       console.log(this.state.gameRound)
-      console.log("Hallo")
+      
      
       this.state.gameStats.map(stat => {   
         if(stat.playerId == sessionStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
@@ -217,9 +219,18 @@ startTimer(){
                         <Form>
                         <Label>You guessed the word:</Label>
                           <LabelFalse>Wrong</LabelFalse>
-                          <Label>The word to be guessed would have been: {this.state.gameRound.mysteryWord} hhh </Label>
+                          <Label>The word to be guessed would have been: {this.state.gameRound.mysteryWord}</Label>
                           <Label>Points earned:</Label>
                           <Label>{sessionStorage.points}</Label>
+                          <Label>Clueing words given: </Label>
+                          <Users> {this.state.gameRound.submissions.map(user => {
+                                        this.state.digit ++;
+                                        return (
+                                            <PlayerContainer>
+                                                <LeaderboardEntity count={this.state.digit} user={user}/>
+                                            </PlayerContainer>
+                                        );
+                                    })} </Users>
                             <ButtonContainer>
                                 <CustomizedButton 
                                  disabled={(this.state.timercount==0)}
