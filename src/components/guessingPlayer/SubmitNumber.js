@@ -20,23 +20,9 @@ const Form = styled.div`
   border-radius: 0px;
   background: linear-gradient(wheat, sandybrown);
   transition: opacity 0.5s ease, transform 0.5s ease;
+  overflow: auto;
 `;
 
-const InputField = styled.input`
-  &::placeholder {
-    color: black;
-  }
-  height: 55px;
-  width: 20%;
-  padding-left: 15px;
-  margin-left: 35px;
-  margin-right: 35px;
-  border: none;
-  border-radius: 0px;
-  margin-bottom: 20px;
-  background: linear-gradient(white, antiquewhite);
-  color: black;
-`;
 
 
 const ButtonContainer = styled.div`
@@ -52,13 +38,12 @@ class SubmitNumber extends React.Component {
   constructor() {
     super();
     this.state = {
-        wordNumber: null,
         gameRoundId: null,
         alreadyClicked: false
     };
   }
 
-  async submitNumber(){
+  async submitNumber(num){
       sessionStorage.setItem("isValid", "true");
       this.setState({alreadyClicked: true})
 
@@ -69,7 +54,7 @@ class SubmitNumber extends React.Component {
     //console.log(lastsegment);
 
     const requestBody = JSON.stringify({
-      wordNumber: this.state.wordNumber,
+      wordNumber: num,
       gameRoundId: lastsegment
     });
     console.log(requestBody);
@@ -95,14 +80,7 @@ class SubmitNumber extends React.Component {
     }
   }
 
-  /**
-   *  Every time the user enters something in the input field, the state gets updated.
-   * @param key (the key of the state for identifying the field that needs to be updated)
-   * @param value (the value that gets assigned to the identified state key)
-   */
-  handleInputChange(key, value) {
-    this.setState({ [key]: value });
-  }
+
 
   async componentDidMount() {
     try {
@@ -125,21 +103,45 @@ class SubmitNumber extends React.Component {
                   <h2>GUESSING PLAYER</h2>
                   </Container>
                       <Form>
-                      <Label>Please enter a number between 1 and 5:</Label>
-                        <InputField
-                          placeholder="#..."
-                          onChange={e => {
-                            this.handleInputChange('wordNumber', e.target.value);
-                          }}
-                        />
+                      <Label>Please select one of the numbers in order to choose the guessing word:</Label>
+
                           <ButtonContainer>
-                              <CustomizedButton
-                                  disabled={!(this.state.wordNumber == 1 || this.state.wordNumber == 2 || this.state.wordNumber == 3 ||
-                                      this.state.wordNumber == 4 || this.state.wordNumber == 5) || this.state.alreadyClicked || this.state.wordNumber.length != 1}
-                              width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
-                                      this.submitNumber();
-                                  }}>
-                                      Submit number
+                              <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"} disabled={this.state.alreadyClicked} onClick={() => {
+                                  this.submitNumber(1);
+                              }}>
+                                  1
+                              </CustomizedButton>
+                          </ButtonContainer>
+
+                          <ButtonContainer>
+                              <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"} disabled={this.state.alreadyClicked} onClick={() => {
+                                  this.submitNumber(2);
+                              }}>
+                                  2
+                              </CustomizedButton>
+                          </ButtonContainer>
+
+                          <ButtonContainer>
+                              <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"} disabled={this.state.alreadyClicked} onClick={() => {
+                                  this.submitNumber(3);
+                              }}>
+                                  3
+                              </CustomizedButton>
+                          </ButtonContainer>
+
+                          <ButtonContainer>
+                              <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"} disabled={this.state.alreadyClicked} onClick={() => {
+                                  this.submitNumber(4);
+                              }}>
+                                  4
+                              </CustomizedButton>
+                          </ButtonContainer>
+
+                          <ButtonContainer>
+                              <CustomizedButton width="50%" color1={"lightskyblue"} color2={"royalblue"} disabled={this.state.alreadyClicked} onClick={() => {
+                                  this.submitNumber(5);
+                              }}>
+                                  5
                               </CustomizedButton>
                           </ButtonContainer>
                         </Form>
@@ -149,8 +151,4 @@ class SubmitNumber extends React.Component {
             }    
 }
 
-/**
- * You can get access to the history object's properties via the withRouter.
- * withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
- */
 export default withRouter(SubmitNumber);
