@@ -14,6 +14,7 @@ const Container = styled.div`
   height: ${props => props.height}px;
   background: ${props => props.background};
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -50,15 +51,12 @@ class GameRules extends React.Component{
             <div>
                 <Container height={this.props.height}>
                     <GameRulesContainer>
-                        <img src={gamerules} alt="JustOneLogo" width="60%"/>
-                        <CustomizedButton width="20%" color1={"red"} color2={"darkred"} style={{
-                            position: "absolute",
-                            marginTop: "265px"
-                        }} onClick={() => {
-                            this.back();}}>
-                            Back
-                        </CustomizedButton>
+                        <img src={gamerules} alt="JustOneLogo" width="60%" style={{marginBottom: "20px"}}/>
                     </GameRulesContainer>
+                    <CustomizedButton width="20%" color1={"red"} color2={"darkred"} onClick={() => {
+                        this.back();}}>
+                        Back
+                    </CustomizedButton>
                 </Container>
             </div>
         );
