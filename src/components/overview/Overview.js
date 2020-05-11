@@ -105,6 +105,11 @@ class Overview extends React.Component {
                 }}>
                     Profiles
                 </CustomizedButton>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"45px", fontSize:"20px"}}>{sessionStorage.getItem("UserName")}</p>
+                <img style ={{position:"absolute", width:"30px", height:"auto", marginTop:"-150px",marginLeft:"7px"}}
+                src="https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"
+                alt="user_avatar"
+                />
             <BaseContainer>
             <FormContainer>
                 <h2 style={{color:"black", textTransform: "uppercase"}}>Overview</h2>

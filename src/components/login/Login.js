@@ -37,6 +37,7 @@ class Login extends React.Component {
 
       //localStorage.setItem("token", user.token);
       sessionStorage.setItem("UserId", user.id);
+      sessionStorage.setItem("UserName", user.username);
 
       sessionStorage.setItem("token", user.token);  //same as localStorage, but gets erased after closing browser
 

@@ -35,6 +35,7 @@ class HeaderBar extends React.Component{
                 <NavItems>
                     Just One Implementation - Group 07
                 </NavItems>
+                
             </FooterContainer>
         );
     };
