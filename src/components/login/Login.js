@@ -14,7 +14,10 @@ class Login extends React.Component {
     this.state = {
       username: null,
       password: null,
+      pwvisible: false
     };
+
+    this.passwordVisibility = this.passwordVisibility.bind(this);
   }
 
   async login() {
@@ -52,6 +55,10 @@ class Login extends React.Component {
     this.setState({ [key]: value });
   }
 
+  passwordVisibility(){
+    this.setState({ pwvisible: !this.state.pwvisible });
+  }
+
 
   componentDidMount() {
     sessionStorage.setItem("isValid", "false");
@@ -76,11 +83,13 @@ class Login extends React.Component {
             />
             <Label>Please enter password: </Label>
             <InputField
+              type={this.state.pwvisible ? "text" : "password"}
               placeholder="Enter here..."
               onChange={e => {
                 this.handleInputChange('password', e.target.value);
               }}
             />
+             <button className="visible" onClick={this.passwordVisibility}></button>
             <ButtonContainer>
               <CustomizedButton
                 disabled={!this.state.username || !this.state.password}

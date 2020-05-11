@@ -27,7 +27,9 @@ class Register extends React.Component {
     this.state = {
       username: null,
       password: null,
+      pwvisible: false
     };
+    this.passwordVisibility = this.passwordVisibility.bind(this);
   }
 
   /**
@@ -80,6 +82,9 @@ class Register extends React.Component {
       sessionStorage.setItem("pathName", pathName);
   }
 
+  passwordVisibility(){
+    this.setState({ pwvisible: !this.state.pwvisible });
+  }
 
 
 
@@ -101,11 +106,13 @@ class Register extends React.Component {
             />
             <Label>Please enter new password: </Label>
             <InputField
+              type={this.state.pwvisible ? "text" : "password"}
               placeholder="Enter here..."
               onChange={e => {
                 this.handleInputChange('password', e.target.value);
               }}
             />
+            <button className="visible" onClick={this.passwordVisibility}></button>
 
             <ButtonContainer>
               <CustomizedButton disabled={!this.state.username || !this.state.password}

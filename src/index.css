@@ -44,6 +44,17 @@ button {
   margin-right: auto;
 }
 
+.visible{
+  width: 10%;
+  height: 8%;
+  margin-top: -10px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fc8600 no-repeat center;
+  background-size: 50%;
+  background-image: url(https://image.flaticon.com/icons/png/512/57/57122.png);
+}
+
 .box-area{
   position: absolute;
   top: 0;
