@@ -250,7 +250,24 @@ clues(){
               <h2>PLEASE WAIT A MOMENT...</h2>
               </Container>
                   <Form>
-                  <Label>Please wait for the other players to give their clues...</Label>
+                  <Label>
+                     {this.state.gameRound.submissions.map(sub => {    
+                                    if(sub.word === null){
+                                        return (
+                                            <ClueContainer>
+                                                {sub.playerId} is typing...                                                                                        
+                                            </ClueContainer>                              
+                                        );
+                      }
+                        else{
+                          return(
+                            <ClueContainer>
+                                {sub.playerId} has submitted                                                                                    
+                            </ClueContainer>    
+                          );
+                        }
+                      })}
+                      </Label>
                   </Form>
                 </FormContainer>
               </BaseContainer>
