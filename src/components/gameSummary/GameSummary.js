@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import  { BaseContainer, FormContainer, ButtonContainer, Container, Form, Label, PlayerContainer, Users } from '../../helpers/layout';
+import  { BaseContainer, SummaryForm, FormContainer, ButtonContainer, Container, Form, Label, PlayerContainer, Users } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { CustomizedButton } from '../../views/design/Button';
@@ -189,12 +189,21 @@ startTimer(){
                       <Container>
                       <h2>ROUND SUMMARY</h2>
                       </Container>
-                          <Form>
+                          <SummaryForm>
                           <Label>You guessed the word:</Label>
-                            <LabelTrue>Correct</LabelTrue>
+                            <LabelTrue style={{fontWeight: "bold", fontSize: "20px"}}>Correct</LabelTrue>
 
                             <Label>Points earned:</Label>
-                            <Label>{sessionStorage.points}</Label>
+                            <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
+                            <Label>Clueing words given: </Label>
+                            <Users> {this.state.gameRound.submissions.map(user => {
+                                        this.state.digit ++;
+                                        return (
+                                            <PlayerContainer>
+                                                <LeaderboardEntity count={this.state.digit} user={user}/>
+                                            </PlayerContainer>
+                                        );
+                                    })} </Users>
                               <ButtonContainer>
                                   <CustomizedButton 
                                   disabled={(this.state.timercount==0)}
@@ -204,7 +213,7 @@ startTimer(){
                                           Next round
                                   </CustomizedButton>
                               </ButtonContainer>
-                            </Form>
+                            </SummaryForm>
                         </FormContainer>
                     </BaseContainer>
                   );
@@ -216,12 +225,12 @@ startTimer(){
                     <Container>
                     <h2>ROUND SUMMARY</h2>
                     </Container>
-                        <Form>
+                        <SummaryForm>
                         <Label>You guessed the word:</Label>
                           <LabelFalse>Wrong</LabelFalse>
-                          <Label>The word to be guessed would have been: {this.state.gameRound.mysteryWord}</Label>
+                          <Label>The word to be guessed would have been: <Label style={{color: "blue"}}>{this.state.gameRound.mysteryWord}</Label></Label>
                           <Label>Points earned:</Label>
-                          <Label>{sessionStorage.points}</Label>
+                          <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
                           <Label>Clueing words given: </Label>
                           <Users> {this.state.gameRound.submissions.map(user => {
                                         this.state.digit ++;
@@ -240,7 +249,7 @@ startTimer(){
                                         Next round
                                 </CustomizedButton>
                             </ButtonContainer>
-                          </Form>
+                          </SummaryForm>
                       </FormContainer>
                   </BaseContainer>
                 );
@@ -259,8 +268,10 @@ startTimer(){
                       <Label>The guessing player guessed the word:</Label>
                         <LabelTrue>Correct</LabelTrue>
 
+                        <Label>The word was: <Label style={{color: "blue", fontWeight: "bold"}}>{this.state.gameRound.guess.word}</Label></Label>
+                        
                         <Label>Points earned:</Label>
-                        <Label>{sessionStorage.points}</Label>
+                        <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
                          
                         <Label>Waiting for guessing player to start new round...</Label>
                         </Form>
@@ -278,9 +289,9 @@ startTimer(){
                       <Form>
                       <Label>The guessing player guessed the word:</Label>
                         <LabelFalse>Wrong</LabelFalse>
-
+                        <Label>The guessing player submitted the word: <Label style={{color: "blue"}}>{this.state.gameRound.guess.word}</Label></Label>
                         <Label>Points earned:</Label>
-                        <Label>{sessionStorage.points}</Label>
+                        <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
                          
                         <Label>Waiting for guessing player to start new round...</Label>
                         </Form>
@@ -318,8 +329,8 @@ startTimer(){
                 </Container>
                     <Form>
                     <Label>Please wait for the game round to be completed...</Label>
-                    <Spinner />
                       </Form>
+                      <Spinner/>
                   </FormContainer>
             </BaseContainer>
             );}  

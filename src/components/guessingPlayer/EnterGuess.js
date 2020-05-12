@@ -252,17 +252,17 @@ clues(){
                   <Form>
                   <Label>
                      {this.state.gameRound.submissions.map(sub => {    
-                                    if(sub.word === null){
-                                        return (
-                                            <ClueContainer>
-                                                {sub.playerId} is typing...                                                                                        
-                                            </ClueContainer>                              
-                                        );
+                        if(sub.word === null){
+                          return (
+                            <ClueContainer >
+                              {sub.playerId} is typing...                                                                                        
+                            </ClueContainer>                              
+                          );
                       }
                         else{
                           return(
-                            <ClueContainer>
-                                {sub.playerId} has submitted                                                                                    
+                            <ClueContainer style={{color:"green", fontWeight:"bold"}}>
+                              {sub.playerId} has submitted                                                                                    
                             </ClueContainer>    
                           );
                         }

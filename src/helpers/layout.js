@@ -37,6 +37,21 @@ export const Form = styled.div`
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
+export const SummaryForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40%;
+  height: 450px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+`;
+
 export const InputField = styled.input`
   &::placeholder {
     color: black;
