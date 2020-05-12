@@ -75,15 +75,34 @@ class SubmitClue extends React.Component {
     }
   }
 
+  playAudio() {
+    const audioEl = document.getElementsByClassName("audio-element")[0]
+    audioEl.play()
+  }
+
+  playAudio2() {
+    const audioEl = document.getElementsByClassName("audio-element2")[0]
+    audioEl.play()
+  }
+
+
+
   
   updateTimer(){
     if(sessionStorage.getItem("seconds")==1){
       clearInterval(this.timerInterval);
       this.submitNoClue();
     };
+    if(sessionStorage.getItem("seconds")<19){
+      this.playAudio2();
+      let secondsNow = sessionStorage.getItem("seconds") - 1;
+      sessionStorage.setItem("seconds", secondsNow.toString())
+    }else{
+    this.playAudio();
     let secondsNow = sessionStorage.getItem("seconds") - 1;
     sessionStorage.setItem("seconds", secondsNow.toString())
   }
+}
 
   handleInputChange(key, value) {
     this.setState({ [key]: value });
@@ -146,6 +165,12 @@ isAllAlphabet(){
               this.startTimer();
             return (
                 <BaseContainer>
+                <audio className="audio-element">
+                <source src="https://actions.google.com/sounds/v1/household/clock_ticking.ogg"></source> 
+                </audio>
+                <audio className="audio-element2">
+                <source src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"></source> 
+                </audio>
                   <FormContainer>
                   <Container>
                   <h2>ClUEING PLAYER</h2>
