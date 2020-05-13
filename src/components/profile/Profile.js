@@ -30,6 +30,10 @@ class Profile extends React.Component {
         user: null,
     };
 
+    setIsValidToTrue(){
+        sessionStorage.setItem("isValid", "true");
+    }
+
     async componentDidMount() {
         try {
             sessionStorage.setItem("isValid", "false");
@@ -63,12 +67,12 @@ class Profile extends React.Component {
       }
 
     back() {
-        sessionStorage.setItem("isValid", "true");
+        this.setIsValidToTrue();
         this.props.history.push(`/profiles`);              // Alternative: /game/dashboard
     }
     editUser(id){
-        sessionStorage.setItem("isValid", "true");
-       this.props.history.push(`/edit/${id}`);         // Routes me to the editing page of the logged in user
+        this.setIsValidToTrue();
+        this.props.history.push(`/edit/${id}`);         // Routes me to the editing page of the logged in user
     }
 
     formatDate(dateTime) {                             // Function that formats the creation date

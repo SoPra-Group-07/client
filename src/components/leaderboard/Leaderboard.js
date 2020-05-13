@@ -27,23 +27,10 @@ class Leaderboard extends React.Component {
 
     async updateLeaderboard(){
         const response = await api.get('/leaderboards');
-        // delays continuous execution of an async operation for 1 second.
-        // This is just a fake async call, so that the spinner can be displayed
-        // feel free to remove it :)
+
         await new Promise(resolve => setTimeout(resolve, 1002));
 
-        // Get the returned users and update the state.
         this.setState({ users: response.data });
-
-        // This is just some data for you to see what is available.
-        // Feel free to remove it.
-        console.log('request to:', response.request.responseURL);
-        console.log('status code:', response.status);
-        console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
-
-        // See here to get more data.
-        console.log(response);
     }
 
     async componentDidMount() {

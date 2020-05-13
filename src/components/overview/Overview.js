@@ -21,34 +21,38 @@ class Overview extends React.Component {
         };
     }
 
-    goToGameRules() {
+    setIsValidToTrue(){
         sessionStorage.setItem("isValid", "true");
+    }
+
+    goToGameRules() {
+        this.setIsValidToTrue();
         this.props.history.push(`/gamerules`);
     }
 
     goToProfiles() {
-        sessionStorage.setItem("isValid", "true");
+        this.setIsValidToTrue();
         this.props.history.push(`/profiles`);
     }
 
     goToLeaderboard() {
-        sessionStorage.setItem("isValid", "true");
+        this.setIsValidToTrue();
         this.props.history.push(`/leaderboard`);
     }
 
     goToLobby() {
-        sessionStorage.setItem("isValid", "true");
+        this.setIsValidToTrue();
         this.props.history.push(`/lobby`);
     }
 
     goToCreateGame() {
-        sessionStorage.setItem("isValid", "true");
+        this.setIsValidToTrue();
         this.props.history.push(`/creategame`);
     }
 
     async logout() {
         try {
-            sessionStorage.setItem("isValid", "true");
+            this.setIsValidToTrue();
 
             let token1 = sessionStorage.getItem("token");
             console.log(token1)
