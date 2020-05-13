@@ -48,22 +48,11 @@ class Lobby extends React.Component {
                 userId: sessionStorage.UserId
             });
 
-            console.log(requestBody);
+            //console.log(requestBody);
         
             const response = await api.put('/games', requestBody);
             
-            // Get the returned users and update the state.
-            //this.setState({ games: response.data });
-
-            // This is just some data for you to see what is available.
-            // Feel free to remove it.
-            console.log('request to:', response.request.responseURL);
-            console.log('status code:', response.status);
-            console.log('status text:', response.statusText);
-            console.log('requested data:', response.data);
-
-            // See here to get more data.
-            console.log(response);
+            //console.log(response);
 
             sessionStorage.setItem("PlayerId", response.data.players[response.data.players.length - 1].playerId);
 
@@ -77,18 +66,9 @@ class Lobby extends React.Component {
     async updateLobby(){ 
         const response = await api.get('/games/?gameStatus=CREATED');
         
-        // Get the returned users and update the state.
         this.setState({ games: response.data });
 
-        // This is just some data for you to see what is available.
-        // Feel free to remove it.
-        console.log('request to:', response.request.responseURL);
-        console.log('status code:', response.status);
-        console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
-
-        // See here to get more data.
-        console.log(response);
+        //console.log(response);
     }
 
     async componentDidMount() {

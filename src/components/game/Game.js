@@ -34,14 +34,14 @@ class Game extends React.Component {
 
   showUser(id) {
     sessionStorage.setItem("isValid", "true");
-    this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
+    this.props.history.push(`/users/${id}`);      
   }
 
   async logout() {
     try {
       sessionStorage.setItem("isValid", "true");
-      let token1 = sessionStorage.getItem("token");       //saving token from local storage in token1 variable
-      console.log(token1)                                    //check token in console
+      let token1 = sessionStorage.getItem("token");      
+      console.log(token1)                                    
 
       const requestBody = JSON.stringify({
         token: token1,
@@ -51,7 +51,7 @@ class Game extends React.Component {
      
       //console.log('requested data:', response.data);
 
-      sessionStorage.removeItem('token');          //token removed from local storage
+      sessionStorage.removeItem('token');          
       this.props.history.push('/login');
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -86,7 +86,7 @@ class Game extends React.Component {
         ) : (
           <div>
             <Users>
-              {this.state.users.map(user => {                                    //iterates through all users (Players) so that as a result we can see the list of players on the screen
+              {this.state.users.map(user => {                                 
                 return (
                   <PlayerContainer onClick={() => { this.showUser(user.id)}}>    {/* By clicking on one of the fields with the usernames the corresponding profile page is accessed */}
                     <Player user={user}/>                                        {/* Player component receives user-infos */}

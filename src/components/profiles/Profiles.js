@@ -17,7 +17,7 @@ class Profiles extends React.Component {
 
     showUser(id) {
         sessionStorage.setItem("isValid", "true");
-        this.props.history.push(`/users/${id}`);       //The corresponding user profile is accessed thanks to the id
+        this.props.history.push(`/users/${id}`);    
     }
 
     back() {
@@ -32,15 +32,9 @@ class Profiles extends React.Component {
     async updateProfiles(){
         const response = await api.get('/users');
 
-        // Get the returned users and update the state.
         this.setState({ users: response.data });
 
-        console.log('request to:', response.request.responseURL);
-        console.log('status code:', response.status);
-        console.log('status text:', response.statusText);
-        console.log('requested data:', response.data);
-
-        console.log(response);
+        //console.log(response);
     }
 
     async componentDidMount() {

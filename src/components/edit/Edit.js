@@ -41,18 +41,11 @@ class Edit extends React.Component {
       const response = await api.put(
         `users/${this.state.user.id}`,
         requestBody
-      ); // Accesses the "users/{userId}" port in the
-      // UserController class in the backend and returns infos of the edited user
+      ); 
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-      // Get the returned users and update the state.
+  
       this.setState({ user: response.data });
-
-      // This is just some data for you to see what is available.
-      console.log("request to:", response.request.responseURL);
-      console.log("status code:", response.status);
-      console.log("status text:", response.statusText);
-      console.log("requested data:", response.data);
 
       alert("User was successfully modified.");
 
@@ -122,7 +115,7 @@ class Edit extends React.Component {
                 }
                 color1 ={"palegreen"} color2 = {"limegreen"} width = {"50%"}
                 onClick={() => {
-                  this.editUser(); // By clicking it the changes are sent to the backend as a PUT request
+                  this.editUser(); 
                 }}
               >
                 Save
@@ -132,7 +125,7 @@ class Edit extends React.Component {
               <CustomizedButton
                   color1 ={"red"} color2 = {"darkred"} width = {"50%"}
                 onClick={() => {
-                  this.back(this.state.user.id); // By clicking it you get redirected to the previous page
+                  this.back(this.state.user.id); 
                 }}
               >
                 Back

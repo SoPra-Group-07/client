@@ -40,25 +40,17 @@ class Profile extends React.Component {
             const pathName = this.props.location.pathname;
             sessionStorage.setItem("pathName", pathName);
             
-          const pathname = this.props.location.pathname;      // whole pathname e.g., "/users/2"
-           // console.log(pathname)
+          const pathname = this.props.location.pathname;     
+            // console.log(pathname)           
 
-          //console.log(this.props.location.pathname)               // Displays the pathname in the console e.g., "/users/2"
-
-          const response = await api.get(pathname);           // Accesses the "users/{userId}" port in the UserController class in the backend and returns infos of the corresponding user
+          const response = await api.get(pathname);     
         
-         // console.log(response)
+            // console.log(response)
           await new Promise(resolve => setTimeout(resolve, 1000));
     
-          // Get the returned infos of user and update the state.
-          this.setState({ user: response.data });                      // puts user object in the state
+          this.setState({ user: response.data }); 
     
-          // This is just some data for you to see what is available.
-          // Feel free to remove it.
-          console.log('request to:', response.request.responseURL);
-          console.log('status code:', response.status);
-          console.log('status text:', response.statusText);
-          console.log('requested data:', response.data);
+        
     
         }  catch (error) {
           alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -68,14 +60,14 @@ class Profile extends React.Component {
 
     back() {
         this.setIsValidToTrue();
-        this.props.history.push(`/profiles`);              // Alternative: /game/dashboard
+        this.props.history.push(`/profiles`);
     }
     editUser(id){
         this.setIsValidToTrue();
-        this.props.history.push(`/edit/${id}`);         // Routes me to the editing page of the logged in user
+        this.props.history.push(`/edit/${id}`);
     }
 
-    formatDate(dateTime) {                             // Function that formats the creation date
+    formatDate(dateTime) {                            
         const date = new Date(dateTime);
         const day = date.getDate();
         const monthIndex = date.getMonth() + 1;

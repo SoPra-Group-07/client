@@ -33,13 +33,13 @@ class Login extends React.Component {
       const response =  await api.put('/login', requestBody);
 
 
-      const user = new User(response.data);          //User is created with data received from PUT request
+      const user = new User(response.data);         
 
       //localStorage.setItem("token", user.token);
       sessionStorage.setItem("UserId", user.id);
       sessionStorage.setItem("UserName", user.username);
 
-      sessionStorage.setItem("token", user.token);  //same as localStorage, but gets erased after closing browser
+      sessionStorage.setItem("token", user.token);  
 
 
       this.props.history.push(`/overview`);
@@ -51,8 +51,6 @@ class Login extends React.Component {
   
 
   handleInputChange(key, value) {
-    // Example: if the key is username, this statement is the equivalent to the following one:
-    // this.setState({'username': value});
     this.setState({ [key]: value });
   }
 
