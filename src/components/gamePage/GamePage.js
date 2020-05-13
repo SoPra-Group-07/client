@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import  { BaseContainer, FormContainer, ButtonContainer, Container, Form, Label } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
@@ -38,7 +37,7 @@ class GamePage extends React.Component {
          sessionStorage.setItem("isValid", "true");
          sessionStorage.setItem("seconds", "60");
         this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.gameRoundId}`); 
-     };
+     }
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }

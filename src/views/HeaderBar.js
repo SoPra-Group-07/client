@@ -38,9 +38,9 @@ class HeaderBar extends React.Component{
                 
             </FooterContainer>
         );
-    };
+    }
 
-};
+}
 
 /**
  * Don't forget to export your component!

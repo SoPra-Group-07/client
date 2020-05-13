@@ -60,8 +60,8 @@ class GameRules extends React.Component{
                 </Container>
             </div>
         );
-    };
-};
+    }
+}
 
 /**
  * Don't forget to export your component!

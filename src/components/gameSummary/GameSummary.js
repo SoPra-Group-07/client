@@ -166,7 +166,7 @@ updateTimer(){
   if(this.state.seconds==1){
     clearInterval(this.timerInterval);
     this.setState({timercount: 1});
-  };
+  }
   this.setState(({ seconds }) => ({
     seconds: seconds - 1
   }))

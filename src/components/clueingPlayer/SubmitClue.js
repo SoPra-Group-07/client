@@ -92,7 +92,7 @@ class SubmitClue extends React.Component {
     if(sessionStorage.getItem("seconds")==1){
       clearInterval(this.timerInterval);
       this.submitNoClue();
-    };
+    }
     if(sessionStorage.getItem("seconds")<19){
       this.playAudio2();
       let secondsNow = sessionStorage.getItem("seconds") - 1;
@@ -150,9 +150,7 @@ isAllAlphabet(){
         count++;
       }
     }
-    if(count>=1){
-      return true;
-    }else{
+    if(count<1){
       return false;
     }
   }
