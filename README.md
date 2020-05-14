@@ -1,6 +1,26 @@
-# SoPra FS20 - Client Template
+# "Just One" - SoPraFS20 - Group 7
 
-## Getting started with React
+## Introduction
+This is an implementation of the Just One game. It is a cooperative party game in which the goal is to discover as many mystery words as possible. 
+While one player has the chance to guess the mystery word, which is determined by a card drawn by that player,
+the other players have to find the best clue in order to help the player guessing the word. 
+So, contrary to most games you know, in this game you have to work together to win the game. 
+A game is played over thirteen cards and the score is additionally determined by factors like answer time and more.
+
+## Technologies
+- React framework
+- JavaScript
+- Node Package Manager (npm)
+- CSS
+- GitHub
+- Heroku
+- SonarQube
+
+## High-level components
+...
+
+## Launch & Deployment
+### Getting started with React
 
 Read and go through those Tutorials, It will make your life easier!
 
@@ -25,7 +45,7 @@ Once you have downloaded and installed it, you can add the following WebStorm pl
 
 Feel free to use other IDEs (e.g. [VisualStudio](https://code.visualstudio.com/)) if you want.  -->
 
-## Prerequisites and Installation
+### Prerequisites and Installation
 
 For your local development environment you'll need Node.js >= 8.10. You can download it [here](https://nodejs.org). All other dependencies including React get installed with:
 
@@ -56,9 +76,33 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Learn More
+### Learn More
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 >Thanks to Lucas Pelloni for the template
+
+
+## Illustrations
+...
+
+## Roadmap
+...
+
+## Authors and acknowledgement
+- Jason Browne
+
+- Dario Gagulic
+
+- Dave Basler
+
+- Lynn Zumtaugwald
+
+- Piero Neri
+
+Many thanks to the whole SOPRA FS20 Team for supporting us througout the project. 
+A special thank goes to our TA, Jenny Schmid. 
+
+## License
+See the [LICENSE](LICENSE) file for license rights and limitations (Apache License 2.0).
