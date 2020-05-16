@@ -62,6 +62,13 @@ class CreateGame extends React.Component {
       console.log(response);
       
       sessionStorage.setItem("PlayerId", response.data.players[0].playerId);
+      sessionStorage.setItem("CurrentGameRound", 1);
+      if(this.state.isDemoGame == true){
+        sessionStorage.setItem("TotalGameRounds", 2);
+      }else{
+        sessionStorage.setItem("TotalGameRounds", 13);
+      }
+      
 
       this.props.history.push(`/lobby/${response.data.gameId}`);
     } catch (error) {

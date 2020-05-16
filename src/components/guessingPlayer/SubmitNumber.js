@@ -98,6 +98,8 @@ class SubmitNumber extends React.Component {
   render() {
             return (
                 <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
                   <Container>
                   <h2>GUESSING PLAYER</h2>

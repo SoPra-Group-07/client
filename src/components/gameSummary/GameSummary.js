@@ -35,6 +35,13 @@ class GameSummary extends React.Component {
         digit: 0
     };
   }
+
+  updateGameRoundInfo(){
+    sessionStorage.setItem("CurrentGameRound", parseInt(sessionStorage.getItem("CurrentGameRound"))+1);
+    if(this.state.gameRound.guess.correctGuess==false){
+      sessionStorage.setItem("TotalGameRounds", parseInt(sessionStorage.getItem("TotalGameRounds"))-1);
+    }
+  }
   
 
   async startNextRound(){
@@ -46,6 +53,7 @@ class GameSummary extends React.Component {
       const response = await api.post(`/games/${this.state.gameRound.gameId}/gameRounds`, requestBody);
       
       sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
+      this.updateGameRoundInfo();
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
     }
@@ -59,6 +67,7 @@ class GameSummary extends React.Component {
       try {
       const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
           if(response.data.gameRoundId != sessionStorage.GameRoundId) {
+            this.updateGameRoundInfo();
               sessionStorage.setItem("isValid", "true");
             sessionStorage.setItem("GameRoundId", response.data.gameRoundId);
             this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
@@ -116,7 +125,7 @@ class GameSummary extends React.Component {
      
       this.state.gameStats.map(stat => {   
         if(stat.playerId == sessionStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
-          sessionStorage.setItem("points",stat.points);
+          sessionStorage.setItem("points",stat.totalPoints);
           this.state.count++;
         }
       })
@@ -183,6 +192,8 @@ startTimer(){
               if(this.state.gameRound.guess.correctGuess==true){
                 return (
                     <BaseContainer>
+                     <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                      {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                       <FormContainer>
                       <Container>
                       <h2>ROUND SUMMARY</h2>
@@ -219,6 +230,8 @@ startTimer(){
               else{
                 return (
                   <BaseContainer>
+                  <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                     <FormContainer>
                     <Container>
                     <h2>ROUND SUMMARY</h2>
@@ -258,6 +271,8 @@ startTimer(){
             if(this.state.gameRound.guess.correctGuess==true){
             return(
                 <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                  {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
                   <Container>
                   <h2>ROUND SUMMARY</h2>
@@ -280,6 +295,8 @@ startTimer(){
             else{
               return(
                 <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                  {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
                   <Container>
                   <h2>ROUND SUMMARY</h2>
@@ -301,6 +318,8 @@ startTimer(){
           else{
             return(
               <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
                   <Container>
                   <h2>PLEASE WAIT A MOMENT...</h2>
@@ -320,6 +339,8 @@ startTimer(){
         else {
             return(
             <BaseContainer>
+              <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+              {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                 <FormContainer>
                 <Container>
                 <h2>PLEASE WAIT A MOMENT...</h2>

@@ -66,6 +66,8 @@ class GamePage extends React.Component {
             if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
             return (
                 <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
                   <Container>
                   <h2>GUESSING PLAYER</h2>
@@ -88,6 +90,8 @@ class GamePage extends React.Component {
         else {
             return(
                 <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                 <FormContainer>
                 <Container>
                 <h2>CLUEING PLAYER</h2>
@@ -105,6 +109,8 @@ class GamePage extends React.Component {
         else {
             return(
             <BaseContainer>
+            <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                 <FormContainer>
                 <Container>
                 <h2>PLEASE WAIT A MOMENT...</h2>

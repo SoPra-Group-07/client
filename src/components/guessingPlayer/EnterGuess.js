@@ -212,6 +212,8 @@ clues(){
               var clues = this.clues();
             return (
                 <BaseContainer>
+                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                  <audio className="audio-element">
                 <source src="https://actions.google.com/sounds/v1/household/clock_ticking.ogg"></source> 
                 </audio>
@@ -266,6 +268,8 @@ clues(){
         else {
             return(
               <BaseContainer>
+              <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
               <FormContainer>
               <Container>
               <h2>PLEASE WAIT A MOMENT...</h2>
@@ -299,6 +303,8 @@ clues(){
         else {
             return(
             <BaseContainer>
+            <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                    {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                 <FormContainer>
                 <Container>
                 <h2>PLEASE WAIT A MOMENT...</h2>

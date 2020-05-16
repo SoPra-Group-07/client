@@ -28,6 +28,7 @@ const LobbyEntity = ({ game }) => {
     return (
         <Container>
              <GameName>{game.gameName}</GameName>
+             <GameName style={{color:"green", marginLeft:"70%"}}>{game.numberOfPlayers}/7</GameName>
         </Container>
     );
 };
