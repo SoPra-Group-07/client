@@ -1,4 +1,7 @@
 # "Just One" - SoPraFS20 - Group 7
+![Deploy Project](https://github.com/SoPra-Group-07/client/workflows/Deploy%20Project/badge.svg)
+<img src="https://img.shields.io/github/v/tag/SoPra-Group-07/client" alt="Tag">
+
 
 ## Introduction
 This is an implementation of the Just One game. It is a cooperative party game in which the goal is to discover as many mystery words as possible. 
@@ -88,7 +91,13 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ...
 
 ## Roadmap
-...
+If you have ideas to improve our application, feel invited to join us. 
+We suggest following additional features for our application:
+- It would be nice to have a multimodal UI where players can for example play "just-one" in a pantomime way or
+    in giving clues by drawings.
+- It would be nice to make the UI customizable in terms of themes that can be selected
+- It would be great if users could create a bitmoji that looks just like them, this could then be pulled into the game
+- It would be great if users had a way to communicate with each other, maybe a chat function?
 
 ## Authors and acknowledgement
 - Jason Browne
@@ -105,4 +114,6 @@ Many thanks to the whole SOPRA FS20 Team for supporting us througout the project
 A special thank goes to our TA, Jenny Schmid. 
 
 ## License
-See the [LICENSE](LICENSE) file for license rights and limitations (Apache License 2.0).
+<img src="https://img.shields.io/github/license/SoPra-Group-07/client" alt="License"><br>
+See the [LICENSE](LICENSE) file for license rights and limitations (Apache License 2.0). 
+
