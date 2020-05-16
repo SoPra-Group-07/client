@@ -36,7 +36,7 @@ const Board = ({ count, user }) => {
     return (
     
         <Container>
-             <UserName>{user.playerId}</UserName>
+             <UserName>{user.playerName}</UserName>
              <Id> {user.word}</Id>
             
         </Container>
