@@ -13,6 +13,11 @@ const LabelTrue = styled.label`
   margin-bottom: 10px;
   text-align: center;
 `;
+const ButtonContainer2 = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+`;
 
 const LabelFalse = styled.label`
   color: red;
@@ -60,6 +65,10 @@ class GameSummary extends React.Component {
       catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
+  }
+
+  showPoints(){
+    this.props.history.push(`/points`);
   }
 
   async updateLocalStorage() {
@@ -222,6 +231,15 @@ startTimer(){
                                           Next round
                                   </CustomizedButton>
                               </ButtonContainer>
+                              <ButtonContainer2>
+                                <CustomizedButton 
+                                 disabled={(this.state.timercount==0)}
+                                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                        this.showPoints();
+                                    }}>
+                                        How points get calculated
+                                </CustomizedButton>
+                            </ButtonContainer2>
                             </SummaryForm>
                         </FormContainer>
                     </BaseContainer>
@@ -260,6 +278,15 @@ startTimer(){
                                         Next round
                                 </CustomizedButton>
                             </ButtonContainer>
+                            <ButtonContainer2>
+                                <CustomizedButton 
+                                 disabled={(this.state.timercount==0)}
+                                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                        this.showPoints();
+                                    }}>
+                                        How points get calculated
+                                </CustomizedButton>
+                            </ButtonContainer2>
                           </SummaryForm>
                       </FormContainer>
                   </BaseContainer>

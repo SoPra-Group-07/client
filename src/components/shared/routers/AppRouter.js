@@ -23,6 +23,7 @@ import Statistics from "../../statistics/Statistics";
 import NotFound from "../../notFound/NotFound";
 import {PageGuard} from "../routeProtectors/PageGuard";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
+import Points from "../../gameSummary/Points";
 
 /**
  * Main router of your application.
@@ -230,6 +231,18 @@ class AppRouter extends React.Component {
                         <PageGuard>
                       <GameSummary/>
                         </PageGuard>
+                    </GameGuard>
+                     
+                  )}
+              />
+              <Route
+                  path="/points"
+                  exact
+                  render={() => (
+                    <GameGuard>
+                        
+                      <Points/>
+                       
                     </GameGuard>
                      
                   )}

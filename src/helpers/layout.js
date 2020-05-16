@@ -76,7 +76,7 @@ export const Label = styled.label`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 export const Container = styled(BaseContainer)`

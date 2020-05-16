@@ -38,7 +38,6 @@ class EnterGuess extends React.Component {
     };
   }
   
-
   async noGuess() {
       sessionStorage.setItem("isValid", "true");
     const requestBody = JSON.stringify({
