@@ -276,14 +276,14 @@ clues(){
                         if(sub.word === null){
                           return (
                             <ClueContainer >
-                              {sub.playerId} is typing...                                                                                        
+                              {sub.playerName} is typing...                                                                                        
                             </ClueContainer>                              
                           );
                       }
                         else{
                           return(
                             <ClueContainer style={{color:"green", fontWeight:"bold"}}>
-                              {sub.playerId} has submitted                                                                                    
+                              {sub.playerName} has submitted                                                                                    
                             </ClueContainer>    
                           );
                         }

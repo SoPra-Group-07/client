@@ -13,13 +13,20 @@ class CreateGame extends React.Component {
         gameName: null,
         hasBot: false,
         adminPlayerId: null,
-        alreadyClicked: false
+        alreadyClicked: false,
+        isDemoGame: false
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeBot = this.handleChangeBot.bind(this);
+    this.handleChangeDemo = this.handleChangeDemo.bind(this);
   }
 
-  handleChange(hasBot) {
+  handleChangeBot(hasBot) {
     this.setState({ hasBot });
+    console.log(this.state)
+  }
+
+  handleChangeDemo(isDemoGame) {
+    this.setState({ isDemoGame });
   }
   
 
@@ -40,6 +47,7 @@ class CreateGame extends React.Component {
       const requestBody = JSON.stringify({
           gameName: this.state.gameName,
           hasBot: this.state.hasBot,
+          isDemoGame: this.state.isDemoGame,
           adminPlayerId: sessionStorage.UserId
     });
 
@@ -63,8 +71,6 @@ class CreateGame extends React.Component {
   }
 
   handleInputChange(key, value) {
-    // Example: if the key is username, this statement is the equivalent to the following one:
-    // this.setState({'username': value});
     this.setState({ [key]: value });
     console.log(this.state.hasBot);
     console.log(this.state.gameName);
@@ -95,13 +101,27 @@ class CreateGame extends React.Component {
           
             <Label>Do you want to include a bot? </Label>
            
-            <ButtonContainer >
+            <ButtonContainer style={{marginTop: "0px"}} >
             <label htmlFor="normal-switch">
            
            <Switch
-          onChange={this.handleChange}
+          onChange={this.handleChangeBot}
           checked={this.state.hasBot}
           id="normal-switch"
+            />
+           </label>
+            
+            </ButtonContainer>
+
+            <Label>Demo game? </Label>
+
+            <ButtonContainer style={{marginTop: "0px"}}>
+            <label htmlFor="normal-switch2">
+           
+           <Switch
+          onChange={this.handleChangeDemo}
+          checked={this.state.isDemoGame}
+          id="normal-switch2"
             />
            </label>
             
