@@ -67,9 +67,9 @@ class GameSummary extends React.Component {
       }
   }
 
-  showPoints(){
+  /*showPoints(){
     this.props.history.push(`/points`);
-  }
+  }*/
 
   async updateLocalStorage() {
     if(this.state.gameRound){
@@ -130,6 +130,7 @@ class GameSummary extends React.Component {
       console.log("Test")
       console.log(this.state.gameStats)
       console.log(this.state.gameRound)
+      this.getSubNum2();
       
      
       this.state.gameStats.map(stat => {   
@@ -156,6 +157,7 @@ class GameSummary extends React.Component {
   async componentDidMount() {
     try {
         sessionStorage.setItem("isValid", "false");
+        sessionStorage.setItem("subNum2", 0);
         const pathName = this.props.location.pathname;
         sessionStorage.setItem("pathName", pathName);
 
@@ -178,33 +180,55 @@ class GameSummary extends React.Component {
     }
 }
 
-updateTimer(){
-  if(this.state.seconds==1){
-    clearInterval(this.timerInterval);
-    this.setState({timercount: 1});
+  updateTimer(){
+    if(this.state.seconds==1){
+      clearInterval(this.timerInterval);
+      this.setState({timercount: 1});
+    }
+    this.setState(({ seconds }) => ({
+      seconds: seconds - 1
+    }))
   }
-  this.setState(({ seconds }) => ({
-    seconds: seconds - 1
-  }))
-}
 
-startTimer(){
-  this.timerInterval = setInterval(() => {
-      this.updateTimer();
-  }, 1000);
-}
-
-getSubNum(){
-  if(this.state.gameRound){
-    let num = 0;
-    this.state.gameRound.submissions.map(sub=>{
-      if(sub.playerId == sessionStorage.getItem("PlayerId")){
-        sessionStorage.setItem("subNum", num);
-      }
-      num++;
-    })
+  startTimer(){
+    this.timerInterval = setInterval(() => {
+        this.updateTimer();
+    }, 1000);
   }
-}
+
+  getSubNum(){
+    if(this.state.gameRound){
+      let num = 0;
+      this.state.gameRound.submissions.map(sub=>{
+        if(sub.playerId == sessionStorage.getItem("PlayerId")){
+          sessionStorage.setItem("subNum", num);
+        }
+        num++;
+      })
+    }
+  }
+
+  getSubNum2(){
+    if(this.state.gameStats){
+      let num2 = 0;
+      this.state.gameStats.map(sub=>{
+        if(sub.playerId == sessionStorage.getItem("PlayerId")){
+          sessionStorage.setItem("subNum2", num2);
+        }
+        num2++;
+      })
+    }
+  }
+
+  pointsOn(){
+    document.getElementById("overlay").style.display = "block";
+  }
+
+  pointsOff(){
+    document.getElementById("overlay").style.display = "none";
+  }
+
+
 
   render() {
         {if(this.state.gameRound && this.state.count!=0){
@@ -213,6 +237,15 @@ getSubNum(){
               if(this.state.gameRound.guess.correctGuess==true){
                 return (
                     <BaseContainer>
+                      <div id="overlay"  onClick={() => {
+                                                this.pointsOff();
+                                            }}>
+                       <div id="text">Guess was: <LabelTrue>Correct</LabelTrue> <br></br>
+                        Guess Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].rightGuessPoints} </Label><br></br>
+                        Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
+                        Submission Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].durationPoints}</Label><br></br>
+                        Total points: <Label style={{color:"blue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].totalPoints}</Label></div>
+                      </div>
                      <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                       {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                       <FormContainer>
@@ -247,7 +280,7 @@ getSubNum(){
                                 <CustomizedButton 
                                  disabled={(this.state.timercount==0)}
                                 width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
-                                        this.showPoints();
+                                        this.pointsOn();
                                     }}>
                                         How points get calculated
                                 </CustomizedButton>
@@ -260,6 +293,15 @@ getSubNum(){
               else{
                 return (
                   <BaseContainer>
+                   <div id="overlay"  onClick={() => {
+                                                this.pointsOff();
+                                            }}>
+                       <div id="text">Guess was: <LabelFalse>Wrong</LabelFalse> <br></br>
+                        Guess Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].rightGuessPoints} </Label><br></br>
+                        Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
+                        Submission Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].durationPoints}</Label><br></br>
+                        Total points: <Label style={{color:"blue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].totalPoints}</Label></div>
+                  </div>
                   <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                     {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                     <FormContainer>
@@ -294,7 +336,7 @@ getSubNum(){
                                 <CustomizedButton 
                                  disabled={(this.state.timercount==0)}
                                 width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
-                                        this.showPoints();
+                                      this.pointsOn();
                                     }}>
                                         How points get calculated
                                 </CustomizedButton>
@@ -310,6 +352,17 @@ getSubNum(){
             if(this.state.gameRound.guess.correctGuess==true){
             return(
                 <BaseContainer>
+                 <div id="overlay"  onClick={() => {
+                                                this.pointsOff();
+                                            }}>
+                    <div id="text">
+                      No-Clue points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].didNotClue} </Label><br></br>
+                      Duplicate Clue Points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].duplicateCluePoints}</Label><br></br>
+                      Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
+                      Submission Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].durationPoints}</Label><br></br>
+                      Correct Guess Bonus Points: <Label style={{color:"green"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].rightGuessPoints}</Label><br></br>
+                      Total points: <Label style={{color:"blue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].totalPoints}</Label></div>
+                </div>
                 <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                   {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
@@ -331,7 +384,7 @@ getSubNum(){
                         <ButtonContainer2>
                                 <CustomizedButton 
                                 width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
-                                        this.showPoints();
+                                      this.pointsOn();
                                     }}>
                                         How points get calculated
                                 </CustomizedButton>
@@ -345,6 +398,17 @@ getSubNum(){
             else{
               return(
                 <BaseContainer>
+                 <div id="overlay"  onClick={() => {
+                                                this.pointsOff();
+                                            }}>
+                    <div id="text">
+                      No-Clue points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].didNotClue} </Label><br></br>
+                      Duplicate Clue Points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].duplicateCluePoints}</Label><br></br>
+                      Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
+                      Submission Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].durationPoints}</Label><br></br>
+                      Correct Guess Bonus Points: <Label style={{color:"green"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].rightGuessPoints}</Label><br></br>
+                      Total points: <Label style={{color:"blue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].totalPoints}</Label></div>
+                </div>
                 <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                   {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                   <FormContainer>
@@ -366,7 +430,7 @@ getSubNum(){
                         <ButtonContainer2>
                                 <CustomizedButton 
                                 width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
-                                        this.showPoints();
+                                      this.pointsOn();
                                     }}>
                                         How points get calculated
                                 </CustomizedButton>

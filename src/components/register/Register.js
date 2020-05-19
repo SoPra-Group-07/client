@@ -50,8 +50,6 @@ class Register extends React.Component {
     this.setState({ pwvisible: !this.state.pwvisible });
   }
 
-
-
   render() {
     return (
       <BaseContainer>
@@ -94,7 +92,6 @@ class Register extends React.Component {
               </CustomizedButton>
             </ButtonContainer>
             </Link>
-
           </Form>
         </FormContainer>
       </BaseContainer>
