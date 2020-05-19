@@ -167,7 +167,7 @@ class GameSummary extends React.Component {
           if(this.state.gameOver==true){
               sessionStorage.setItem("isValid", "true");
             this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
-          }  
+          }
           this.checkIfGameOver();
           this.statistics();
           this.updateGameRound();
@@ -192,6 +192,18 @@ startTimer(){
   this.timerInterval = setInterval(() => {
       this.updateTimer();
   }, 1000);
+}
+
+getSubNum(){
+  if(this.state.gameRound){
+    let num = 0;
+    this.state.gameRound.submissions.map(sub=>{
+      if(sub.playerId == sessionStorage.getItem("PlayerId")){
+        sessionStorage.setItem("subNum", num);
+      }
+      num++;
+    })
+  }
 }
 
   render() {
@@ -234,7 +246,7 @@ startTimer(){
                               <ButtonContainer2>
                                 <CustomizedButton 
                                  disabled={(this.state.timercount==0)}
-                                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
                                         this.showPoints();
                                     }}>
                                         How points get calculated
@@ -270,7 +282,7 @@ startTimer(){
                                         );
                                     })} </Users>
                             <ButtonContainer>
-                                <CustomizedButton 
+                                <CustomizedButton
                                  disabled={(this.state.timercount==0)}
                                 width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
                                         this.startNextRound();
@@ -281,7 +293,7 @@ startTimer(){
                             <ButtonContainer2>
                                 <CustomizedButton 
                                  disabled={(this.state.timercount==0)}
-                                width="60%" color1={"palegreen"} color2={"limegreen"} onClick={() => {
+                                width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
                                         this.showPoints();
                                     }}>
                                         How points get calculated
@@ -307,13 +319,24 @@ startTimer(){
                       <Form>
                       <Label>The guessing player guessed the word:</Label>
                         <LabelTrue>Correct</LabelTrue>
-
                         <Label>The word was: <Label style={{color: "blue", fontWeight: "bold"}}>{this.state.gameRound.guess.word}</Label></Label>
-                        
+                        {this.getSubNum()}
+                        {this.state.gameRound.submissions[sessionStorage.getItem("subNum")].isDuplicate ? (
+                          <LabelFalse>Your clue was a duplicate.</LabelFalse>
+                        ):(
+                          <LabelTrue>Your clue was not a duplicate.</LabelTrue>
+                        )}                       
                         <Label>Points earned:</Label>
                         <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
-                         
-                        <Label>Waiting for guessing player to start new round...</Label>
+                        <ButtonContainer2>
+                                <CustomizedButton 
+                                width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
+                                        this.showPoints();
+                                    }}>
+                                        How points get calculated
+                                </CustomizedButton>
+                            </ButtonContainer2>
+                        <Label style={{marginTop:"20%"}}>Waiting for guessing player to start new round...</Label>
                         </Form>
                     </FormContainer>
                 </BaseContainer>
@@ -331,11 +354,24 @@ startTimer(){
                       <Form>
                       <Label>The guessing player guessed the word:</Label>
                         <LabelFalse>Wrong</LabelFalse>
+                        {this.getSubNum()}
                         <Label>The guessing player submitted the word: <Label style={{color: "blue"}}>{this.state.gameRound.guess.word}</Label></Label>
+                        {this.state.gameRound.submissions[sessionStorage.getItem("subNum")].isDuplicate ? (
+                          <LabelFalse>Your clue was a duplicate.</LabelFalse>
+                        ):(
+                          <LabelTrue>Your clue was not a duplicate.</LabelTrue>
+                        )}
                         <Label>Points earned:</Label>
                         <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
-                         
-                        <Label>Waiting for guessing player to start new round...</Label>
+                        <ButtonContainer2>
+                                <CustomizedButton 
+                                width="60%" color1={"lightskyblue"} color2={"royalblue"} onClick={() => {
+                                        this.showPoints();
+                                    }}>
+                                        How points get calculated
+                                </CustomizedButton>
+                            </ButtonContainer2>
+                        <Label style={{marginTop:"20%"}}>Waiting for guessing player to start new round...</Label>
                         </Form>
                     </FormContainer>
                 </BaseContainer>

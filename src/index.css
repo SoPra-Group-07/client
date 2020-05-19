@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Balsamiq+Sans");
 
 /**
 This file contains the general and shared style of your application.
@@ -11,7 +12,7 @@ html, body {
 }
 
 .bodyClass {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Balsamiq Sans", sans-serif;
   background: linear-gradient(wheat, chocolate);
   width: calc(100% - 0px);
   height: calc(100% - 50px);

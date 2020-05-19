@@ -58,6 +58,8 @@ class Lobby extends React.Component {
             sessionStorage.setItem("CurrentGameRound", 1);
             sessionStorage.setItem("TotalGameRounds", 13);
 
+        
+
 
             this.props.history.push(`/lobby/${id}`); 
         }

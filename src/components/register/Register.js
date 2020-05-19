@@ -25,11 +25,11 @@ class Register extends React.Component {
           password: this.state.password
     });
 
-    console.log(requestBody)
+      console.log(requestBody)
       await api.post('/users', requestBody);
 
       alert("Successfully created a new account. Please login.")
-
+     
       this.props.history.push(`/login`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -55,7 +55,6 @@ class Register extends React.Component {
   render() {
     return (
       <BaseContainer>
-      
         <FormContainer>
         <Container>
         <h2>Register </h2>

@@ -37,6 +37,7 @@ class GameLobby extends React.Component {
 
             sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
             sessionStorage.setItem("points",0.0);
+            sessionStorage.setItem("TotalGameRounds", "X");
 
             this.props.history.push(`/games/${id}`); 
         }
@@ -91,6 +92,7 @@ class GameLobby extends React.Component {
                 const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
                 sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
                 sessionStorage.setItem("points",0.0);
+                sessionStorage.setItem("TotalGameRounds", "X");
                 this.props.history.push(`/games/${this.state.lobby.gameId}`); 
             }         
     }
@@ -145,17 +147,7 @@ class GameLobby extends React.Component {
                                     Start Game
                                 </CustomizedButton>
                                 </ButtonContainer>
-                                <ButtonContainer>
-                                <CustomizedButton
-                                    disabled={(sessionStorage.getItem("UserId") == this.state.lobby.adminPlayerId)}
-                                    color1={"red"} color2={"darkred"} width = {"60%"}
-                                    onClick={() => {
-                                        this.leaveGame();
-                                    }}
-                                >
-                                    Leave Game
-                                </CustomizedButton>
-                                </ButtonContainer>
+                               
                             </div>
                             ):(
                                 <div>

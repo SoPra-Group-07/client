@@ -27,6 +27,9 @@ class GamePage extends React.Component {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
      this.setState({ gameRound: response.data });
+     if(sessionStorage.getItem("TotalGameRounds")=="X"){
+        sessionStorage.setItem("TotalGameRounds", this.state.gameRound.totalGameRounds);
+     }
       
      if(sessionStorage.PlayerId == this.state.gameRound.guessingPlayerId){
          sessionStorage.setItem("isValid", "true");
@@ -43,7 +46,6 @@ class GamePage extends React.Component {
     }
   }
 
-
   handleInputChange(key, value) {
     this.setState({ [key]: value });
   }
@@ -53,7 +55,7 @@ class GamePage extends React.Component {
         sessionStorage.setItem("isValid", "false");
         const pathName = this.props.location.pathname;
         sessionStorage.setItem("pathName", pathName);
-
+    
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
     } catch (error) {
@@ -116,7 +118,7 @@ class GamePage extends React.Component {
                 <h2>PLEASE WAIT A MOMENT...</h2>
                 </Container>
                     <Form>
-                    <Label>Please wait for game to be created...</Label>
+                    <Label>Please wait for game round to be created...</Label>
                         
                       </Form>
                   </FormContainer>
