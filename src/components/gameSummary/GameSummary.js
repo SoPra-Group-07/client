@@ -356,7 +356,7 @@ class GameSummary extends React.Component {
                                                 this.pointsOff();
                                             }}>
                     <div id="text">
-                      No-Clue points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].didNotClue} </Label><br></br>
+                      No-Clue points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].notCluePoints} </Label><br></br>
                       Duplicate Clue Points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].duplicateCluePoints}</Label><br></br>
                       Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
                       Submission Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].durationPoints}</Label><br></br>
@@ -372,13 +372,7 @@ class GameSummary extends React.Component {
                       <Form>
                       <Label>The guessing player guessed the word:</Label>
                         <LabelTrue>Correct</LabelTrue>
-                        <Label>The word was: <Label style={{color: "blue", fontWeight: "bold"}}>{this.state.gameRound.guess.word}</Label></Label>
-                        {this.getSubNum()}
-                        {this.state.gameRound.submissions[sessionStorage.getItem("subNum")].isDuplicate ? (
-                          <LabelFalse>Your clue was a duplicate.</LabelFalse>
-                        ):(
-                          <LabelTrue>Your clue was not a duplicate.</LabelTrue>
-                        )}                       
+                                           
                         <Label>Points earned:</Label>
                         <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
                         <ButtonContainer2>
@@ -402,7 +396,7 @@ class GameSummary extends React.Component {
                                                 this.pointsOff();
                                             }}>
                     <div id="text">
-                      No-Clue points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].didNotClue} </Label><br></br>
+                      No-Clue points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].notCluePoints} </Label><br></br>
                       Duplicate Clue Points: <Label style={{color:"red"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].duplicateCluePoints}</Label><br></br>
                       Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
                       Submission Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].durationPoints}</Label><br></br>
@@ -418,13 +412,7 @@ class GameSummary extends React.Component {
                       <Form>
                       <Label>The guessing player guessed the word:</Label>
                         <LabelFalse>Wrong</LabelFalse>
-                        {this.getSubNum()}
-                        <Label>The guessing player submitted the word: <Label style={{color: "blue"}}>{this.state.gameRound.guess.word}</Label></Label>
-                        {this.state.gameRound.submissions[sessionStorage.getItem("subNum")].isDuplicate ? (
-                          <LabelFalse>Your clue was a duplicate.</LabelFalse>
-                        ):(
-                          <LabelTrue>Your clue was not a duplicate.</LabelTrue>
-                        )}
+                       
                         <Label>Points earned:</Label>
                         <Label style={{fontWeight: "bold", fontSize: "18px"}}>{sessionStorage.points}</Label>
                         <ButtonContainer2>
