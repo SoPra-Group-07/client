@@ -9,7 +9,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   border: 0px solid black;
-
+  overflow: auto;
   background: linear-gradient(white, antiquewhite);
 `;
 
@@ -28,7 +28,7 @@ const StatisticsList = ({ user }) => {
   return (
     <Container>
       Username: <UserName>{user.playerName}</UserName>
-      <Id>Points: {user.totalPoints}</Id>
+      <Id>Points: {Math.floor(user.totalPoints * 100) / 100}</Id>
     </Container>
   );
 };
