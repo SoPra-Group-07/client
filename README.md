@@ -91,9 +91,54 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 The following screenshots will show the main user flow of the game's interface. <br>
 ### Register/Login 
 The first step of the interface involves the registration and login process. Here a new user has to enter any desired user name (which is not already taken) and a password. After successfully registering the user can login by entering the same information on the login screen correctly.
-![register](https://github.com/SoPra-Group-07/client/screenshots/register.jpg) <br>
-![login](https://github.com/SoPra-Group-07/client/screenshots/login.jpg)
-
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/register.JPG" alt="register" width="700"/>
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/login.JPG" alt="login" width="700"/><br>
+### Game Creation
+After a successful login the user sees the overview page and has the option to create a new game. By clicking on the "Create new game"-button, the user can choose the new game's name, wether a bot should be included and wether the new game should be a demo game.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/overview.JPG" alt="overview" width="700"/>
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/newGame.JPG" alt="New Game" width="700"/>
+<br><br>
+All other users who desire to join a game can do this by clicking on the "Join Game"-button. They will see a list of all open games (including the number of players in each game) and can join one by simply clicking on the name of the desired game.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/joinGame.JPG" alt="Joining Game" width="700"/>
+<br><br>
+Once in the game only the user who had created the game (admin user) can start the game (if the required 3-7 users are in the game). As long as the game hasn't begun yet, any user besided the admin user can still leave the game.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/gameLobby.JPG" alt="Game Lobby" width="700"/>
+<br><br>
+### Game Run
+When a game starts, one player will be selected to be the guessing player for the first round and has to choose a number between 1 and 5, which selects the word to be guessed from that specific card (determined randomly). While the guessing player is choosing the number the other players will see a waiting screen.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/chooseNumber.JPG" alt="Choose a number" width="700"/>
+<br><br>
+Once the word has been determined by the guessing player, the other players are able to submit their clues. For this task they got 1 minute (which is displayed to them on the screen). If they don't submit any clue within this time, no clue will be submitted (which leads to less points). Throughout the clueing phase the guessing player is able to see which player has already submitted a clue in real time.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/clue.JPG" alt="Submit a clue" width="700"/>
+<br><br>
+As all players have submitted their clues or 1 minute has elapsed, the guessing player will be able to sumbitt a guess. All clues are displayed on the screen, unless the clue was a duplicate or not valid due to similarity to the word to be guessed. The player also has 1 minute time to submit and if this time elapses no guess is submitted. Additionally the player can also submit no guess by clicking the respective button.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/guess.JPG" alt="Submit a guess" width="700"/>
+<br><br>
+After the submission of a guess the current game round will come to an end and each player gets to see the information about the round. This includes, among other information wether, the guess was right and the achieved points.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/roundSummary.JPG" alt="Round Summary" width="700"/>
+<br><br>
+If a player is interested how his points were calculated, there is the option to see this information by clicking on the blue button, which activites an overlay screen.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/points.JPG" alt="Point Calculation" width="700"/>
+<br><br>
+### End of a Game
+A game includes 13 rounds in total in the beginning, but after each wrong guess the game looses one round. So when a game reaches its last round, a statistics page will be displayed in the end and the game is completed. On this page the players will be able to see their total points and the points of all the other players.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/statistics.JPG" alt="Statistics" width="700"/>
+<br><br>
+On the overview page users can click on the "Leaderboard"-button to see the leaderboard. The ranks and points of all players who ever played and finished a game are visible.
+<br><br>
+<img src="https://github.com/SoPra-Group-07/client/blob/master/screenshots/leaderboard.JPG" alt="Leaderboard" width="700"/>
 
 ## Roadmap
 If you have ideas to improve our application, feel invited to join us. 
