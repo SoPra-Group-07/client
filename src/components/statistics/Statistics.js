@@ -68,7 +68,7 @@ class Statistics extends React.Component {
                             {this.state.gameStatistics.map(user => {
                                     if(user.playerId == sessionStorage.PlayerId){
                                       return (
-                                          <LabelTrue>{user.totalPoints} points</LabelTrue>
+                                          <LabelTrue>{Math.floor(user.totalPoints * 100) / 100} points</LabelTrue>
                                       );
                                     }
                                 })} 
