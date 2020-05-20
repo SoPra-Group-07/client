@@ -88,7 +88,12 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 ## Illustrations
-...
+The following screenshots will show the main user flow of the game's interface. <br>
+### Register/Login 
+The first step of the interface involves the registration and login process. Here a new user has to enter any desired user name (which is not already taken) and a password. After successfully registering the user can login by entering the same information on the login screen correctly.
+![register](https://github.com/SoPra-Group-07/client/screenshots/register.jpg) <br>
+![login](https://github.com/SoPra-Group-07/client/screenshots/login.jpg)
+
 
 ## Roadmap
 If you have ideas to improve our application, feel invited to join us. 
