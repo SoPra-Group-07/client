@@ -72,11 +72,7 @@ class Edit extends React.Component {
       await new Promise(resolve => setTimeout(resolve, 1));
 
       this.setState({ user: response.data });
-
-      console.log("request to:", response.request.responseURL);
-      console.log("status code:", response.status);
-      console.log("status text:", response.statusText);
-      console.log("requested data:", response.data);
+      //console.log("requested data:", response.data);
     } catch (error) {
       alert(
         `Something went wrong while fetching the users: \n${handleError(error)}`
@@ -107,7 +103,6 @@ class Edit extends React.Component {
                 this.handleInputChange("birth", e.target.value);
               }}
             />
-
             <ButtonContainer>
               <CustomizedButton
                 disabled={
@@ -123,7 +118,7 @@ class Edit extends React.Component {
             </ButtonContainer>
             <ButtonContainer>
               <CustomizedButton
-                  color1 ={"red"} color2 = {"darkred"} width = {"50%"}
+                color1 ={"red"} color2 = {"darkred"} width = {"50%"}
                 onClick={() => {
                   this.back(this.state.user.id); 
                 }}

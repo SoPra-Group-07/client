@@ -23,8 +23,6 @@ const Form = styled.div`
   overflow: auto;
 `;
 
-
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -32,9 +30,7 @@ const ButtonContainer = styled.div`
   width: 90%;
 `;
 
-
 class SubmitNumber extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -44,11 +40,10 @@ class SubmitNumber extends React.Component {
   }
 
   async submitNumber(num){
-      sessionStorage.setItem("isValid", "true");
-      this.setState({alreadyClicked: true})
+    sessionStorage.setItem("isValid", "true");
+    this.setState({alreadyClicked: true})
 
-    const pathname = this.props.location.pathname;
-            
+    const pathname = this.props.location.pathname;       
     var temp = pathname.split('/');
     var lastsegment = temp[temp.length-1];
     //console.log(lastsegment);
@@ -57,11 +52,10 @@ class SubmitNumber extends React.Component {
       wordNumber: num,
       gameRoundId: lastsegment
     });
-    console.log(requestBody);
 
     const response =  await api.put('/gameRounds', requestBody);
 
-    console.log(response.data);
+    //console.log(response.data);
 
     this.props.history.push(`/games/${response.data.gameId}/enterguess/${response.data.gameRoundId}`);
   }
@@ -73,14 +67,11 @@ class SubmitNumber extends React.Component {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       this.setState({ gameRoundId: response.data.gameRoundId });
-
-      console.log(response.data); 
+      //console.log(response.data); 
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
   }
-
-
 
   async componentDidMount() {
     try {
@@ -93,7 +84,7 @@ class SubmitNumber extends React.Component {
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
-}
+  }
 
   render() {
             return (

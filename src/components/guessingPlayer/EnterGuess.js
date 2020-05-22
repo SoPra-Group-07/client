@@ -33,38 +33,36 @@ class EnterGuess extends React.Component {
     this.state = {
         gameRound: null,
         guess: null,
-        //seconds: 60,
         count: 0
     };
   }
   
   async noGuess() {
-      sessionStorage.setItem("isValid", "true");
+    sessionStorage.setItem("isValid", "true");
+
     const requestBody = JSON.stringify({
       playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
       guess: "noGuess"
     });
-    console.log(requestBody);
 
     const response =  await api.put('/gameRounds/guesses', requestBody);
-    console.log(response.data)
+    //console.log(response.data)
 
     this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
   }
 
   async submitGuess(){
-      sessionStorage.setItem("isValid", "true");
+    sessionStorage.setItem("isValid", "true");
+
     const requestBody = JSON.stringify({
       playerId: sessionStorage.PlayerId,
       gameRoundId: this.state.gameRound.gameRoundId,
       guess: this.state.guess
     });
-    console.log(requestBody);
 
     const response =  await api.put('/gameRounds/guesses', requestBody);
-
-    console.log(response.data);
+    //console.log(response.data);
 
     this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
   }
@@ -75,9 +73,9 @@ class EnterGuess extends React.Component {
       
       await new Promise(resolve => setTimeout(resolve, 1000));
 
-     this.setState({ gameRound: response.data });
+      this.setState({ gameRound: response.data });
 
-      console.log(response.data);     
+      //console.log(response.data);     
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -106,9 +104,8 @@ class EnterGuess extends React.Component {
     this.playAudio();
     let secondsNow = sessionStorage.getItem("seconds") - 1;
     sessionStorage.setItem("seconds", secondsNow.toString())
+    }
   }
-}
-
 
   handleInputChange(key, value) {
     this.setState({ [key]: value });
@@ -134,75 +131,74 @@ class EnterGuess extends React.Component {
         this.interval = setInterval(async() => {
             this.updateGameRound();
         },1000);
-
        
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
-}
+  }
 
-componentWillUnmount(){
-  clearInterval(this.interval);
-  clearInterval(this.timerInterval);
-}
+  componentWillUnmount(){
+    clearInterval(this.interval);
+    clearInterval(this.timerInterval);
+  }
 
-allCluesSubmitted(){
-  var count=0;
-  this.state.gameRound.submissions.map(sub => {                                   
-    if(sub.word==null){
-      count++;
+  allCluesSubmitted(){
+    var count=0;
+    this.state.gameRound.submissions.map(sub => {                                   
+      if(sub.word==null){
+        count++;
+        }
+  })
+  console.log(count);
+    if(count<=0){
+      return true;
+    }
+    return false;
+  }
+
+  isAllAlphabet(){
+    var currentInput = this.state.guess;
+    var count=0;
+    if(currentInput!=null && currentInput!=""){
+      for (var i = 0; i < currentInput.length; i++) {
+        if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 122)){
+          console.log(count);
+        }else{
+          count++;
+        }
       }
-})
-console.log(count);
-  if(count<=0){
+      if(count<1){
+        return false;
+      }
+    }
     return true;
   }
-  return false;
-}
 
-isAllAlphabet(){
-  var currentInput = this.state.guess;
-  var count=0;
-  if(currentInput!=null && currentInput!=""){
-    for (var i = 0; i < currentInput.length; i++) {
-      if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 122)){
-        console.log(count);
-      }else{
-        count++;
+  clues(){
+    var clues =[];
+    var duplicates = [];
+    var mysteryWord = this.state.gameRound.mysteryWord.toUpperCase();
+    this.state.gameRound.submissions.map(sub => {    
+      if(mysteryWord == sub.word.toUpperCase()
+      || sub.stemmedClue.toUpperCase() == mysteryWord
+      || sub.word == "noClue"){
+        duplicates.push(sub.word);
       }
-    }
-    if(count<1){
-      return false;
-    }
-  }
-  return true;
-}
-
-clues(){
-  var clues =[];
-  var duplicates = [];
-  var mysteryWord = this.state.gameRound.mysteryWord.toUpperCase();
-  this.state.gameRound.submissions.map(sub => {    
-    if(mysteryWord == sub.word.toUpperCase()
-    || sub.stemmedClue.toUpperCase() == mysteryWord
-    || sub.word == "noClue"){
-      duplicates.push(sub.word);
-    }
-    if(sub.word != null){
-      if(sub.isDuplicate===true){
-       if(!(duplicates.includes(sub.word))){
-          duplicates.push(sub.word);
-        }
-      }
-      else{
+      if(sub.word != null){
+        if(sub.isDuplicate===true){
         if(!(duplicates.includes(sub.word))){
-        clues.push(sub.word);
+            duplicates.push(sub.word);
+          }
+        }
+        else{
+          if(!(duplicates.includes(sub.word))){
+          clues.push(sub.word);
+          }
         }
       }
-    }
-  })
-  return clues;
-}
+    })
+    return clues;
+  }
 
   render() {
         {if(this.state.gameRound){
@@ -226,14 +222,19 @@ clues(){
                   </Container>
                       <Form>
                       <ClueItems>
-                      {clues.map(sub => {    
-                                    if(sub != null){
-                                        return (
-                                            <ClueContainer>
-                                                <ClueEntity sub={sub}/>                                                                                         
-                                            </ClueContainer>                              
-                                        )                                        ;
-                      }})}
+                      {
+                        clues.length > 0 ? (
+                        clues.map(sub => {    
+                          if(sub != null){
+                            return (
+                              <ClueContainer>
+                                <ClueEntity sub={sub}/>                                                                                         
+                              </ClueContainer>                              
+                            );
+                        }})) : (
+                          <Label style={{color:"red"}}>no valid clues available...</Label>
+                        )
+                      }
                       </ClueItems>                    
                       <Label>Please enter your guess:</Label>
                         <InputField

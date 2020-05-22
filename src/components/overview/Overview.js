@@ -12,7 +12,6 @@ const LogoutButton = styled.div`
   margin-top: 50px;
 `;
 
-
 class Overview extends React.Component {
     constructor() {
         super();
@@ -53,9 +52,7 @@ class Overview extends React.Component {
     async logout() {
         try {
             this.setIsValidToTrue();
-
             let token1 = sessionStorage.getItem("token");
-            console.log(token1)
 
             const requestBody = JSON.stringify({
                 token: token1,
@@ -65,9 +62,7 @@ class Overview extends React.Component {
 
            // localStorage.removeItem('token');
             sessionStorage.removeItem('UserId');
-
             sessionStorage.removeItem("token");
-
             //sessionStorage.clear();
 
             this.props.history.push('/login');

@@ -15,7 +15,6 @@ const Label2 = styled.label`
 `;
 
 class SubmitClue extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -26,41 +25,42 @@ class SubmitClue extends React.Component {
     };
   }
 
-
   async submitClue(){
+    try {
       sessionStorage.setItem("isValid", "true");
-      console.log("clue");
       const requestBody = JSON.stringify({
         playerId: sessionStorage.PlayerId,
         gameRoundId: this.state.gameRound.gameRoundId,
         clue: this.state.clue
       });
-      console.log(requestBody);
   
       const response =  await api.put('/gameRounds/clues', requestBody);
-  
-      console.log(response.data);
+      //console.log(response.data);
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
+    } catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
   }
 
   async submitNoClue(){
+    try{
       sessionStorage.setItem("isValid", "true");
-    const requestBody = JSON.stringify({
-      playerId: sessionStorage.PlayerId,
-      gameRoundId: this.state.gameRound.gameRoundId,
-      clue: "noClue"
-    });
-    console.log(requestBody);
+      const requestBody = JSON.stringify({
+        playerId: sessionStorage.PlayerId,
+        gameRoundId: this.state.gameRound.gameRoundId,
+        clue: "noClue"
+      });
 
-    const response =  await api.put('/gameRounds/clues', requestBody);
+      const response =  await api.put('/gameRounds/clues', requestBody);
+      //console.log(response.data);
 
-    console.log(response.data);
-    this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
-}
+      this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
+    } catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
+  }
 
-
- 
   async updateGameRound() {
     try {
       const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
@@ -85,9 +85,6 @@ class SubmitClue extends React.Component {
     audioEl.play()
   }
 
-
-
-  
   updateTimer(){
     if(sessionStorage.getItem("seconds")==1){
       clearInterval(this.timerInterval);
@@ -98,11 +95,11 @@ class SubmitClue extends React.Component {
       let secondsNow = sessionStorage.getItem("seconds") - 1;
       sessionStorage.setItem("seconds", secondsNow.toString())
     }else{
-    this.playAudio();
-    let secondsNow = sessionStorage.getItem("seconds") - 1;
-    sessionStorage.setItem("seconds", secondsNow.toString())
+      this.playAudio();
+      let secondsNow = sessionStorage.getItem("seconds") - 1;
+      sessionStorage.setItem("seconds", secondsNow.toString())
+    }
   }
-}
 
   handleInputChange(key, value) {
     this.setState({ [key]: value });
@@ -122,40 +119,39 @@ class SubmitClue extends React.Component {
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
-}
+  }
 
+  startTimer(){
+        if(this.state.count==0){
+        this.timerInterval = setInterval(() => {
+            this.updateTimer();
+        }, 1000);
+        this.state.count=1;
+      }
+  }
 
-startTimer(){
-      if(this.state.count==0){
-      this.timerInterval = setInterval(() => {
-          this.updateTimer();
-      }, 1000);
-      this.state.count=1;
-    }
-}
+  componentWillUnmount(){
+    clearInterval(this.interval);
+    clearInterval(this.timerInterval);
+  }
 
-componentWillUnmount(){
-  clearInterval(this.interval);
-  clearInterval(this.timerInterval);
-}
-
-isAllAlphabet(){
-  var currentInput = this.state.clue;
-  var count=0;
-  if(currentInput!=null && currentInput!=""){
-    for (var i = 0; i < currentInput.length; i++) {
-      if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 122)){
-        console.log(count);
-      }else{
-        count++;
+  isAllAlphabet(){
+    var currentInput = this.state.clue;
+    var count=0;
+    if(currentInput!=null && currentInput!=""){
+      for (var i = 0; i < currentInput.length; i++) {
+        if((currentInput.charCodeAt(i) >= 65 && currentInput.charCodeAt(i) <= 90) || (currentInput.charCodeAt(i) >= 97 && currentInput.charCodeAt(i) <= 122)){
+          console.log(count);
+        }else{
+          count++;
+        }
+      }
+      if(count<1){
+        return false;
       }
     }
-    if(count<1){
-      return false;
-    }
+    return true;
   }
-  return true;
-}
 
   render() {
         {if(this.state.gameRound){
@@ -233,7 +229,6 @@ isAllAlphabet(){
             );}  
         }  
     }
-    
 }
 
 export default withRouter(SubmitClue);

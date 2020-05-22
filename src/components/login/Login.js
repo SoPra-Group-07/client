@@ -8,7 +8,6 @@ import {Link} from "react-router-dom";
 
 
 class Login extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -16,13 +15,10 @@ class Login extends React.Component {
       password: null,
       pwvisible: false
     };
-
     this.passwordVisibility = this.passwordVisibility.bind(this);
   }
 
   async login() {
-  
-
     try {
       sessionStorage.setItem("isValid", "true");
       const requestBody = JSON.stringify({
@@ -32,24 +28,19 @@ class Login extends React.Component {
 
       const response =  await api.put('/login', requestBody);
 
-
       const user = new User(response.data);         
 
       //localStorage.setItem("token", user.token);
       sessionStorage.setItem("UserId", user.id);
       sessionStorage.setItem("UserName", user.username);
-
       sessionStorage.setItem("token", user.token);  
 
-
       this.props.history.push(`/overview`);
-
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }  
   }
   
-
   handleInputChange(key, value) {
     this.setState({ [key]: value });
   }
@@ -57,7 +48,6 @@ class Login extends React.Component {
   passwordVisibility(){
     this.setState({ pwvisible: !this.state.pwvisible });
   }
-
 
   componentDidMount() {
     sessionStorage.setItem("isValid", "false");

@@ -31,9 +31,7 @@ class Profiles extends React.Component {
     
     async updateProfiles(){
         const response = await api.get('/users');
-
         this.setState({ users: response.data });
-
         //console.log(response);
     }
 
@@ -55,9 +53,8 @@ class Profiles extends React.Component {
 
     render() {
         return (
-
             <BaseContainer>
-                <FormContainer>
+            <FormContainer>
             <Container>
                 <h2>USERS OVERVIEW</h2>
                 <p>All registered users:</p>
@@ -86,8 +83,8 @@ class Profiles extends React.Component {
                     </div>
                 )}
             </Container>
-                </FormContainer>
-                </BaseContainer>
+            </FormContainer>
+            </BaseContainer>
         );
     }
 }

@@ -21,7 +21,6 @@ const GameContainer = styled.li`
   justify-content: center;
 `;
 
-
 class Lobby extends React.Component {
     constructor() {
         super();
@@ -29,7 +28,6 @@ class Lobby extends React.Component {
             games: null
         };
     }
-
 
     back() {
         sessionStorage.setItem("isValid", "true");
@@ -47,19 +45,13 @@ class Lobby extends React.Component {
                 gameId: id,
                 userId: sessionStorage.UserId
             });
-
-            //console.log(requestBody);
         
             const response = await api.put('/games', requestBody);
-            
             //console.log(response);
 
             sessionStorage.setItem("PlayerId", response.data.players[response.data.players.length - 1].playerId);
             sessionStorage.setItem("CurrentGameRound", 1);
             sessionStorage.setItem("TotalGameRounds", 13);
-
-        
-
 
             this.props.history.push(`/lobby/${id}`); 
         }
@@ -70,9 +62,7 @@ class Lobby extends React.Component {
 
     async updateLobby(){ 
         const response = await api.get('/games/?gameStatus=CREATED');
-        
         this.setState({ games: response.data });
-
         //console.log(response);
     }
 

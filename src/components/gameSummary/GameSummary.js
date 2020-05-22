@@ -84,10 +84,6 @@ class GameSummary extends React.Component {
     }
   }
 
-  /*showPoints(){
-    this.props.history.push(`/points`);
-  }*/
-
   async updateLocalStorage() {
     if (this.state.gameRound) {
       try {
@@ -113,7 +109,7 @@ class GameSummary extends React.Component {
       );
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log(response.data);
+      //console.log(response.data);
 
       this.setState({ gameRound: response.data });
     } catch (error) {
@@ -127,7 +123,7 @@ class GameSummary extends React.Component {
         const response = await api.get(`/games/${this.state.gameRound.gameId}`);
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(response.data);
+        //console.log(response.data);
 
         this.setState({ gameOver: response.data });
       } catch (error) {
@@ -144,12 +140,9 @@ class GameSummary extends React.Component {
         );
 
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        console.log(response.data);
+        //console.log(response.data);
 
         this.setState({ gameStats: response.data });
-        console.log("Test");
-        console.log(this.state.gameStats);
-        console.log(this.state.gameRound);
         this.getSubNum2();
 
         this.state.gameStats.map((stat) => {
