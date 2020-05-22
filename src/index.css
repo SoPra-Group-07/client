@@ -4,7 +4,8 @@
 /**
 This file contains the general and shared style of your application.
  */
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -46,32 +47,31 @@ button {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.75);
+  background-color: rgba(0, 0, 0, 0.75);
   z-index: 2;
   cursor: pointer;
 }
 
-#text{
+#text {
   position: absolute;
   top: 50%;
   left: 50%;
   font-size: 50px;
   color: white;
-  font-size: 50px;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   text-align: center;
 }
 
-.error{
-  max-width:40%;
-  height:auto;
+.error {
+  max-width: 40%;
+  height: auto;
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.visible{
+.visible {
   width: 10%;
   height: 8%;
   margin-top: -10px;
@@ -81,4 +81,3 @@ button {
   background-size: 50%;
   background-image: url(https://image.flaticon.com/icons/png/512/57/57122.png);
 }
-
