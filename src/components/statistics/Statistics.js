@@ -13,7 +13,6 @@ const LabelTrue = styled.label`
 `;
 
 class Statistics extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -23,37 +22,34 @@ class Statistics extends React.Component {
     };
   }
   
-
   async backToOverview(){
-      sessionStorage.setItem("isValid", "true");
+    sessionStorage.setItem("isValid", "true");
     this.props.history.push(`/overview`);
   }
 
-
   async componentDidMount() {
     try {
-        sessionStorage.setItem("isValid", "false");
-        const pathName = this.props.location.pathname;
-        sessionStorage.setItem("pathName", pathName);
+      sessionStorage.setItem("isValid", "false");
+      const pathName = this.props.location.pathname;
+      sessionStorage.setItem("pathName", pathName);
 
       const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(response.data)
+      //console.log(response.data)
 
       this.setState({ gameRound: response.data }); 
      
       const response2 = await api.get(`/games/${this.state.gameRound.gameId}/gameStatistics`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(response2.data)
+      //console.log(response2.data)
 
       this.setState({ gameStatistics: response2.data });
-       
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
-}
+  }
 
   render() {
         {if(this.state.gameStatistics && this.state.gameRound){
@@ -97,9 +93,7 @@ class Statistics extends React.Component {
                           </FormContainer>
                         </BaseContainer>
                 )
-              }
-            
-              
+              }        
         else {
             return(
             <BaseContainer>
@@ -115,7 +109,6 @@ class Statistics extends React.Component {
             );}  
         }  
     }
-    
 }
 
 export default withRouter(Statistics);

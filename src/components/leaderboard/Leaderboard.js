@@ -61,7 +61,6 @@ class Leaderboard extends React.Component {
         <FormContainer>
           <Container>
             <h2>LEADERBOARD</h2>
-
             {!this.state.users ? (
               <Spinner />
             ) : (

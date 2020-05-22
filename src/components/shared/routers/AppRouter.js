@@ -23,19 +23,7 @@ import Statistics from "../../statistics/Statistics";
 import NotFound from "../../notFound/NotFound";
 import {PageGuard} from "../routeProtectors/PageGuard";
 import {RegisterGuard} from "../routeProtectors/RegisterGuard";
-import Points from "../../gameSummary/Points";
 
-/**
- * Main router of your application.
- * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
- * and another Router that matches the route "/game".
- * The main difference between these two routes is the following:
- * /login renders another component without any sub-route
- * /game renders a Router that contains other sub-routes that render in turn other react components
- * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
- */
-
-//Below you find the Router with the various routs. It allows us to dynamically go from one window to another.
 
 class AppRouter extends React.Component {
   render() {
@@ -235,18 +223,6 @@ class AppRouter extends React.Component {
                      
                   )}
               />
-              <Route
-                  path="/points"
-                  exact
-                  render={() => (
-                    <GameGuard>
-                        
-                      <Points/>
-                       
-                    </GameGuard>
-                     
-                  )}
-              />
 
               <Route
                   path="/games/:id/statistics"
@@ -257,7 +233,6 @@ class AppRouter extends React.Component {
                       <Statistics/>
                         </PageGuard>
                     </GameGuard>
-                     
                   )}
               />
 
@@ -266,24 +241,17 @@ class AppRouter extends React.Component {
                   exact
                   render={() => (
                     <NotFound/>
-                     
                   )}
               />
 
-
             <Route path="/register" exact render={() => <RegisterGuard> <Register /> </RegisterGuard>} />
-
             <Route path="/" exact render={() => <Redirect to={"/overview"} />} />
-
             <Route render={() => <Redirect to={"/404"} />} />
-          
         </Switch>
         </div>
       </BrowserRouter>
     );
   }
 }
-/*
-* Don't forget to export your component!
- */
+
 export default AppRouter;

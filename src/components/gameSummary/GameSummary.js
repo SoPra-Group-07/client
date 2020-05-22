@@ -52,7 +52,7 @@ class GameSummary extends React.Component {
   async startNextRound(){
     try{
         sessionStorage.setItem("isValid", "true");
-      const requestBody = JSON.stringify({
+        const requestBody = JSON.stringify({
         gameId: this.state.gameRound.gameId
       });
       const response = await api.post(`/games/${this.state.gameRound.gameId}/gameRounds`, requestBody);
@@ -62,14 +62,10 @@ class GameSummary extends React.Component {
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
     }
-      catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
-      }
+    catch (error) {
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
+    }
   }
-
-  /*showPoints(){
-    this.props.history.push(`/points`);
-  }*/
 
   async updateLocalStorage() {
     if(this.state.gameRound){
@@ -77,11 +73,10 @@ class GameSummary extends React.Component {
       const response = await api.get(`/games/lobby/${this.state.gameRound.gameId}`);
           if(response.data.gameRoundId != sessionStorage.GameRoundId) {
             this.updateGameRoundInfo();
-              sessionStorage.setItem("isValid", "true");
+            sessionStorage.setItem("isValid", "true");
             sessionStorage.setItem("GameRoundId", response.data.gameRoundId);
             this.props.history.push(`/games/${this.state.gameRound.gameId}`); 
-          }  
-            
+          } 
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }
@@ -93,9 +88,9 @@ class GameSummary extends React.Component {
       const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}`);
       
       await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(response.data)
+      //console.log(response.data)
 
-     this.setState({ gameRound: response.data });     
+      this.setState({ gameRound: response.data });     
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -107,9 +102,9 @@ class GameSummary extends React.Component {
         const response = await api.get(`/games/${this.state.gameRound.gameId}`);
         
         await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log(response.data)
+        //console.log(response.data)
 
-      this.setState({ gameOver: response.data });   
+        this.setState({ gameOver: response.data });   
        
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -119,32 +114,28 @@ class GameSummary extends React.Component {
 
   async statistics(){
     if(this.state.count==0){
-    try {
-      const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}/gameRoundStatistics`);
-      
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      console.log(response.data)
-      
+      try {
+        const response = await api.get(`/gameRounds/${sessionStorage.GameRoundId}/gameRoundStatistics`);
+        
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        //console.log(response.data)
 
-      this.setState({ gameStats: response.data });  
-      console.log("Test")
-      console.log(this.state.gameStats)
-      console.log(this.state.gameRound)
-      this.getSubNum2();
-      
-     
-      this.state.gameStats.map(stat => {   
-        if(stat.playerId == sessionStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
-          sessionStorage.setItem("points",stat.totalPoints);
-          this.state.count++;
-        }
-      })
-    } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+        this.setState({ gameStats: response.data });  
+        //console.log(this.state.gameStats)
+
+        this.getSubNum2();
+        
+        this.state.gameStats.map(stat => {   
+          if(stat.playerId == sessionStorage.PlayerId && (this.state.gameRound.guess.didSubmit==true || this.state.gameRound.guess.word == "noGuess")){
+            sessionStorage.setItem("points",stat.totalPoints);
+            this.state.count++;
+          }
+        })
+      } catch (error) {
+        alert(`Something went wrong during the login: \n${handleError(error)}`);
+      }
     }
   }
-  }
-
 
   componentWillUnmount(){
     clearInterval(this.interval);
@@ -156,25 +147,24 @@ class GameSummary extends React.Component {
 
   async componentDidMount() {
     try {
-        sessionStorage.setItem("isValid", "false");
-        sessionStorage.setItem("subNum2", 0);
-        const pathName = this.props.location.pathname;
-        sessionStorage.setItem("pathName", pathName);
+      sessionStorage.setItem("isValid", "false");
+      sessionStorage.setItem("subNum2", 0);
+      const pathName = this.props.location.pathname;
+      sessionStorage.setItem("pathName", pathName);
 
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        this.updateGameRound();
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      this.updateGameRound();
         
-       
-        this.interval = setInterval(async() => {
-          if(this.state.gameOver==true){
-              sessionStorage.setItem("isValid", "true");
-            this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
-          }
-          this.checkIfGameOver();
-          this.statistics();
-          this.updateGameRound();
-          this.updateLocalStorage();
-        },1000);
+      this.interval = setInterval(async() => {
+        if(this.state.gameOver==true){
+          sessionStorage.setItem("isValid", "true");
+          this.props.history.push(`/games/${this.state.gameRound.gameId}/statistics`); 
+        }
+        this.checkIfGameOver();
+        this.statistics();
+        this.updateGameRound();
+        this.updateLocalStorage();
+      },1000);
     } catch (error) {
         alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
@@ -228,8 +218,6 @@ class GameSummary extends React.Component {
     document.getElementById("overlay").style.display = "none";
   }
 
-
-
   render() {
         {if(this.state.gameRound && this.state.count!=0){
           this.startTimer();
@@ -239,7 +227,7 @@ class GameSummary extends React.Component {
                     <BaseContainer>
                       <div id="overlay"  onClick={() => {
                                                 this.pointsOff();
-                                            }}>
+                                          }}>
                        <div id="text">Guess was: <LabelTrue>Correct</LabelTrue> <br></br>
                         Guess Points: <Label style={{color:"skyblue"}}>{this.state.gameStats[sessionStorage.getItem("subNum2")].rightGuessPoints} </Label><br></br>
                         Submission Time: {this.state.gameStats[sessionStorage.getItem("subNum2")].duration} sec<br></br>
@@ -470,8 +458,6 @@ class GameSummary extends React.Component {
             );}  
         }  
     }
-    
 }
-
 
 export default withRouter(GameSummary);

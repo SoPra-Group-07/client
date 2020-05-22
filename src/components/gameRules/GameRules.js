@@ -4,12 +4,6 @@ import gamerules from "./gamerules.png";
 import {withRouter} from "react-router-dom";
 import {CustomizedButton} from '../../views/design/Button';
 
-/**
- * Using styled-components you can visual HTML primitives and use props with it!
- * The idea behind this external package, it's to have a better structure and overview for your HTML and CSS
- * Using styled-components, you can have styling conditions using the following syntax: ${props => ...}
- * https://www.styled-components.com/
- */
 const Container = styled.div`
   height: ${props => props.height}px;
   background: ${props => props.background};
@@ -17,9 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 `;
-
 
 const GameRulesContainer = styled.div`
    display: flex;
@@ -29,7 +21,6 @@ const GameRulesContainer = styled.div`
 `;
 
 class GameRules extends React.Component{
-
     constructor() {
         super();
     }
@@ -44,7 +35,6 @@ class GameRules extends React.Component{
         const pathName = this.props.location.pathname;
         sessionStorage.setItem("pathName", pathName);
     }
-
 
     render() {
         return (
@@ -63,8 +53,4 @@ class GameRules extends React.Component{
     }
 }
 
-/**
- * Don't forget to export your component!
- */
 export default withRouter(GameRules);
-

@@ -33,12 +33,11 @@ class GameLobby extends React.Component {
             });
 
             const response = await api.put(`/games/lobby`, requestBody)
-            console.log(response.data);
+            //console.log(response.data);
 
             sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
             sessionStorage.setItem("points",0.0);
             sessionStorage.setItem("TotalGameRounds", "X");
-
             this.props.history.push(`/games/${id}`); 
         }
         catch (error) {
@@ -53,11 +52,9 @@ class GameLobby extends React.Component {
                 gameId: this.state.lobby.gameId,
                 userId: sessionStorage.UserId
             });
-            console.log(requestBody);
         
             const response = await api.put('/games/out', requestBody);
-            
-            console.log(response.data);
+            //console.log(response.data);
 
             sessionStorage.removeItem("PlayerId");
 
@@ -73,28 +70,22 @@ class GameLobby extends React.Component {
     }
 
     async updateGameLobby(){
-            const pathname = this.props.location.pathname;
-            //var numb = pathname.match(/\d/g); // e.g. /users/1  -->  1
-           // numb = numb;
-            //console.log(numb);
-            
-            var temp = pathname.split('/');
-            var lastsegment = temp[temp.length-1];
-            console.log(lastsegment);
+        const pathname = this.props.location.pathname;   
+        var temp = pathname.split('/');
+        var lastsegment = temp[temp.length-1];
 
-            const response = await api.get(`/games/${lastsegment}/lobby`);
+        const response = await api.get(`/games/${lastsegment}/lobby`);
+        //console.log(response.data);
 
-            console.log(response.data);
-
-            this.setState({ lobby: response.data }); 
-            if(this.state.lobby.gameStatus == "RUNNING") {
-                sessionStorage.setItem("isValid", "true");
-                const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
-                sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
-                sessionStorage.setItem("points",0.0);
-                sessionStorage.setItem("TotalGameRounds", "X");
-                this.props.history.push(`/games/${this.state.lobby.gameId}`); 
-            }         
+        this.setState({ lobby: response.data }); 
+        if(this.state.lobby.gameStatus == "RUNNING") {
+            sessionStorage.setItem("isValid", "true");
+            const response = await api.get(`/games/lobby/${this.state.lobby.gameId}`)
+            sessionStorage.setItem("GameRoundId",response.data.gameRoundId);
+            sessionStorage.setItem("points",0.0);
+            sessionStorage.setItem("TotalGameRounds", "X");
+            this.props.history.push(`/games/${this.state.lobby.gameId}`); 
+        }         
     }
 
     async componentDidMount() {
@@ -115,7 +106,6 @@ class GameLobby extends React.Component {
 
     render() {
         return (
-
             <BaseContainer>
                 <FormContainer>
                     <Container>

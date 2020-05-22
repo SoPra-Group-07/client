@@ -40,23 +40,18 @@ class Profile extends React.Component {
             const pathName = this.props.location.pathname;
             sessionStorage.setItem("pathName", pathName);
             
-          const pathname = this.props.location.pathname;     
-            // console.log(pathname)           
+          const pathname = this.props.location.pathname;              
 
           const response = await api.get(pathname);     
         
-            // console.log(response)
           await new Promise(resolve => setTimeout(resolve, 1000));
     
-          this.setState({ user: response.data }); 
-    
-        
+          this.setState({ user: response.data });
     
         }  catch (error) {
           alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
-       
-      }
+    }
 
     back() {
         this.setIsValidToTrue();
@@ -88,114 +83,93 @@ class Profile extends React.Component {
                 {!this.state.user ? (
                     <Spinner />
                 ) : (
+                    sessionStorage.getItem("token") === this.state.user.token?(
+                        <div>
+                            <Users>
+                                {"Username:"} {this.state.user.username}
+                            </Users>
+                            <br/>
+                            <Users>
+                                {"Birthday:"} {this.state.user.birth}
+                            </Users>
+                            <br/>
+                            <Users>
+                                {"Creation Date:"} {this.formatDate(this.state.user.date)} {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
+                            </Users>
+                            <br/>
+                            <Users>
+                                {"Status:"} {this.state.user.status}
+                            </Users>
 
-                        sessionStorage.getItem("token") === this.state.user.token?(
-                            <div>
-                                <Users>
-                                    {"Username:"} {this.state.user.username}
-                                </Users>
+                            <BaseContainer>
                                 <br/>
-                                <Users>
-                                    {"Birthday:"} {this.state.user.birth}
-                                </Users>
                                 <br/>
-                                <Users>
-                                    {"Creation Date:"} {this.formatDate(this.state.user.date)} {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
-                                </Users>
                                 <br/>
-                                <Users>
-                                    {"Status:"} {this.state.user.status}
-                                </Users>
+                            </BaseContainer>
 
-                                <BaseContainer>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                </BaseContainer>
+                            <ButtonContainer>
+                                <CustomizedButton
+                                    color1={"lightskyblue"} color2={"royalblue"} width={"30%"}
+                                    onClick={() => {
+                                        this.editUser(this.state.user.id);    // Routes me to the editing page
+                                    }}
+                                >
+                                Edit my profile
+                                </CustomizedButton>
+                            </ButtonContainer>
 
+                            <ButtonContainer>
+                                <CustomizedButton
+                                    color1={"red"} color2={"darkred"} width={"30%"}
+                                    onClick={() => {
+                                        this.back();     // Routes me back to "/game"
+                                    }}
+                                >
+                                Back
+                                </CustomizedButton>
+                            </ButtonContainer>
+                        </div>
+                    ): (
+                        <div>
+                            <Users>
+                                {"Username:"} {this.state.user.username}
+                            </Users>
+                            <br/>
+                            <Users>
+                                {"Birthday:"} {this.state.user.birth}
+                            </Users>
+                            <br/>
+                            <Users>
+                                {"Creation Date:"} {this.formatDate(this.state.user.date)} {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
+                            </Users>
+                            <br/>
+                            <Users>
+                                {"Status:"} {this.state.user.status}
+                            </Users>
 
-                                <ButtonContainer>
-
-                                    <CustomizedButton
-                                        color1={"lightskyblue"} color2={"royalblue"} width={"30%"}
-                                        onClick={() => {
-                                            this.editUser(this.state.user.id);    // Routes me to the editing page
-                                        }}
-                                    >
-                                        Edit my profile
-                                    </CustomizedButton>
-                                </ButtonContainer>
-
-                                <ButtonContainer>
-                                    <CustomizedButton
-                                        color1={"red"} color2={"darkred"} width={"30%"}
-                                        onClick={() => {
-                                            this.back();     // Routes me back to "/game"
-                                        }}
-                                    >
-                                        Back
-                                    </CustomizedButton>
-                                </ButtonContainer>
-                            </div>
-                        ): (
-                            <div>
-                                <Users>
-                                    {"Username:"} {this.state.user.username}
-                                </Users>
+                            <BaseContainer>
                                 <br/>
-                                <Users>
-                                    {"Birthday:"} {this.state.user.birth}
-                                </Users>
                                 <br/>
-                                <Users>
-                                    {"Creation Date:"} {this.formatDate(this.state.user.date)} {/* Puts date in this format ---> e.g.,   2. 3. 2020    */}
-                                </Users>
                                 <br/>
-                                <Users>
-                                    {"Status:"} {this.state.user.status}
-                                </Users>
+                            </BaseContainer>
 
-                                <BaseContainer>
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                </BaseContainer>
-
-                                <ButtonContainer>
-                                    <CustomizedButton
-                                        color1={"red"} color2={"darkred"} width={"30%"}
-                                        onClick={() => {
-                                            this.back();     // Routes me back to "/game"
-                                        }}
-                                    >
-                                        Back
-                                    </CustomizedButton>
-                                </ButtonContainer>
-                            </div>
-                        )
+                            <ButtonContainer>
+                                <CustomizedButton
+                                    color1={"red"} color2={"darkred"} width={"30%"}
+                                    onClick={() => {
+                                        this.back();     // Routes me back to "/game"
+                                    }}
+                                >
+                                Back
+                                </CustomizedButton>
+                            </ButtonContainer>
+                        </div>
+                    )
                 )}
             </Container>
-
                 </FormContainer>
-
         );
     }
-
-
-
-
-
-
 }
 
 export default withRouter(Profile)
-
-
-
-
-
-
-
-
-
-

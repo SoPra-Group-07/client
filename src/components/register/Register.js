@@ -25,12 +25,10 @@ class Register extends React.Component {
           password: this.state.password
     });
 
-      console.log(requestBody)
-      await api.post('/users', requestBody);
-
-      alert("Successfully created a new account. Please login.")
+    await api.post('/users', requestBody);
+    alert("Successfully created a new account. Please login.")
      
-      this.props.history.push(`/login`);
+    this.props.history.push(`/login`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -83,10 +81,9 @@ class Register extends React.Component {
                                 }}>
                   Register
               </CustomizedButton>
-                </ButtonContainer>
-
+            </ButtonContainer>
                 <Link to = "/login" style={{ textDecoration: 'none' }}>
-                <ButtonContainer>
+            <ButtonContainer>
               <CustomizedButton color1={"lightsteelblue"} color2={"royalblue"} onClick={() => {sessionStorage.setItem("isValid", "true")}}>
                 Click here to sign in!
               </CustomizedButton>

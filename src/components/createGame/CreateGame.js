@@ -57,7 +57,6 @@ class CreateGame extends React.Component {
         adminPlayerId: sessionStorage.UserId,
       });
 
-      console.log(requestBody);
       const response = await api.post("/games", requestBody);
 
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -65,7 +64,7 @@ class CreateGame extends React.Component {
       // this.setState({ game: response.data });
 
       alert("Successfully created a new game.");
-      console.log(response);
+      //console.log(response);
 
       sessionStorage.setItem("PlayerId", response.data.players[0].playerId);
       sessionStorage.setItem("CurrentGameRound", 1);
@@ -84,8 +83,8 @@ class CreateGame extends React.Component {
 
   handleInputChange(key, value) {
     this.setState({ [key]: value });
-    console.log(this.state.hasBot);
-    console.log(this.state.gameName);
+    //console.log(this.state.hasBot);
+    //console.log(this.state.gameName);
   }
 
   componentDidMount() {
@@ -109,9 +108,7 @@ class CreateGame extends React.Component {
                 this.handleInputChange("gameName", e.target.value);
               }}
             />
-
             <Label>Do you want to include a bot? </Label>
-
             <ButtonContainer style={{ marginTop: "0px" }}>
               <label htmlFor="normal-switch">
                 <Switch
@@ -123,7 +120,6 @@ class CreateGame extends React.Component {
             </ButtonContainer>
 
             <Label>Demo game? </Label>
-
             <ButtonContainer style={{ marginTop: "0px" }}>
               <label htmlFor="normal-switch2">
                 <Switch
