@@ -6,7 +6,6 @@ import {
   FormContainer,
   ButtonContainer,
   Container,
-  Form,
   Label,
   PlayerContainer,
   Users,
@@ -32,6 +31,22 @@ const LabelFalse = styled.label`
   color: red;
   margin-bottom: 10px;
   text-align: center;
+`;
+
+export const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 375px;
+  font-size: 16px;
+  font-weight: 300;
+  padding-left: 37px;
+  padding-right: 37px;
+  border-radius: 0px;
+  background: linear-gradient(wheat, sandybrown);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 class GameSummary extends React.Component {
@@ -739,8 +754,8 @@ class GameSummary extends React.Component {
               </Container>
               <Form>
                 <Label>Please wait for the game round to be completed...</Label>
+                <Spinner />
               </Form>
-              <Spinner />
             </FormContainer>
           </BaseContainer>
         );
