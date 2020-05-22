@@ -80,7 +80,7 @@ class GameSummary extends React.Component {
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -97,7 +97,7 @@ class GameSummary extends React.Component {
           this.props.history.push(`/games/${this.state.gameRound.gameId}`);
         }
       } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
       }
     }
   }
@@ -113,7 +113,7 @@ class GameSummary extends React.Component {
 
       this.setState({ gameRound: response.data });
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -127,7 +127,7 @@ class GameSummary extends React.Component {
 
         this.setState({ gameOver: response.data });
       } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
       }
     }
   }
@@ -156,7 +156,7 @@ class GameSummary extends React.Component {
           }
         });
       } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
       }
     }
   }
@@ -193,7 +193,7 @@ class GameSummary extends React.Component {
       }, 1000);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong: \n${handleError(error)}`
       );
     }
   }

@@ -30,7 +30,7 @@ class Register extends React.Component {
      
     this.props.history.push(`/login`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 

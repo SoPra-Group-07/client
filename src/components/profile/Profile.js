@@ -49,7 +49,7 @@ class Profile extends React.Component {
           this.setState({ user: response.data });
     
         }  catch (error) {
-          alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+          alert(`Something went wrong: \n${handleError(error)}`);
         }
     }
 

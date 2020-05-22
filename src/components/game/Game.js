@@ -54,7 +54,7 @@ class Game extends React.Component {
       sessionStorage.removeItem('token');          
       this.props.history.push('/login');
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -72,7 +72,7 @@ class Game extends React.Component {
 
       console.log(response);
     } catch (error) {
-      alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 

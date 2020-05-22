@@ -50,7 +50,7 @@ class Leaderboard extends React.Component {
       }, 30000);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong: \n${handleError(error)}`
       );
     }
   }

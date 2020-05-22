@@ -39,7 +39,7 @@ class SubmitClue extends React.Component {
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
     } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -57,7 +57,7 @@ class SubmitClue extends React.Component {
 
       this.props.history.push(`/games/${this.state.gameRound.gameId}/gamesummary/${this.state.gameRound.gameRoundId}`); 
     } catch (error) {
-        alert(`Something went wrong during the login: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
       }
   }
 
@@ -71,7 +71,7 @@ class SubmitClue extends React.Component {
 
       console.log(response.data);     
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -117,7 +117,7 @@ class SubmitClue extends React.Component {
             this.updateGameRound();
         },1000);
     } catch (error) {
-        alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 

@@ -35,7 +35,7 @@ class GamePage extends React.Component {
             this.props.history.push(`/games/${this.state.gameRound.gameId}/submitclue/${this.state.gameRound.gameRoundId}`); 
         }
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -52,7 +52,7 @@ class GamePage extends React.Component {
             await new Promise(resolve => setTimeout(resolve, 1000));
             this.updateGameRound();
         } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+            alert(`Something went wrong: \n${handleError(error)}`);
         }
     }
 

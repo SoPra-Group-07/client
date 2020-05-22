@@ -46,7 +46,7 @@ class GameLobby extends React.Component {
       this.props.history.push(`/games/${id}`);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong: \n${handleError(error)}`
       );
     }
   }
@@ -66,7 +66,7 @@ class GameLobby extends React.Component {
 
       this.props.history.push(`/lobby`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -106,7 +106,7 @@ class GameLobby extends React.Component {
       }, 1000);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong: \n${handleError(error)}`
       );
     }
   }

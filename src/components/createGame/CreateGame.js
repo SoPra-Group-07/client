@@ -76,7 +76,7 @@ class CreateGame extends React.Component {
 
       this.props.history.push(`/lobby/${response.data.gameId}`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
       this.setState({ alreadyClicked: false });
     }
   }

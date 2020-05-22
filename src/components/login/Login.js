@@ -37,7 +37,7 @@ class Login extends React.Component {
 
       this.props.history.push(`/overview`);
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }  
   }
   

@@ -47,7 +47,7 @@ class Profiles extends React.Component {
                 this.updateProfiles();
             },7000);
         } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+            alert(`Something went wrong: \n${handleError(error)}`);
         }
     }
 

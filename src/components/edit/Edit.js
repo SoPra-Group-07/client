@@ -52,7 +52,7 @@ class Edit extends React.Component {
       this.props.history.push(`../users/${numb}`);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong: \n${handleError(error)}`
       );
     }
   }
@@ -75,7 +75,7 @@ class Edit extends React.Component {
       //console.log("requested data:", response.data);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong: \n${handleError(error)}`
       );
     }
   }
@@ -106,7 +106,7 @@ class Edit extends React.Component {
             <ButtonContainer>
               <CustomizedButton
                 disabled={
-                  localStorage.getItem("token") !== this.state.user.token
+                  sessionStorage.getItem("token") !== this.state.user.token
                 }
                 color1 ={"palegreen"} color2 = {"limegreen"} width = {"50%"}
                 onClick={() => {

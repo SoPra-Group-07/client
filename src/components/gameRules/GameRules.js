@@ -41,7 +41,7 @@ class GameRules extends React.Component{
             <div>
                 <Container height={this.props.height}>
                     <GameRulesContainer>
-                        <img src={gamerules} alt="JustOneLogo" width="60%" style={{marginBottom: "20px"}}/>
+                        <img src={gamerules} alt="JustOneLogo" width="60%"/>
                     </GameRulesContainer>
                     <CustomizedButton width="20%" color1={"red"} color2={"darkred"} onClick={() => {
                         this.back();}}>

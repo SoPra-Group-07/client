@@ -47,7 +47,7 @@ class Statistics extends React.Component {
 
       this.setState({ gameStatistics: response2.data });
     } catch (error) {
-        alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 

@@ -69,7 +69,7 @@ class SubmitNumber extends React.Component {
       this.setState({ gameRoundId: response.data.gameRoundId });
       //console.log(response.data); 
     } catch (error) {
-      alert(`Something went wrong during the login: \n${handleError(error)}`);
+      alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
@@ -82,7 +82,7 @@ class SubmitNumber extends React.Component {
         await new Promise(resolve => setTimeout(resolve, 1000));
         this.updateGameRound();
     } catch (error) {
-        alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        alert(`Something went wrong: \n${handleError(error)}`);
     }
   }
 
