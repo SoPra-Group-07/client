@@ -310,7 +310,7 @@ class GameSummary extends React.Component {
                 </div>
                 <p
                   style={{
-                    position: "absolute",
+                    position: "fixed",
                     marginTop: "-150px",
                     marginLeft: "5px",
                     fontSize: "20px",
@@ -422,7 +422,7 @@ class GameSummary extends React.Component {
                 </div>
                 <p
                   style={{
-                    position: "absolute",
+                    position: "fixed",
                     marginTop: "-150px",
                     marginLeft: "5px",
                     fontSize: "20px",
@@ -560,7 +560,7 @@ class GameSummary extends React.Component {
                   </div>
                   <p
                     style={{
-                      position: "absolute",
+                      position: "fixed",
                       marginTop: "-150px",
                       marginLeft: "5px",
                       fontSize: "20px",
@@ -664,7 +664,7 @@ class GameSummary extends React.Component {
                   </div>
                   <p
                     style={{
-                      position: "absolute",
+                      position: "fixed",
                       marginTop: "-150px",
                       marginLeft: "5px",
                       fontSize: "20px",
@@ -710,7 +710,7 @@ class GameSummary extends React.Component {
               <BaseContainer>
                 <p
                   style={{
-                    position: "absolute",
+                    position: "fixed",
                     marginTop: "-150px",
                     marginLeft: "5px",
                     fontSize: "20px",
@@ -739,7 +739,7 @@ class GameSummary extends React.Component {
           <BaseContainer>
             <p
               style={{
-                position: "absolute",
+                position: "fixed",
                 marginTop: "-150px",
                 marginLeft: "5px",
                 fontSize: "20px",

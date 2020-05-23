@@ -7,11 +7,13 @@ import { CustomizedButton} from '../../views/design/Button';
 import { Spinner } from '../../views/design/Spinner';
 
 const Container = styled(BaseContainer)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50%;
   color: black;
   border-color: white;
   text-align: center;
-  width: 57%;
-  margin: auto;
 `;
 const Users = styled.li`
   display: flex;
@@ -20,9 +22,9 @@ const Users = styled.li`
   justify-content: center;
   border: 0px solid black;
   border-radius: 0px;
-  margin-left: 200px;
-  margin-right: 200px;
   background: linear-gradient(white, antiquewhite);
+  overflow: auto;
+  width: 300px;
 `;
 
 class Profile extends React.Component {
@@ -109,7 +111,7 @@ class Profile extends React.Component {
 
                             <ButtonContainer>
                                 <CustomizedButton
-                                    color1={"lightskyblue"} color2={"royalblue"} width={"30%"}
+                                    color1={"lightskyblue"} color2={"royalblue"} width={"50%"}
                                     onClick={() => {
                                         this.editUser(this.state.user.id);    // Routes me to the editing page
                                     }}
@@ -120,7 +122,7 @@ class Profile extends React.Component {
 
                             <ButtonContainer>
                                 <CustomizedButton
-                                    color1={"red"} color2={"darkred"} width={"30%"}
+                                    color1={"red"} color2={"darkred"} width={"50%"}
                                     onClick={() => {
                                         this.back();     // Routes me back to "/game"
                                     }}
@@ -155,7 +157,7 @@ class Profile extends React.Component {
 
                             <ButtonContainer>
                                 <CustomizedButton
-                                    color1={"red"} color2={"darkred"} width={"30%"}
+                                    color1={"red"} color2={"darkred"} width={"50%"}
                                     onClick={() => {
                                         this.back();     // Routes me back to "/game"
                                     }}

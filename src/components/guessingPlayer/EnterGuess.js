@@ -207,7 +207,7 @@ class EnterGuess extends React.Component {
               var clues = this.clues();
             return (
                 <BaseContainer>
-                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+                <p style ={{position:"fixed",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                     {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                  <audio className="audio-element">
                 <source src="https://actions.google.com/sounds/v1/household/clock_ticking.ogg"></source> 
@@ -268,7 +268,7 @@ class EnterGuess extends React.Component {
         else {
             return(
               <BaseContainer>
-              <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+              <p style ={{position:"fixed",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                     {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
               <FormContainer>
               <Container>
@@ -303,7 +303,7 @@ class EnterGuess extends React.Component {
         else {
             return(
             <BaseContainer>
-            <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
+            <p style ={{position:"fixed",marginTop:"-150px",marginLeft:"5px", fontSize:"20px"}}>
                     {sessionStorage.getItem("CurrentGameRound")}/{sessionStorage.getItem("TotalGameRounds")}</p>
                 <FormContainer>
                 <Container>

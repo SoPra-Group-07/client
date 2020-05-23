@@ -92,20 +92,20 @@ class Overview extends React.Component {
         return (
             <div>
                 <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"40px"}
-                style ={{position:"absolute",marginTop:"-197px",marginLeft:"95%", fontSize:"10px"}}
+                style ={{position:"fixed",marginTop:"-197px",marginLeft:"95%", fontSize:"10px"}}
                                   onClick={() => {
                                       this.goToGameRules();
                                   }}>
                     Game rules
                 </CustomizedButton>
                 <CustomizedButton width="5%" color1={"sandybrown"} color2={"peru"} height = {"40px"}
-                                  style ={{position:"absolute",marginTop:"-197px",marginLeft:"89.98%", fontSize:"10px"}}onClick={() => {
+                                  style ={{position:"fixed",marginTop:"-197px",marginLeft:"89.98%", fontSize:"10px"}}onClick={() => {
                     this.goToProfiles();
                 }}>
                     Profiles
                 </CustomizedButton>
-                <p style ={{position:"absolute",marginTop:"-150px",marginLeft:"45px", fontSize:"20px"}}>{sessionStorage.getItem("UserName")}</p>
-                <img style ={{position:"absolute", width:"30px", height:"auto", marginTop:"-150px",marginLeft:"7px"}}
+                <p style ={{position:"fixed",marginTop:"-150px",marginLeft:"45px", fontSize:"20px"}}>{sessionStorage.getItem("UserName")}</p>
+                <img style ={{position:"fixed", width:"30px", height:"auto", marginTop:"-150px",marginLeft:"7px"}}
                 src="https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"
                 alt="user_avatar"
                 />

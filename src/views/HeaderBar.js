@@ -7,8 +7,8 @@ const FooterContainer = styled.div`
    width: 100%;
    background: tan;
    display: flex;
-   position: absolute;
    top: 0px;
+   position: fixed;
 `;
 
 const NavItems = styled.div`
