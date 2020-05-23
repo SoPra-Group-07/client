@@ -11,6 +11,7 @@ const Container = styled.div`
   align-items: center;
   border: 0px solid black;
   background: linear-gradient(white, antiquewhite);
+  overflow: auto;
 `;
 
 

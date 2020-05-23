@@ -35,7 +35,7 @@ class Leaderboard extends React.Component {
 
     await new Promise((resolve) => setTimeout(resolve, 1002));
 
-    this.setState({ users: response.data });
+    this.setState({ users: response.data, count: 0});
   }
 
   async componentDidMount() {

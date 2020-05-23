@@ -19,6 +19,8 @@ const Container = styled.div`
 const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
+  margin-right: 15px;
+  overflow: auto;
 `;
 
 const Id = styled.div`

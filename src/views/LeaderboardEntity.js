@@ -15,6 +15,8 @@ const Container = styled.div`
 const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
+  margin-right: 15px;
+  overflow: auto;
 `;
 
 
@@ -22,6 +24,7 @@ const Id = styled.div`
   margin-left: auto;
   margin-right: 10px;
   font-weight: bold;
+  color: green;
 `;
 
 /**
@@ -35,7 +38,7 @@ const Id = styled.div`
 const LeaderboardEntity = ({ count, user }) => {
     return (
         <Container>
-             <UserName>{count}. {user.username}</UserName>
+            <div style={{color: "blue", fontSize: "20px"}}>{count}.</div> <UserName> {user.username}</UserName>
             <Id> {user.highScore}</Id>
         </Container>
     );

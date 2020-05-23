@@ -15,20 +15,28 @@ const Container = styled.div`
   cursor: pointer;
   }
   background: linear-gradient(white, antiquewhite);
- 
+  overflow: auto;
 `;
 
-const GameName = styled.div`
+
+const UserName = styled.div`
   font-weight: lighter;
   margin-left: 5px;
-  text-align: center;
+  margin-right: 15px;
+  overflow: auto;
+`;
+
+const Id = styled.div`
+  margin-left: auto;
+  margin-right: 10px;
+  font-weight: bold;
 `;
 
 const LobbyEntity = ({ game }) => {
     return (
         <Container>
-             <GameName>{game.gameName}</GameName>
-             <GameName style={{color:"green", marginLeft:"70%"}}>{game.numberOfPlayers}/7</GameName>
+            <UserName>{game.gameName}</UserName>
+            <Id style={{color:"green"}}> {game.numberOfPlayers}/7</Id>
         </Container>
     );
 };
